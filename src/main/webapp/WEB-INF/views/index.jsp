@@ -7,14 +7,13 @@
 
 <html>
 <head>
-	<title>Event Booking Application</title>
-	<style type="text/css">
-		body 
-		{
-			font-family: Trebuchet MS, Verdana;
-			font-size: 12px;
-		}
-	</style>
+<title>Event Booking Application</title>
+<style type="text/css">
+body {
+	font-family: Trebuchet MS, Verdana;
+	font-size: 12px;
+}
+</style>
 </head>
 <body>
 	<h1>Event Booking Application</h1>
@@ -22,34 +21,31 @@
 	<form method="post">
 		TODO text:<br>
 		<textarea name="text" cols="50" rows="5"></textarea>
-		<br> 
-		<input type="submit">
+		<br> <input type="submit">
 	</form>
 	<hr>
-	List of current events (total: ${fn:length(todos)}) :
+
+	List of current performers (total: ${fn:length(performers)}) : 
 	<table>
-		<c:forEach var="todo" items="${todos}" varStatus="index">
-			<tr
-				<c:if test="${todo.done }">style="text-decoration: line-through;"</c:if>>
+		<c:forEach var="performer" items="${performers}" varStatus="index">
+			<tr>
 				<td>${index.count}.</td>
-				<td>${todo.text}</td>
-				<td><c:choose>
-						<c:when test="${todo.done}">
-							<form action="open.html" method="get">
-								<input hidden="true" name="id" value="${todo.id}"> <input
-									type="submit" value="Open">
-							</form>
-						</c:when>
-						<c:otherwise>
-							<form action="done.html" method="get">
-								<input hidden="true" name="id" value="${todo.id}"> <input
-									type="submit" value="Done">
-							</form>
-						</c:otherwise>
-					</c:choose></td>
+				<td>${performer.name}</td>
 			</tr>
 		</c:forEach>
 	</table>
 	<hr>
+	
+	List of current locations (total: ${fn:length(locations)}) :
+	<table>
+		<c:forEach var="location" items="${locations}" varStatus="index">
+			<tr>
+				<td>${index.count}.</td>
+				<td>${location.name}</td>
+			</tr>
+		</c:forEach>
+	</table>
+	<hr>
+
 </body>
 </html>

@@ -6,6 +6,12 @@ public class Location
 
 	private String name;
 
+	public Location(final String locationId, final String locationName)
+	{
+		id = locationId;
+		name = locationName;
+	}
+	
 	public final String getId()
 	{
 		return id;

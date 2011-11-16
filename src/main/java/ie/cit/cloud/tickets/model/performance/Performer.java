@@ -5,6 +5,12 @@ public abstract class Performer
 	private String id;
 	private String name;
 
+	protected Performer(final String performerId, final String performerName)
+	{
+		id = performerId;
+		name = performerName;
+	}
+	
 	public final String getId()
 	{
 		return id;
