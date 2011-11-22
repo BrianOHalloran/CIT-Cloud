@@ -1,6 +1,7 @@
 package ie.cit.cloud.tickets.model.performance;
 
 import java.util.Date;
+import java.util.UUID;
 
 public class Event
 {
@@ -10,6 +11,20 @@ public class Event
 	private Location location;
 	private Date date;
 	private String eventName;
+
+	public Event(final Performer performer, final Location location, final Date date, final String eventName)
+	{
+		this(UUID.randomUUID().toString(), performer, location, date, eventName);
+	}
+	
+	private Event(final String id, final Performer performer, final Location location, final Date date, final String eventName)
+	{
+		this.id = id;
+		this.performer = performer;
+		this.location = location;
+		this.date = date;
+		this.eventName = eventName;
+	}
 	
 	public final String getId()
 	{
