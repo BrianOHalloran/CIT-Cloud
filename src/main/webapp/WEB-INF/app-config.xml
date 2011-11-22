@@ -20,8 +20,12 @@
 		http://www.springframework.org/schema/context/spring-context.xsd">
 
 	<!-- scan for all classes within the package, but IGNORE all annotated with 
-		@Controller (they are configured in dispatcher context) -->
+		@Controller (they are handled in dispatcher context) -->
 	<context:component-scan base-package="ie.cit.cloud">
 		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller" />
 	</context:component-scan>
+	
+	<jdbc:initialize-database data-source="dataSource" ignore-failures="NONE">
+		<jdbc:script location="classpath:event-schema.sql"/>
+	</jdbc:initialize-database>
 </beans>

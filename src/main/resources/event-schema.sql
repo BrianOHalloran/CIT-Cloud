@@ -1,0 +1,5 @@
+create table if not exists LOCATION (id varchar (250), name varchar(250), primary key(id))
+create table if not exists PERFORMER (id varchar (250), name varchar(250), primary key(id))
+create table if not exists EVENT (id varchar (250), location varchar(250), performer varchar(250), eventName varchar(250), data varhcar(250), primary key(id))
+create table if not exists CUSTOMER(id varchar(250), name varchar(250), phone varchar(250), primary key(id))
+create table if not exists BOOKING(id varchar(250), customer varchar(250), event varchar(250), primary key(id))

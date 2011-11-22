@@ -24,8 +24,8 @@ public class EventService implements IEventService
 	{
 		final List<Location> locations = new ArrayList<Location>();
 
-		locations.add(new Location("1", "Cork"));
-		locations.add(new Location("2", "Dublin"));
+		locations.add(new Location("Cork"));
+		locations.add(new Location("Dublin"));
 		
 		return locations;
 	}
@@ -40,9 +40,9 @@ public class EventService implements IEventService
 	{
 		final List<Performer> performers = new ArrayList<Performer>();
 
-		performers.add(new Band("1", "U2"));
-		performers.add(new Band("2", "Christy Moore"));
-		performers.add(new Band("3", "Justin Bieber"));
+		performers.add(new Band("U2"));
+		performers.add(new Band("Christy Moore"));
+		performers.add(new Band("Justin Bieber"));
 
 		return performers;
 	}

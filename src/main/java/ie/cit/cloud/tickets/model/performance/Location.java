@@ -1,12 +1,19 @@
 package ie.cit.cloud.tickets.model.performance;
 
+import java.util.UUID;
+
 public class Location
 {
 	private String id;
 
 	private String name;
 
-	public Location(final String locationId, final String locationName)
+	public Location(final String locationName)
+	{
+		this(UUID.randomUUID().toString(), locationName);
+	}
+	
+	private Location(final String locationId, final String locationName)
 	{
 		id = locationId;
 		name = locationName;

@@ -27,12 +27,17 @@ body {
 
 	List of current performers (total: ${fn:length(performers)}) : 
 	<table>
-		<c:forEach var="performer" items="${performers}" varStatus="index">
-			<tr>
-				<td>${index.count}.</td>
-				<td>${performer.name}</td>
-			</tr>
-		</c:forEach>
+		<select name="performerList" size="1">
+			<c:forEach var="performer" items="${performers}" varStatus="index">
+				<option selected value="${performer.name}">${performer.name}</option>
+<%--
+ 				<tr>
+					<td>${index.count}.</td>
+					<td>${performer.name}</td>
+				</tr>
+ --%>
+ 			</c:forEach>
+		</select>
 	</table>
 	<hr>
 	
