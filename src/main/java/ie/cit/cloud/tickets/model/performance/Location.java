@@ -1,29 +1,48 @@
 package ie.cit.cloud.tickets.model.performance;
 
-import java.util.UUID;
+import javax.persistence.Basic;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.Table;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
+@Entity
+@Table(name = "LOCATION")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public class Location
 {
-	private String id;
+	@Id
+	@GeneratedValue
+	private Long id;
 
+	@Basic
+	@NotEmpty
 	private String name;
 
-	public Location(final String locationName)
+	@Basic
+	@NotEmpty
+	private int maxTicketCount;
+
+	public Location()
 	{
-		this(UUID.randomUUID().toString(), locationName);
+		
 	}
 	
-	private Location(final String locationId, final String locationName)
+	public Location(final String locationName, final int maxTicketCount)
 	{
-		id = locationId;
 		name = locationName;
+		this.maxTicketCount = maxTicketCount;
 	}
 	
-	public final String getId()
+	public final Long getId()
 	{
 		return id;
 	}
-	public final void setId(final String id)
+	public final void setId(final Long id)
 	{
 		this.id = id;
 	}
@@ -35,4 +54,16 @@ public class Location
 	{
 		this.name = name;
 	}
+
+	public final int getMaxTicketCount()
+	{
+		return maxTicketCount;
+	}
+
+	public final void setMaxTicketCount(final int maxTicketCount)
+	{
+		this.maxTicketCount = maxTicketCount;
+	}
+
+	
 }
