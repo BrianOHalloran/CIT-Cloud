@@ -1,29 +1,44 @@
 package ie.cit.cloud.tickets.model.performance;
 
-import java.util.UUID;
+import javax.persistence.Basic;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.Table;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
+@Entity
+@Table(name = "PERFORMER")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public abstract class Performer
 {
-	private String id;
+	@Id
+	@GeneratedValue
+	private Long id;
+
+	@Basic
+	@NotEmpty
 	private String name;
 
-	protected Performer(final String performerName)
+	public Performer()
 	{
-		this(UUID.randomUUID().toString(), performerName);
+		
 	}
 	
-	private Performer(final String performerId, final String performerName)
+	protected Performer(final String performerName)
 	{
-		id = performerId;
 		name = performerName;
 	}
 	
-	public final String getId()
+	public final Long getId()
 	{
 		return id;
 	}
 
-	public final void setId(final String id)
+	public final void setId(final Long id)
 	{
 		this.id = id;
 	}

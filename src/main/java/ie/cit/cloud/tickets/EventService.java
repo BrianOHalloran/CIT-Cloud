@@ -1,5 +1,6 @@
 package ie.cit.cloud.tickets;
 
+import ie.cit.cloud.tickets.model.IEventRepository;
 import ie.cit.cloud.tickets.model.performance.Band;
 import ie.cit.cloud.tickets.model.performance.Event;
 import ie.cit.cloud.tickets.model.performance.Location;
@@ -8,12 +9,17 @@ import ie.cit.cloud.tickets.model.performance.Performer;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 @Service
 public class EventService implements IEventService
 {
-
+	@Autowired
+	@Qualifier("hibernateEventRepository")
+	private IEventRepository eventRepository;
+	
 	public Location getLocation(final String name)
 	{
 		// TODO Auto-generated method stub
@@ -24,8 +30,8 @@ public class EventService implements IEventService
 	{
 		final List<Location> locations = new ArrayList<Location>();
 
-		locations.add(new Location("Cork"));
-		locations.add(new Location("Dublin"));
+		locations.add(new Location("Cork", 500));
+		locations.add(new Location("Dublin", 800));
 		
 		return locations;
 	}

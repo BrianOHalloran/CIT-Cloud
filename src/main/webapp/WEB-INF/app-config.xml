@@ -24,8 +24,65 @@
 	<context:component-scan base-package="ie.cit.cloud">
 		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller" />
 	</context:component-scan>
+
+	<bean class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />
+
+	<jdbc:embedded-database id="dataSource" type="H2" />
 	
-	<jdbc:initialize-database data-source="dataSource" ignore-failures="NONE">
+	<aop:aspectj-autoproxy />
+	<tx:annotation-driven />
+	
+<!--
+ 	<jdbc:initialize-database data-source="dataSource" ignore-failures="NONE">
 		<jdbc:script location="classpath:event-schema.sql"/>
 	</jdbc:initialize-database>
-</beans>
+ -->
+
+	<bean id="transactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+<!--	
+		<property name="annotatedClasses"> 
+			<list>
+				<value>ie.cit.cloud.tickets.model.customer.Booking</value>
+				<value>ie.cit.cloud.tickets.model.customer.Customer</value>
+				<value>ie.cit.cloud.tickets.model.customer.CustomerCredentials</value>
+				<value>ie.cit.cloud.tickets.model.performance.Artist</value>
+				<value>ie.cit.cloud.tickets.model.performance.Band</value>
+				<value>ie.cit.cloud.tickets.model.performance.Event</value>
+				<value>ie.cit.cloud.tickets.model.performance.Location</value>
+			</list>
+
+-->
+ 		<property name="packagesToScan">
+			<list>
+				<value>ie.cit.cloud.tickets.model.customer</value>
+				<value>ie.cit.cloud.tickets.model.performance</value>
+			</list>
+		</property>
+	</bean>
+
+
+
+
+<!--
+ 	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+		<property name="entityManagerFactory" ref="emf" />
+	</bean>
+
+	<bean id="emf" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		<property name="persistenceUnitName" value="todo" />
+		<property name="dataSource" ref="dataSource" />
+		<property name="jpaVendorAdapter">
+			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+				<property name="generateDdl" value="true" />
+				<property name="showSql" value="true" />
+			</bean>
+		</property>
+	</bean>
+ -->
+ </beans>

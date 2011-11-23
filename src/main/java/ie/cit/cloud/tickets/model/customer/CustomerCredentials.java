@@ -2,6 +2,7 @@ package ie.cit.cloud.tickets.model.customer;
 
 import javax.persistence.Basic;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
@@ -10,63 +11,58 @@ import javax.persistence.Table;
 import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
-@Table(name = "CUSTOMER")
+@Table(name = "CUSTOMER_CREDENTIALS")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-public class Customer
+public class CustomerCredentials
 {
 	@Id
-	private Long id;
+	@GeneratedValue
+	private String id;
+
+	@Basic
+	@NotEmpty
+	private String username;
 	
 	@Basic
 	@NotEmpty
-	private String name;
+	private String password;
 	
-	@Basic
-	private String phoneNumber;
-
 	@Basic
 	private String creditCard;
 	
-	public Customer()
+	public CustomerCredentials()
 	{
-		
-	}
-	
-	public Customer(final String name, final String phoneNumber, final String creditCard)
-	{
-		this.name = name;
-		this.phoneNumber = phoneNumber;
-		this.creditCard = creditCard;
+
 	}
 
-	public final Long getId()
+	public final String getId()
 	{
 		return id;
 	}
 
-	public final void setId(final Long id)
+	public final void setId(final String id)
 	{
 		this.id = id;
 	}
 
-	public final String getName()
+	public final String getUsername()
 	{
-		return name;
+		return username;
 	}
 
-	public final void setName(final String name)
+	public final void setUsername(final String username)
 	{
-		this.name = name;
+		this.username = username;
 	}
 
-	public final String getPhoneNumber()
+	public final String getPassword()
 	{
-		return phoneNumber;
+		return password;
 	}
 
-	public final void setPhoneNumber(final String phoneNumber)
+	public final void setPassword(final String password)
 	{
-		this.phoneNumber = phoneNumber;
+		this.password = password;
 	}
 
 	public final String getCreditCard()
@@ -78,6 +74,6 @@ public class Customer
 	{
 		this.creditCard = creditCard;
 	}
-
+	
 	
 }
