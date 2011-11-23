@@ -16,49 +16,42 @@
 		http://www.springframework.org/schema/context 
 		http://www.springframework.org/schema/context/spring-context.xsd">
 
-	<!-- scan for all classes within the package, but IGNORE all annotated with @Controller (they are handled in dispatcher context) -->
+	<!-- scan for all classes within the package, but IGNORE all annotated with 
+		@Controller (they are handled in dispatcher context) -->
 	<context:component-scan base-package="ie.cit.cloud">
-		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller" />
+		<context:exclude-filter type="annotation"
+			expression="org.springframework.stereotype.Controller" />
 	</context:component-scan>
 
-	<!-- 
-	<bean class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />
-	-->
+	<!-- <bean class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" 
+		/> -->
 
 	<jdbc:embedded-database id="dataSource" type="H2" />
 
 	<aop:aspectj-autoproxy />
 	<tx:annotation-driven />
 
-	<!-- <jdbc:initialize-database data-source="dataSource" ignore-failures="NONE"> 
-		<jdbc:script location="classpath:event-schema.sql"/> </jdbc:initialize-database> -->
-
-	<!-- <bean id="eventRepository" class="ie.cit.cloud.tickets.model.EventRepository"> 
-		<property name="sessionFactory" ref="sessionFactory" /> </bean> -->
-
-	<!-- <bean id="transactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager"> 
-		<property name="sessionFactory" ref="sessionFactory" /> </bean> <bean id="sessionFactory" 
-		class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean"> 
-		<property name="dataSource" ref="dataSource" /> <property name="packagesToScan"> 
-		<list> <value>ie.cit.cloud.tickets.model.customer</value> <value>ie.cit.cloud.tickets.model.performance</value> 
-		</list> </property> </bean> -->
-
-
-<!-- 
-	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
-		<property name="entityManagerFactory" ref="emf" />
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
-
-	<bean id="emf"
-		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
-		<property name="persistenceUnitName" value="tickets" />
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
-		<property name="jpaVendorAdapter">
-			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
-				<property name="generateDdl" value="true" />
-				<property name="showSql" value="true" />
-			</bean>
+		<property name="packagesToScan">
+			<list>
+				<value>ie.cit.cloud.tickets.model.customer</value>
+				<value>ie.cit.cloud.tickets.model.performance</value>
+			</list>
 		</property>
 	</bean>
- -->
- </beans>
+
+
+	<!-- <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager"> 
+		<property name="entityManagerFactory" ref="emf" /> </bean> <bean id="emf" 
+		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"> 
+		<property name="persistenceUnitName" value="tickets" /> <property name="dataSource" 
+		ref="dataSource" /> <property name="jpaVendorAdapter"> <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter"> 
+		<property name="generateDdl" value="true" /> <property name="showSql" value="true" 
+		/> </bean> </property> </bean> -->
+</beans>

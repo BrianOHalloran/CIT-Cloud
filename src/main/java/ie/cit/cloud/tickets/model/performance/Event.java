@@ -25,7 +25,7 @@ public class Event
 
 	@NotEmpty
 	private Location location;
-	
+
 	@NotEmpty
 	private Date date;
 
@@ -37,9 +37,9 @@ public class Event
 
 	public Event()
 	{
-		
+
 	}
-	
+
 	public Event(final Performer performer, final Location location, final Date date, final String eventName, final int ticketCount)
 	{
 		this.performer = performer;
@@ -48,43 +48,52 @@ public class Event
 		this.eventName = eventName;
 		this.ticketCount = ticketCount;
 	}
-	
+
 	public String getId()
 	{
 		return id;
 	}
+
 	public void setId(final String id)
 	{
 		this.id = id;
 	}
+
 	public Performer getPerformer()
 	{
 		return performer;
 	}
+
 	public void setPerformer(final Performer performer)
 	{
 		this.performer = performer;
 	}
+
 	public Location getLocation()
 	{
 		return location;
 	}
+
 	public void setLocation(final Location location)
 	{
 		this.location = location;
 	}
+
 	public Date getDate()
 	{
 		return date;
 	}
+
 	public void setDate(final Date date)
 	{
 		this.date = date;
 	}
+
 	public String getEventName()
 	{
 		return eventName;
 	}
+
 	public void setEventName(final String eventName)
 	{
 		this.eventName = eventName;
@@ -100,5 +109,4 @@ public class Event
 		this.ticketCount = ticketCount;
 	}
 
-	
 }
