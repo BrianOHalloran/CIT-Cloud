@@ -1,5 +1,7 @@
 package ie.cit.cloud.tickets.model.customer;
 
+import ie.cit.cloud.tickets.model.performance.Performer;
+
 import javax.persistence.Basic;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -80,5 +82,19 @@ public class Customer
 		this.creditCard = creditCard;
 	}
 
+	public int hashCode()
+	{
+		return name.hashCode() + phoneNumber.hashCode();
+	}
+	
+	public boolean equals(final Object other)
+	{
+		if(other instanceof Customer)
+		{
+			final Customer otherCustomer = (Customer)other;
+			return name.equals(otherCustomer.getName()) && phoneNumber.equals(otherCustomer.getPhoneNumber());
+		}
+		return false;
+	}
 	
 }

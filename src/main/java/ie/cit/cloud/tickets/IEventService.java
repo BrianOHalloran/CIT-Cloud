@@ -14,7 +14,9 @@ public interface IEventService
 	Performer getPerformer(final String name);
 	List<Performer> getPerformers();
 
-	Event getEvent(final String performerName, final String locationName);
+	List<Event> getEvents(final String performerName, final String locationName);
+/*	
 	List<Event> getEventsFor(final String performerName);
 	List<Event> getEventsAt(final String locationName);
+*/
 }

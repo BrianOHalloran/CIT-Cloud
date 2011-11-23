@@ -46,7 +46,14 @@ public class Event
 		this.location = location;
 		this.date = date;
 		this.eventName = eventName;
-		this.ticketCount = ticketCount;
+		if(ticketCount > location.getMaxTicketCount())
+		{
+			this.ticketCount = location.getMaxTicketCount();
+		}
+		else
+		{
+			this.ticketCount = ticketCount;
+		}
 	}
 
 	public String getId()
@@ -107,6 +114,24 @@ public class Event
 	public void setTicketCount(final int ticketCount)
 	{
 		this.ticketCount = ticketCount;
+	}
+
+	public int hashCode()
+	{
+		return performer.hashCode() + location.hashCode() + date.hashCode() + eventName.hashCode();
+	}
+	
+	public boolean equals(final Object other)
+	{
+		if(other instanceof Event)
+		{
+			final Event otherEvent = (Event)other;
+			return performer.equals(otherEvent.getPerformer()) && 
+					location.equals(otherEvent.getLocation()) && 
+					date.equals(otherEvent.getDate()) && 
+					eventName.equals(otherEvent.getEventName());
+		}
+		return false;
 	}
 
 }

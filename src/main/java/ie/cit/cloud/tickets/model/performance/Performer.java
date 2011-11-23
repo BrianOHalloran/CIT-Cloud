@@ -52,4 +52,18 @@ public abstract class Performer
 	{
 		this.name = name;
 	}
+	
+	public int hashCode()
+	{
+		return name.hashCode();
+	}
+	
+	public boolean equals(final Object other)
+	{
+		if(other instanceof Performer)
+		{
+			return name.equals(((Performer)other).getName());
+		}
+		return false;
+	}
 }

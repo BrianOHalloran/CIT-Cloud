@@ -25,7 +25,7 @@ public class Location
 
 	@Basic
 	@NotEmpty
-	private int maxTicketCount;
+	private int maxTicketCount = 0;
 
 	public Location()
 	{
@@ -65,5 +65,17 @@ public class Location
 		this.maxTicketCount = maxTicketCount;
 	}
 
+	public int hashCode()
+	{
+		return name.hashCode() + maxTicketCount;
+	}
 	
+	public boolean equals(final Object other)
+	{
+		if(other instanceof Performer)
+		{
+			return name.equals(((Location)other).getName()) && maxTicketCount == ((Location)other).getMaxTicketCount();
+		}
+		return false;
+	}
 }

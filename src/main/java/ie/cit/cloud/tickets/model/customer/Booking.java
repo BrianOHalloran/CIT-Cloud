@@ -67,5 +67,19 @@ public class Booking
 		this.event = event;
 	}
 
+
+	public int hashCode()
+	{
+		return customer.hashCode() + event.hashCode();
+	}
 	
+	public boolean equals(final Object other)
+	{
+		if(other instanceof Booking)
+		{
+			final Booking otherBooking = (Booking)other;
+			return customer.equals(otherBooking.getCustomer()) && event.equals(otherBooking.getEvent());
+		}
+		return false;
+	}
 }
