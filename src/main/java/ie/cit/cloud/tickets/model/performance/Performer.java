@@ -33,22 +33,22 @@ public abstract class Performer
 		name = performerName;
 	}
 	
-	public final Long getId()
+	public Long getId()
 	{
 		return id;
 	}
 
-	public final void setId(final Long id)
+	public void setId(final Long id)
 	{
 		this.id = id;
 	}
 
-	public final String getName()
+	public String getName()
 	{
 		return name;
 	}
 
-	public final void setName(final String name)
+	public void setName(final String name)
 	{
 		this.name = name;
 	}

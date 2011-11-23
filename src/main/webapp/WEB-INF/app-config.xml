@@ -1,11 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-	xmlns:context="http://www.springframework.org/schema/context"
-	xmlns:jdbc="http://www.springframework.org/schema/jdbc" 
-	xmlns:cloud="http://schema.cloudfoundry.org/spring"
-	xmlns:aop="http://www.springframework.org/schema/aop" 
-	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc" xmlns:cloud="http://schema.cloudfoundry.org/spring"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
 	xsi:schemaLocation="http://www.springframework.org/schema/jdbc 
 		http://www.springframework.org/schema/jdbc/spring-jdbc.xsd
 		http://schema.cloudfoundry.org/spring 
@@ -19,63 +16,42 @@
 		http://www.springframework.org/schema/context 
 		http://www.springframework.org/schema/context/spring-context.xsd">
 
-	<!-- scan for all classes within the package, but IGNORE all annotated with 
-		@Controller (they are handled in dispatcher context) -->
+	<!-- scan for all classes within the package, but IGNORE all annotated with @Controller (they are handled in dispatcher context) -->
 	<context:component-scan base-package="ie.cit.cloud">
 		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller" />
 	</context:component-scan>
 
+	<!-- 
 	<bean class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />
+	-->
 
 	<jdbc:embedded-database id="dataSource" type="H2" />
-	
+
 	<aop:aspectj-autoproxy />
 	<tx:annotation-driven />
-	
-<!--
- 	<jdbc:initialize-database data-source="dataSource" ignore-failures="NONE">
-		<jdbc:script location="classpath:event-schema.sql"/>
-	</jdbc:initialize-database>
- -->
 
-	<bean id="transactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
-		<property name="sessionFactory" ref="sessionFactory" />
-	</bean>
+	<!-- <jdbc:initialize-database data-source="dataSource" ignore-failures="NONE"> 
+		<jdbc:script location="classpath:event-schema.sql"/> </jdbc:initialize-database> -->
 
-	<bean id="sessionFactory"
-		class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
-		<property name="dataSource" ref="dataSource" />
-<!--	
-		<property name="annotatedClasses"> 
-			<list>
-				<value>ie.cit.cloud.tickets.model.customer.Booking</value>
-				<value>ie.cit.cloud.tickets.model.customer.Customer</value>
-				<value>ie.cit.cloud.tickets.model.customer.CustomerCredentials</value>
-				<value>ie.cit.cloud.tickets.model.performance.Artist</value>
-				<value>ie.cit.cloud.tickets.model.performance.Band</value>
-				<value>ie.cit.cloud.tickets.model.performance.Event</value>
-				<value>ie.cit.cloud.tickets.model.performance.Location</value>
-			</list>
+	<!-- <bean id="eventRepository" class="ie.cit.cloud.tickets.model.EventRepository"> 
+		<property name="sessionFactory" ref="sessionFactory" /> </bean> -->
 
--->
- 		<property name="packagesToScan">
-			<list>
-				<value>ie.cit.cloud.tickets.model.customer</value>
-				<value>ie.cit.cloud.tickets.model.performance</value>
-			</list>
-		</property>
-	</bean>
+	<!-- <bean id="transactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager"> 
+		<property name="sessionFactory" ref="sessionFactory" /> </bean> <bean id="sessionFactory" 
+		class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean"> 
+		<property name="dataSource" ref="dataSource" /> <property name="packagesToScan"> 
+		<list> <value>ie.cit.cloud.tickets.model.customer</value> <value>ie.cit.cloud.tickets.model.performance</value> 
+		</list> </property> </bean> -->
 
 
-
-
-<!--
- 	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+<!-- 
+	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
 		<property name="entityManagerFactory" ref="emf" />
 	</bean>
 
-	<bean id="emf" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
-		<property name="persistenceUnitName" value="todo" />
+	<bean id="emf"
+		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		<property name="persistenceUnitName" value="tickets" />
 		<property name="dataSource" ref="dataSource" />
 		<property name="jpaVendorAdapter">
 			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">

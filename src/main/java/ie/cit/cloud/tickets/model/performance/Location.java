@@ -38,29 +38,29 @@ public class Location
 		this.maxTicketCount = maxTicketCount;
 	}
 	
-	public final Long getId()
+	public Long getId()
 	{
 		return id;
 	}
-	public final void setId(final Long id)
+	public void setId(final Long id)
 	{
 		this.id = id;
 	}
-	public final String getName()
+	public String getName()
 	{
 		return name;
 	}
-	public final void setName(final String name)
+	public void setName(final String name)
 	{
 		this.name = name;
 	}
 
-	public final int getMaxTicketCount()
+	public int getMaxTicketCount()
 	{
 		return maxTicketCount;
 	}
 
-	public final void setMaxTicketCount(final int maxTicketCount)
+	public void setMaxTicketCount(final int maxTicketCount)
 	{
 		this.maxTicketCount = maxTicketCount;
 	}

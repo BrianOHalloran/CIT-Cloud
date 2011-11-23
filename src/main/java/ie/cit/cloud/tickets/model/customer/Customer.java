@@ -32,49 +32,50 @@ public class Customer
 		
 	}
 	
-	public Customer(final String name, final String phoneNumber, final String creditCard)
+	public Customer(final Long id, final String name, final String phoneNumber, final String creditCard)
 	{
+		this.id = id;
 		this.name = name;
 		this.phoneNumber = phoneNumber;
 		this.creditCard = creditCard;
 	}
 
-	public final Long getId()
+	public Long getId()
 	{
 		return id;
 	}
 
-	public final void setId(final Long id)
+	public void setId(final Long id)
 	{
 		this.id = id;
 	}
 
-	public final String getName()
+	public String getName()
 	{
 		return name;
 	}
 
-	public final void setName(final String name)
+	public void setName(final String name)
 	{
 		this.name = name;
 	}
 
-	public final String getPhoneNumber()
+	public String getPhoneNumber()
 	{
 		return phoneNumber;
 	}
 
-	public final void setPhoneNumber(final String phoneNumber)
+	public void setPhoneNumber(final String phoneNumber)
 	{
 		this.phoneNumber = phoneNumber;
 	}
 
-	public final String getCreditCard()
+	public String getCreditCard()
 	{
 		return creditCard;
 	}
 
-	public final void setCreditCard(final String creditCard)
+	public void setCreditCard(final String creditCard)
 	{
 		this.creditCard = creditCard;
 	}

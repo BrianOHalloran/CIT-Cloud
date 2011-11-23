@@ -35,42 +35,42 @@ public class CustomerCredentials
 
 	}
 
-	public final String getId()
+	public String getId()
 	{
 		return id;
 	}
 
-	public final void setId(final String id)
+	public void setId(final String id)
 	{
 		this.id = id;
 	}
 
-	public final String getUsername()
+	public  String getUsername()
 	{
 		return username;
 	}
 
-	public final void setUsername(final String username)
+	public void setUsername(final String username)
 	{
 		this.username = username;
 	}
 
-	public final String getPassword()
+	public String getPassword()
 	{
 		return password;
 	}
 
-	public final void setPassword(final String password)
+	public void setPassword(final String password)
 	{
 		this.password = password;
 	}
 
-	public final String getCreditCard()
+	public String getCreditCard()
 	{
 		return creditCard;
 	}
 
-	public final void setCreditCard(final String creditCard)
+	public void setCreditCard(final String creditCard)
 	{
 		this.creditCard = creditCard;
 	}

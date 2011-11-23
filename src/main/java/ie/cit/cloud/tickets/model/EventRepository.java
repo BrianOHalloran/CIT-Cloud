@@ -8,7 +8,8 @@ import org.springframework.stereotype.Repository;
 @Repository("hibernateEventRepository")
 public class EventRepository implements IEventRepository
 {
-    @PersistenceContext
+/*
+	@PersistenceContext
     private EntityManager em;
-
+*/
 }

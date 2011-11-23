@@ -16,10 +16,11 @@ import org.springframework.stereotype.Service;
 @Service
 public class EventService implements IEventService
 {
+/*	
 	@Autowired
 	@Qualifier("hibernateEventRepository")
 	private IEventRepository eventRepository;
-	
+*/
 	public Location getLocation(final String name)
 	{
 		// TODO Auto-generated method stub

@@ -49,53 +49,53 @@ public class Event
 		this.ticketCount = ticketCount;
 	}
 	
-	public final String getId()
+	public String getId()
 	{
 		return id;
 	}
-	public final void setId(final String id)
+	public void setId(final String id)
 	{
 		this.id = id;
 	}
-	public final Performer getPerformer()
+	public Performer getPerformer()
 	{
 		return performer;
 	}
-	public final void setPerformer(final Performer performer)
+	public void setPerformer(final Performer performer)
 	{
 		this.performer = performer;
 	}
-	public final Location getLocation()
+	public Location getLocation()
 	{
 		return location;
 	}
-	public final void setLocation(final Location location)
+	public void setLocation(final Location location)
 	{
 		this.location = location;
 	}
-	public final Date getDate()
+	public Date getDate()
 	{
 		return date;
 	}
-	public final void setDate(final Date date)
+	public void setDate(final Date date)
 	{
 		this.date = date;
 	}
-	public final String getEventName()
+	public String getEventName()
 	{
 		return eventName;
 	}
-	public final void setEventName(final String eventName)
+	public void setEventName(final String eventName)
 	{
 		this.eventName = eventName;
 	}
 
-	public final int getTicketCount()
+	public int getTicketCount()
 	{
 		return ticketCount;
 	}
 
-	public final void setTicketCount(final int ticketCount)
+	public void setTicketCount(final int ticketCount)
 	{
 		this.ticketCount = ticketCount;
 	}
