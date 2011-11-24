@@ -7,6 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.hibernate.validator.constraints.NotEmpty;
@@ -21,9 +22,11 @@ public class Event
 	private String id;
 
 	@NotEmpty
+	@OneToOne
 	private Performer performer;
 
 	@NotEmpty
+	@OneToOne
 	private Location location;
 
 	@NotEmpty

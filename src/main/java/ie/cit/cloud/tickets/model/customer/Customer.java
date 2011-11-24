@@ -1,9 +1,8 @@
 package ie.cit.cloud.tickets.model.customer;
 
-import ie.cit.cloud.tickets.model.performance.Performer;
-
 import javax.persistence.Basic;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
@@ -17,23 +16,33 @@ import org.hibernate.validator.constraints.NotEmpty;
 public class Customer
 {
 	@Id
+	@GeneratedValue
 	private Long id;
-	
+
 	@Basic
 	@NotEmpty
 	private String name;
-	
+
 	@Basic
+	@NotEmpty
 	private String phoneNumber;
 
 	@Basic
 	private String creditCard;
-	
+
+	@Basic
+	@NotEmpty
+	private String username;
+
+	@Basic
+	@NotEmpty
+	private String password;
+
 	public Customer()
 	{
-		
+
 	}
-	
+
 	public Customer(final Long id, final String name, final String phoneNumber, final String creditCard)
 	{
 		this.id = id;
@@ -82,19 +91,42 @@ public class Customer
 		this.creditCard = creditCard;
 	}
 
+	public String getUsername()
+	{
+		return username;
+	}
+
+	public void setUsername(final String username)
+	{
+		this.username = username;
+	}
+
+	public String getPassword()
+	{
+		return password;
+	}
+
+	public void setPassword(final String password)
+	{
+		this.password = password;
+	}
+
 	public int hashCode()
 	{
-		return name.hashCode() + phoneNumber.hashCode();
+		return name.hashCode() + phoneNumber.hashCode() + username.hashCode() + password.hashCode();
 	}
-	
+
 	public boolean equals(final Object other)
 	{
 		if(other instanceof Customer)
 		{
 			final Customer otherCustomer = (Customer)other;
-			return name.equals(otherCustomer.getName()) && phoneNumber.equals(otherCustomer.getPhoneNumber());
+			return name.equals(otherCustomer.getName()) && 
+					phoneNumber.equals(otherCustomer.getPhoneNumber()) && 
+					username.equals(otherCustomer.getUsername()) && 
+					password.equals(otherCustomer.getPassword());
 		}
 		return false;
 	}
-	
+
 }

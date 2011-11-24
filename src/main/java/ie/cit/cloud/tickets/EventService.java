@@ -18,11 +18,10 @@ import org.springframework.stereotype.Service;
 @Service
 public class EventService implements IEventService
 {
-/*	
 	@Autowired
 	@Qualifier("hibernateEventRepository")
 	private IEventRepository eventRepository;
-*/
+
 	final List<Location> locations = new ArrayList<Location>();
 
 	final List<Performer> performers = new ArrayList<Performer>();
@@ -39,13 +38,13 @@ public class EventService implements IEventService
 		performers.add(new Band("Justin Bieber"));
 		
 		// Performer, Location, Date, eventName, ticketCount
-		events.add(new Event(performers.get(0), locations.get(0), new Date(), "U2 in Cork", 500));
-		events.add(new Event(performers.get(0), locations.get(1), new Date(), "U2 in Dublin", 800));
-		
-		events.add(new Event(performers.get(1), locations.get(0), new Date(), "Christy Moore - Live in Cork", 500));
-
-		events.add(new Event(performers.get(2), locations.get(0), new Date(), "Bieber in Cork", 500));
-		events.add(new Event(performers.get(2), locations.get(1), new Date(), "Bieber in Dublin", 800));
+//		events.add(new Event(performers.get(0), locations.get(0), new Date(), "U2 in Cork", 500));
+//		events.add(new Event(performers.get(0), locations.get(1), new Date(), "U2 in Dublin", 800));
+//		
+//		events.add(new Event(performers.get(1), locations.get(0), new Date(), "Christy Moore - Live in Cork", 500));
+//
+//		events.add(new Event(performers.get(2), locations.get(0), new Date(), "Bieber in Cork", 500));
+//		events.add(new Event(performers.get(2), locations.get(1), new Date(), "Bieber in Dublin", 800));
 	}
 	
 	public Location getLocation(final String name)
@@ -68,7 +67,7 @@ public class EventService implements IEventService
 
 	public List<Performer> getPerformers()
 	{
-		return performers;
+		return eventRepository.getPerformers();
 	}
 
 	public List<Event> getEvents(final String performerName, final String locationName)
