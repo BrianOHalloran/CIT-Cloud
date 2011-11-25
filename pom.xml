@@ -32,6 +32,7 @@
 			<artifactId>log4j</artifactId>
 			<version>1.2.16</version>
 		</dependency>
+
 		<!-- servlet API 2.5 -->
 		<dependency>
 			<groupId>javax.servlet</groupId>
@@ -48,6 +49,11 @@
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-jdbc</artifactId>
 			<version>${spring.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-dbcp</groupId>
+			<artifactId>commons-dbcp</artifactId>
+			<version>20030825.184428</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -92,7 +98,7 @@
 			<artifactId>hibernate-validator</artifactId>
 			<version>4.2.0.Final</version>
 		</dependency>
-		
+
 		<!-- we'll use JSTL in jsp pages -->
 		<dependency>
 			<groupId>jstl</groupId>

@@ -28,7 +28,7 @@ public class Performer
 		
 	}
 	
-	protected Performer(final String performerName)
+	public Performer(final String performerName)
 	{
 		name = performerName;
 	}

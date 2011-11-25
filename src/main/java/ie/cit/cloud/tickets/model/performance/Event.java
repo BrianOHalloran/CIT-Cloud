@@ -46,7 +46,8 @@ public class Event
 
 	}
 
-	public Event(final Performer performer, final Location location, final Date date, final String eventName, final int ticketCount, final int ticketPrice)
+	public Event(final Performer performer, final Location location, final Date date, final String eventName, final int ticketCount,
+			final int ticketPrice)
 	{
 		this.performer = performer;
 		this.location = location;
@@ -123,7 +124,6 @@ public class Event
 		this.ticketCount = ticketCount;
 	}
 
-	
 	public int getTicketPrice()
 	{
 		return ticketPrice;
@@ -136,18 +136,17 @@ public class Event
 
 	public int hashCode()
 	{
-		return performer.hashCode() + location.hashCode() + date.hashCode() + eventName.hashCode();
+		return performer.hashCode() + location.hashCode() + date.hashCode();
 	}
-	
+
 	public boolean equals(final Object other)
 	{
 		if(other instanceof Event)
 		{
 			final Event otherEvent = (Event)other;
 			return performer.equals(otherEvent.getPerformer()) && 
-					location.equals(otherEvent.getLocation()) && 
-					date.equals(otherEvent.getDate()) && 
-					eventName.equals(otherEvent.getEventName());
+					location.equals(otherEvent.getLocation()) &&
+					date.equals(otherEvent.getDate());
 		}
 		return false;
 	}

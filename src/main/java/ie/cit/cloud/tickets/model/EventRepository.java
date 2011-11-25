@@ -7,9 +7,10 @@ import ie.cit.cloud.tickets.model.performance.Event;
 import ie.cit.cloud.tickets.model.performance.Location;
 import ie.cit.cloud.tickets.model.performance.Performer;
 
+import java.util.Date;
 import java.util.List;
 
-//import org.hibernate.Query;
+import org.hibernate.Query;
 //import org.hibernate.Session;
 //import org.hibernate.SessionFactory;
 //import org.springframework.beans.factory.annotation.Autowired;
@@ -30,21 +31,18 @@ public class EventRepository implements IEventRepository
 
 	public EventRepository()
 	{
+
 	}
 
 	@Override
-	public Performer getPerformer(String performerName)
+	public Performer getPerformer(final String performerName)
 	{
-//		final Query query = session().createQuery("from PERFORMER p where p.name = :performerName");
-//		query.setParameter("performerName", performerName);
-//		final List performerList = query.list();
-//		if(performerList != null)
+//		final Query query = session().createQuery("from Performer p where p.name = :performerName");
+//		query.setString("performerName", performerName);
+//		final Object result = query.uniqueResult();
+//		if(result != null && result instanceof Performer)
 //		{
-//			final List<Performer> performers = (List<Performer>)performerList;
-//			if(performers.size() == 1)
-//			{
-//				return performers.iterator().next();
-//			}
+//			return (Performer)result;
 //		}
 		return null;
 	}
@@ -53,14 +51,20 @@ public class EventRepository implements IEventRepository
 	@Override
 	public List<Performer> getPerformers()
 	{
-//		return em.createQuery("from PERFORMER").getResultList();
+		//return em.createQuery("from Performer").getResultList();
 		return (List<Performer>)session().createQuery("from Performer").list();
 	}
 
 	@Override
-	public Location getLocation(String locationName)
+	public Location getLocation(final String locationName)
 	{
-		// TODO Auto-generated method stub
+//		final Query query = session().createQuery("from Location l where l.name = :locationName");
+//		query.setString("locationName", locationName);
+//		final Object result = query.uniqueResult();
+//		if(result != null && result instanceof Location)
+//		{
+//			return (Location)result;
+//		}
 		return null;
 	}
 
@@ -69,14 +73,37 @@ public class EventRepository implements IEventRepository
 	public List<Location> getLocations()
 	{
 		return null;
-//		return em.createQuery("from LOCATION").getResultList();
-//		return (List<Location>)session().createQuery("LOCATION").list();
+//		return em.createQuery("from Location").getResultList();
+//		return (List<Location>)session().createQuery("Location").list();
 	}
 
 	@Override
-	public Event getEvent(Performer performer, Location location)
+	public Event getEvent(final Performer performer, final Location location, final Date date)
 	{
-		// TODO Auto-generated method stub
+//		final Query query = session().createQuery("from Event e where e.location.name = :locationName and e.performer.name = :performerName" and e.date = :date");
+//		query.setString("locationName", location.getName());
+//		query.setString("performerName", performer.getName());
+//		query.setString("date", date.toString());
+//		final Object result = query.uniqueResult();
+//		if(result != null && result instanceof Event)
+//		{
+//			return (Event)result;
+//		}
+		return null;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Event> getEvents(final Performer performer, final Location location)
+	{
+//		final Query query = session().createQuery("from Event e where e.location.name = :locationName and e.performer.name = :performerName");
+//		query.setString("locationName", location.getName());
+//		query.setString("performerName", performer.getName());
+//		final Object result = query.list();
+//		if(result != null)
+//		{
+//			return (List<Event>)result;
+//		}
 		return null;
 	}
 
@@ -85,8 +112,8 @@ public class EventRepository implements IEventRepository
 	public List<Event> getEvents()
 	{
 		return null;
-//		return em.createQuery("from EVENT").getResultList();
-//		return (List<Event>)session().createQuery("EVENT").list();
+//		return em.createQuery("from Event").getResultList();
+//		return (List<Event>)session().createQuery("Event").list();
 	}
 
 	private Session session()

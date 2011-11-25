@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
-	xmlns:jdbc="http://www.springframework.org/schema/jdbc" xmlns:cloud="http://schema.cloudfoundry.org/spring"
-	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc" 
+	xmlns:cloud="http://schema.cloudfoundry.org/spring"
+	xmlns:aop="http://www.springframework.org/schema/aop" 
+	xmlns:tx="http://www.springframework.org/schema/tx"
 	xsi:schemaLocation="http://www.springframework.org/schema/jdbc 
 		http://www.springframework.org/schema/jdbc/spring-jdbc.xsd
 		http://schema.cloudfoundry.org/spring 
@@ -25,8 +28,13 @@
 
 	<!-- <bean class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" 
 		/> -->
-
+<!-- 
 	<jdbc:embedded-database id="dataSource" type="H2" />
+ -->
+<!-- 
+	<cloud:data-source id="dataSource" service-name="ticketsDb" />
+ -->	
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" />
 
 	<aop:aspectj-autoproxy />
 	<tx:annotation-driven />

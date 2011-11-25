@@ -29,6 +29,9 @@ public class Booking
 	@OneToOne
 	private Event event;
 	
+	@NotEmpty
+	private int numTickets = 0;
+	
 	public Booking()
 	{
 		
@@ -70,6 +73,15 @@ public class Booking
 		this.event = event;
 	}
 
+	public int getNumTickets()
+	{
+		return numTickets;
+	}
+
+	public void setNumTickets(final int numTickets)
+	{
+		this.numTickets = numTickets;
+	}
 
 	public int hashCode()
 	{
