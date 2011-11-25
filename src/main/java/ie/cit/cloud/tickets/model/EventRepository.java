@@ -10,7 +10,7 @@ import ie.cit.cloud.tickets.model.performance.Performer;
 import java.util.Date;
 import java.util.List;
 
-import org.hibernate.Query;
+//import org.hibernate.Query;
 //import org.hibernate.Session;
 //import org.hibernate.SessionFactory;
 //import org.springframework.beans.factory.annotation.Autowired;
@@ -40,9 +40,9 @@ public class EventRepository implements IEventRepository
 //		final Query query = session().createQuery("from Performer p where p.name = :performerName");
 //		query.setString("performerName", performerName);
 //		final Object result = query.uniqueResult();
-//		if(result != null && result instanceof Performer)
+//		if(result != null && result instanceof IPerformer)
 //		{
-//			return (Performer)result;
+//			return (IPerformer)result;
 //		}
 		return null;
 	}
@@ -61,20 +61,19 @@ public class EventRepository implements IEventRepository
 //		final Query query = session().createQuery("from Location l where l.name = :locationName");
 //		query.setString("locationName", locationName);
 //		final Object result = query.uniqueResult();
-//		if(result != null && result instanceof Location)
+//		if(result != null && result instanceof ILocation)
 //		{
-//			return (Location)result;
+//			return (ILocation)result;
 //		}
 		return null;
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public List<Location> getLocations()
 	{
 		return null;
 //		return em.createQuery("from Location").getResultList();
-//		return (List<Location>)session().createQuery("Location").list();
+//		return (List<ILocation>)session().createQuery("Location").list();
 	}
 
 	@Override
@@ -85,14 +84,13 @@ public class EventRepository implements IEventRepository
 //		query.setString("performerName", performer.getName());
 //		query.setString("date", date.toString());
 //		final Object result = query.uniqueResult();
-//		if(result != null && result instanceof Event)
+//		if(result != null && result instanceof IEvent)
 //		{
-//			return (Event)result;
+//			return (IEvent)result;
 //		}
 		return null;
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public List<Event> getEvents(final Performer performer, final Location location)
 	{
@@ -102,18 +100,17 @@ public class EventRepository implements IEventRepository
 //		final Object result = query.list();
 //		if(result != null)
 //		{
-//			return (List<Event>)result;
+//			return (List<IEvent>)result;
 //		}
 		return null;
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public List<Event> getEvents()
 	{
 		return null;
 //		return em.createQuery("from Event").getResultList();
-//		return (List<Event>)session().createQuery("Event").list();
+//		return (List<IEvent>)session().createQuery("Event").list();
 	}
 
 	private Session session()

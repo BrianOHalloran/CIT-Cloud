@@ -9,9 +9,9 @@
 		
 		<class>ie.cit.cloud.tickets.model.customer.Booking</class>
 		<class>ie.cit.cloud.tickets.model.customer.Customer</class>
-		<class>ie.cit.cloud.tickets.model.customer.Event</class>
-		<class>ie.cit.cloud.tickets.model.customer.Location</class>
-		<class>ie.cit.cloud.tickets.model.customer.Performer</class>
+		<class>ie.cit.cloud.tickets.model.performance.Event</class>
+		<class>ie.cit.cloud.tickets.model.performance.Location</class>
+		<class>ie.cit.cloud.tickets.model.performance.Performer</class>
 		
 		<properties>
 			<property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect"/>

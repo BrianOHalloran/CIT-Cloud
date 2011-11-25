@@ -1,7 +1,6 @@
 package ie.cit.cloud.tickets;
 
 import ie.cit.cloud.tickets.model.IEventRepository;
-import ie.cit.cloud.tickets.model.performance.Band;
 import ie.cit.cloud.tickets.model.performance.Event;
 import ie.cit.cloud.tickets.model.performance.Location;
 import ie.cit.cloud.tickets.model.performance.Performer;
@@ -35,9 +34,9 @@ public class EventService implements IEventService
 		locations.add(new Location("Cork", 500));
 		locations.add(new Location("Dublin", 800));
 		
-		performers.add(new Band("U2"));
-		performers.add(new Band("Christy Moore"));
-		performers.add(new Band("Justin Bieber"));
+		performers.add(new Performer("U2"));
+		performers.add(new Performer("Christy Moore"));
+		performers.add(new Performer("Justin Bieber"));
 		
 		// Performer, Location, Date, eventName, ticketCount
 //		events.add(new Event(performers.get(0), locations.get(0), new Date(), "U2 in Cork", 500));

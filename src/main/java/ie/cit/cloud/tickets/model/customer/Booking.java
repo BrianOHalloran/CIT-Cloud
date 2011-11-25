@@ -43,6 +43,9 @@ public class Booking
 		this.event = event;
 	}
 
+	/* (non-Javadoc)
+	 * @see ie.cit.cloud.tickets.model.customer.IBooking#getId()
+	 */
 	public final Long getId()
 	{
 		return id;
@@ -53,31 +56,49 @@ public class Booking
 		this.id = id;
 	}
 
+	/* (non-Javadoc)
+	 * @see ie.cit.cloud.tickets.model.customer.IBooking#getCustomer()
+	 */
 	public final Customer getCustomer()
 	{
 		return customer;
 	}
 
+	/* (non-Javadoc)
+	 * @see ie.cit.cloud.tickets.model.customer.IBooking#setCustomer(ie.cit.cloud.tickets.model.customer.ICustomer)
+	 */
 	public final void setCustomer(final Customer customer)
 	{
 		this.customer = customer;
 	}
 
+	/* (non-Javadoc)
+	 * @see ie.cit.cloud.tickets.model.customer.IBooking#getEvent()
+	 */
 	public final Event getEvent()
 	{
 		return event;
 	}
 
+	/* (non-Javadoc)
+	 * @see ie.cit.cloud.tickets.model.customer.IBooking#setEvent(ie.cit.cloud.tickets.model.performance.IEvent)
+	 */
 	public final void setEvent(final Event event)
 	{
 		this.event = event;
 	}
 
+	/* (non-Javadoc)
+	 * @see ie.cit.cloud.tickets.model.customer.IBooking#getNumTickets()
+	 */
 	public int getNumTickets()
 	{
 		return numTickets;
 	}
 
+	/* (non-Javadoc)
+	 * @see ie.cit.cloud.tickets.model.customer.IBooking#setNumTickets(int)
+	 */
 	public void setNumTickets(final int numTickets)
 	{
 		this.numTickets = numTickets;
@@ -90,7 +111,7 @@ public class Booking
 	
 	public boolean equals(final Object other)
 	{
-		if(other instanceof Booking)
+		if(other != null && other instanceof Booking)
 		{
 			final Booking otherBooking = (Booking)other;
 			return customer.equals(otherBooking.getCustomer()) && event.equals(otherBooking.getEvent());
