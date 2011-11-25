@@ -28,15 +28,18 @@
 
 	<!-- <bean class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" 
 		/> -->
-<!-- 
+
 	<jdbc:embedded-database id="dataSource" type="H2" />
- -->
+
 <!-- 
 	<cloud:data-source id="dataSource" service-name="ticketsDb" />
  -->	
+<!-- 
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" />
+ -->
 
-	<aop:aspectj-autoproxy />
+ 	<import resource="aspects-config.xml" />
+
 	<tx:annotation-driven />
 
 	<bean id="transactionManager"

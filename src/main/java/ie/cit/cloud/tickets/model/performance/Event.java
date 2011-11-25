@@ -47,7 +47,11 @@ public class Event
 
 	}
 
-	public Event(final Performer performer, final Location location, final Date date, final String eventName, final int ticketCount,
+	public Event(final Performer performer, 
+			final Location location, 
+			final Date date, 
+			final String eventName, 
+			final int ticketCount,
 			final int ticketPrice)
 	{
 		this.performer = performer;

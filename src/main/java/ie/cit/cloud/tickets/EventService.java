@@ -7,7 +7,7 @@ import ie.cit.cloud.tickets.model.performance.Performer;
 
 import java.util.ArrayList;
 import java.util.Collections;
-//import java.util.Date;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,13 +39,13 @@ public class EventService implements IEventService
 		performers.add(new Performer("Justin Bieber"));
 		
 		// Performer, Location, Date, eventName, ticketCount
-//		events.add(new Event(performers.get(0), locations.get(0), new Date(), "U2 in Cork", 500));
-//		events.add(new Event(performers.get(0), locations.get(1), new Date(), "U2 in Dublin", 800));
-//		
-//		events.add(new Event(performers.get(1), locations.get(0), new Date(), "Christy Moore - Live in Cork", 500));
-//
-//		events.add(new Event(performers.get(2), locations.get(0), new Date(), "Bieber in Cork", 500));
-//		events.add(new Event(performers.get(2), locations.get(1), new Date(), "Bieber in Dublin", 800));
+		events.add(new Event(performers.get(0), locations.get(0), new Date(), "U2 in Cork", 500, 50));
+		events.add(new Event(performers.get(0), locations.get(1), new Date(), "U2 in Dublin", 800, 60));
+		
+		events.add(new Event(performers.get(1), locations.get(0), new Date(), "Christy Moore - Live in Cork", 500, 40));
+
+		events.add(new Event(performers.get(2), locations.get(0), new Date(), "Bieber in Cork", 500, 70));
+		events.add(new Event(performers.get(2), locations.get(1), new Date(), "Bieber in Dublin", 800, 90));
 	}
 	
 	public Location getLocation(final String name)
@@ -72,6 +72,7 @@ public class EventService implements IEventService
 		}
 		catch(final Exception e)
 		{
+			// TODO: logging of exceptions
 			e.printStackTrace();
 			return Collections.emptyList();
 		}
