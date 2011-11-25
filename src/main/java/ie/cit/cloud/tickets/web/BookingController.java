@@ -1,7 +1,7 @@
 package ie.cit.cloud.tickets.web;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
-import static org.springframework.web.bind.annotation.RequestMethod.POST;
+//import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 import ie.cit.cloud.tickets.IEventService;
 

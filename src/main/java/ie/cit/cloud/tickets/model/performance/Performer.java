@@ -12,8 +12,8 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
 @Table(name = "PERFORMER")
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-public abstract class Performer
+//@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+public class Performer
 {
 	@Id
 	@GeneratedValue

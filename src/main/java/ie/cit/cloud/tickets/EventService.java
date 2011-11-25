@@ -8,14 +8,16 @@ import ie.cit.cloud.tickets.model.performance.Performer;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Date;
+//import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@Transactional
 public class EventService implements IEventService
 {
 	@Autowired
@@ -49,8 +51,7 @@ public class EventService implements IEventService
 	
 	public Location getLocation(final String name)
 	{
-		// TODO Auto-generated method stub
-		return null;
+		return null; //eventRepository.getLocation(name);
 	}
 
 	public List<Location> getLocations()
@@ -61,13 +62,19 @@ public class EventService implements IEventService
 
 	public Performer getPerformer(final String name)
 	{
-		// TODO Auto-generated method stub
-		return null;
+		return null; //eventRepository.getPerformer(name);
 	}
 
 	public List<Performer> getPerformers()
 	{
-		return eventRepository.getPerformers();
+		try
+		{
+			return eventRepository.getPerformers();
+		}
+		catch(final Exception e)
+		{
+			return Collections.emptyList();
+		}
 	}
 
 	public List<Event> getEvents(final String performerName, final String locationName)
@@ -120,17 +127,4 @@ public class EventService implements IEventService
 		}
 		return events;
 	}
-/*
-	public List<Event> getEventsFor(final String performerName)
-	{
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public List<Event> getEventsAt(final String locationName)
-	{
-		// TODO Auto-generated method stub
-		return null;
-	}
-*/
 }

@@ -9,11 +9,14 @@ import ie.cit.cloud.tickets.model.performance.Performer;
 
 import java.util.List;
 
+//import org.hibernate.Query;
+//import org.hibernate.Session;
+//import org.hibernate.SessionFactory;
+//import org.springframework.beans.factory.annotation.Autowired;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 @Repository("hibernateEventRepository")
 public class EventRepository implements IEventRepository
@@ -30,51 +33,60 @@ public class EventRepository implements IEventRepository
 	}
 
 	@Override
-	@Transactional(readOnly = true)
 	public Performer getPerformer(String performerName)
 	{
-		// TODO Auto-generated method stub
+//		final Query query = session().createQuery("from PERFORMER p where p.name = :performerName");
+//		query.setParameter("performerName", performerName);
+//		final List performerList = query.list();
+//		if(performerList != null)
+//		{
+//			final List<Performer> performers = (List<Performer>)performerList;
+//			if(performers.size() == 1)
+//			{
+//				return performers.iterator().next();
+//			}
+//		}
 		return null;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
-	@Transactional(readOnly = true)
 	public List<Performer> getPerformers()
 	{
 //		return em.createQuery("from PERFORMER").getResultList();
-		return session().createQuery("from PERFORMER").list();
+		return (List<Performer>)session().createQuery("from Performer").list();
 	}
 
 	@Override
-	@Transactional(readOnly = true)
 	public Location getLocation(String locationName)
 	{
 		// TODO Auto-generated method stub
 		return null;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
-	@Transactional(readOnly = true)
 	public List<Location> getLocations()
 	{
+		return null;
 //		return em.createQuery("from LOCATION").getResultList();
-		return session().createQuery("LOCATION").list();
+//		return (List<Location>)session().createQuery("LOCATION").list();
 	}
 
 	@Override
-	@Transactional(readOnly = true)
 	public Event getEvent(Performer performer, Location location)
 	{
 		// TODO Auto-generated method stub
 		return null;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
-	@Transactional(readOnly = true)
 	public List<Event> getEvents()
 	{
+		return null;
 //		return em.createQuery("from EVENT").getResultList();
-		return session().createQuery("EVENT").list();
+//		return (List<Event>)session().createQuery("EVENT").list();
 	}
 
 	private Session session()

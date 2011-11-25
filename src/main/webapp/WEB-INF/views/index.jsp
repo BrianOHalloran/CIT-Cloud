@@ -19,7 +19,7 @@ body
 </head>
 <body>
 	<h1 align="center">Ticket Slave</h1>
-	<h2 align="center"><i>The Alternative Ticket & Event Booking Application</i></h2>
+	<h2 align="center"><i>The Alternative Ticket and Event Booking Application</i></h2>
 	<img src="springsource.png" align="middle">
 
 	<hr>
