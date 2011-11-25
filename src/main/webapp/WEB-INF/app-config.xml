@@ -38,7 +38,7 @@
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" />
  -->
 
- 	<import resource="aspects-config.xml" />
+	<aop:aspectj-autoproxy />
 
 	<tx:annotation-driven />
 
