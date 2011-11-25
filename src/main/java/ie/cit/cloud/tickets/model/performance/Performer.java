@@ -11,7 +11,7 @@ import javax.persistence.Table;
 import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
-@Table(name = "PERFORMER")
+@Table//(name = "PERFORMER")
 //@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public class Performer
 {

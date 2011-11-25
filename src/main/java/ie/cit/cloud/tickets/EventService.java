@@ -73,6 +73,7 @@ public class EventService implements IEventService
 		}
 		catch(final Exception e)
 		{
+			e.printStackTrace();
 			return Collections.emptyList();
 		}
 	}

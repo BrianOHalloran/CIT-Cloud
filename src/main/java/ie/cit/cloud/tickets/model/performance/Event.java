@@ -38,12 +38,15 @@ public class Event
 	@NotEmpty
 	private int ticketCount;
 
+	@NotEmpty
+	private int ticketPrice;
+
 	public Event()
 	{
 
 	}
 
-	public Event(final Performer performer, final Location location, final Date date, final String eventName, final int ticketCount)
+	public Event(final Performer performer, final Location location, final Date date, final String eventName, final int ticketCount, final int ticketPrice)
 	{
 		this.performer = performer;
 		this.location = location;
@@ -57,6 +60,7 @@ public class Event
 		{
 			this.ticketCount = ticketCount;
 		}
+		this.ticketPrice = ticketPrice;
 	}
 
 	public String getId()
@@ -117,6 +121,17 @@ public class Event
 	public void setTicketCount(final int ticketCount)
 	{
 		this.ticketCount = ticketCount;
+	}
+
+	
+	public int getTicketPrice()
+	{
+		return ticketPrice;
+	}
+
+	public void setTicketPrice(final int ticketPrice)
+	{
+		this.ticketPrice = ticketPrice;
 	}
 
 	public int hashCode()
