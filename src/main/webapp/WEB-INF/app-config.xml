@@ -27,6 +27,15 @@
 	</context:component-scan>
 
 	<jdbc:embedded-database id="dataSource" type="H2" />
+	<bean id="org.h2.tools.Server-WebServer" 
+		class="org.h2.tools.Server"
+		factory-method="createWebServer" 
+		depends-on="dataSource"
+		init-method="start"
+		lazy-init="false" 
+		destroy-method="stop">
+		<constructor-arg value="-web,-webPort,8082" />
+	</bean>
 
 <!-- 
 	<cloud:data-source id="dataSource" service-name="ticketsDb" />
@@ -42,21 +51,6 @@
 	<!-- convert native exceptions to Spring exceptions -->
 	<bean class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />
 
-	<bean id="transactionManager"
-		class="org.springframework.orm.hibernate3.HibernateTransactionManager">
-		<property name="sessionFactory" ref="sessionFactory" />
-	</bean>
-	<bean id="sessionFactory"
-		class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
-		<property name="dataSource" ref="dataSource" />
-		<property name="packagesToScan">
-			<list>
-				<value>ie.cit.cloud.tickets.model.customer</value>
-				<value>ie.cit.cloud.tickets.model.performance</value>
-			</list>
-		</property>
-	</bean>
-<!-- 
 	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
 		<property name="entityManagerFactory" ref="emf" />
 	</bean>
@@ -71,5 +65,26 @@
 			</bean>
 		</property>
 	</bean>
- --> 
+
+
+
+
+
+
+<!-- 
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="packagesToScan">
+			<list>
+				<value>ie.cit.cloud.tickets.model.customer</value>
+				<value>ie.cit.cloud.tickets.model.performance</value>
+			</list>
+		</property>
+	</bean>
+ -->
 </beans>
