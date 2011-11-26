@@ -17,8 +17,8 @@ import org.springframework.stereotype.Repository;
 public class EventRepository implements IEventRepository
 {
 
-	 @PersistenceContext
-	 private EntityManager em;
+	@PersistenceContext
+	private EntityManager em;
 
 	public EventRepository()
 	{
@@ -68,7 +68,8 @@ public class EventRepository implements IEventRepository
 	@Override
 	public Event getEvent(final Performer performer, final Location location, final Date date)
 	{
-		final Query query = em.createQuery("from Event e where e.location.name = :locationName and e.performer.name = :performerName and e.date = :date");
+		final Query query = em
+				.createQuery("from Event e where e.location.name = :locationName and e.performer.name = :performerName and e.date = :date");
 		query.setParameter("locationName", location.getName());
 		query.setParameter("performerName", performer.getName());
 		final Object result = query.getSingleResult();

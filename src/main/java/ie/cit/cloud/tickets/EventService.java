@@ -32,41 +32,41 @@ public class EventService implements IEventService
 	{
 		locations.add(new Location("Cork", 500));
 		locations.add(new Location("Dublin", 800));
-		
+
 		performers.add(new Performer("U2"));
 		performers.add(new Performer("Christy Moore"));
 		performers.add(new Performer("Justin Bieber"));
-		
+
 		// Performer, Location, Date, eventName, ticketCount
 		events.add(new Event(performers.get(0), locations.get(0), new Date(), "U2 in Cork", 500, 50));
 		events.add(new Event(performers.get(0), locations.get(1), new Date(), "U2 in Dublin", 800, 60));
-		
+
 		events.add(new Event(performers.get(1), locations.get(0), new Date(), "Christy Moore - Live in Cork", 500, 40));
 
 		events.add(new Event(performers.get(2), locations.get(0), new Date(), "Bieber in Cork", 500, 70));
 		events.add(new Event(performers.get(2), locations.get(1), new Date(), "Bieber in Dublin", 800, 90));
 	}
-	
-	@Transactional(readOnly=true)
+
+	@Transactional(readOnly = true)
 	public Location getLocation(final String name)
 	{
 		return eventRepository.getLocation(name);
 	}
 
-	@Transactional(readOnly=true)
+	@Transactional(readOnly = true)
 	public List<Location> getLocations()
 	{
 
 		return locations;
 	}
 
-	@Transactional(readOnly=true)
+	@Transactional(readOnly = true)
 	public Performer getPerformer(final String name)
 	{
 		return eventRepository.getPerformer(name);
 	}
 
-	@Transactional(readOnly=true)
+	@Transactional(readOnly = true)
 	public List<Performer> getPerformers()
 	{
 		try
@@ -81,18 +81,18 @@ public class EventService implements IEventService
 		}
 	}
 
-	@Transactional(readOnly=true)
+	@Transactional(readOnly = true)
 	public List<Event> getEvents(final String performerName, final String locationName)
 	{
 		if(performerName == null || locationName == null)
 		{
 			return Collections.emptyList();
 		}
-		
+
 		final List<Event> events = new ArrayList<Event>();
-		if(performerName.equals("ALL_PERFORMERS"))	// value from index.jsp
+		if(performerName.equals("ALL_PERFORMERS")) // value from index.jsp
 		{
-			if(locationName.equals("ALL_LOCATIONS"))	// value from index.jsp
+			if(locationName.equals("ALL_LOCATIONS")) // value from index.jsp
 			{
 				events.addAll(this.events);
 			}
@@ -109,7 +109,7 @@ public class EventService implements IEventService
 		}
 		else
 		{
-			if(locationName.equals("ALL_LOCATIONS"))	// value from index.jsp
+			if(locationName.equals("ALL_LOCATIONS")) // value from index.jsp
 			{
 				for(final Event event : this.events)
 				{

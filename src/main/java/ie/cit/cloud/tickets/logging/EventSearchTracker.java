@@ -58,7 +58,8 @@ public class EventSearchTracker extends TicketLogger
 		final String callingMethod = joinPoint.getSignature().getName();
 		if(events != null)
 		{
-			logger.info(callingMethod + " event search returning from " + eventService.getClass().getSimpleName() + " with event count = " + events.size());
+			logger.info(callingMethod + " event search returning from " + eventService.getClass().getSimpleName() + " with event count = "
+					+ events.size());
 		}
 		else
 		{
@@ -70,7 +71,7 @@ public class EventSearchTracker extends TicketLogger
 	public void logEventSearchExceptopn(final JoinPoint joinPoint, final IEventService eventService, final Exception e) throws Exception
 	{
 		final String callingMethod = joinPoint.getSignature().getName();
-		logger.info(callingMethod + " event search throws " + e.getClass().getSimpleName() + " with message " + e.getMessage());
+		logger.error(callingMethod + " event search throws " + e.getClass().getSimpleName() + " with message " + e.getMessage());
 
 		throw e;
 	}

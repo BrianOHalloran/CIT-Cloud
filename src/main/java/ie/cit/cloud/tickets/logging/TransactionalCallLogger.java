@@ -1,6 +1,9 @@
 package ie.cit.cloud.tickets.logging;
 
+import ie.cit.cloud.tickets.IEventService;
+
 import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.springframework.stereotype.Component;
@@ -42,5 +45,14 @@ public class TransactionalCallLogger extends TicketLogger
 		{
 			logger.warn(callingMethod + " is called - input arguments is null from " + joinPoint.getTarget().getClass().getSimpleName());
 		}
+	}
+
+	@AfterThrowing(value = "ie.cit.cloud.tickets.logging.PointcutCatalog.transactionalCalls()", throwing = "e")
+	public void logEventSearchExceptopn(final JoinPoint joinPoint, final Exception e) throws Exception
+	{
+		final String callingMethod = joinPoint.getSignature().getName();
+		logger.error(callingMethod + " event search throws " + e.getClass().getSimpleName() + " with message " + e.getMessage());
+
+		throw e;
 	}
 }
