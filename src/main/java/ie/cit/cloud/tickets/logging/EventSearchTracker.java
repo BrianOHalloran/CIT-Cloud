@@ -17,7 +17,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class EventSearchTracker extends TicketLogger
 {
-	@Before("ie.cit.cloud.tickets.logging.PointcutCatalog.iEventServiceGetEventX(eventService)")
+	@Before("ie.cit.cloud.tickets.logging.PointcutCatalog.iEventServiceGetX(eventService)")
 	public void logEventSearch(final JoinPoint joinPoint, final IEventService eventService)
 	{
 		final String callingMethod = joinPoint.getSignature().getName();
@@ -52,7 +52,7 @@ public class EventSearchTracker extends TicketLogger
 		}
 	}
 
-	@AfterReturning(value = "ie.cit.cloud.tickets.logging.PointcutCatalog.iEventServiceGetEventX(eventService)", returning = "events")
+	@AfterReturning(value = "ie.cit.cloud.tickets.logging.PointcutCatalog.iEventServiceGetX(eventService)", returning = "events")
 	public void logEventSearchDone(final JoinPoint joinPoint, final IEventService eventService, final List<Event> events)
 	{
 		final String callingMethod = joinPoint.getSignature().getName();
@@ -66,7 +66,7 @@ public class EventSearchTracker extends TicketLogger
 		}
 	}
 
-	@AfterThrowing(value = "ie.cit.cloud.tickets.logging.PointcutCatalog.iEventServiceGetEventX(eventService)", throwing = "e")
+	@AfterThrowing(value = "ie.cit.cloud.tickets.logging.PointcutCatalog.iEventServiceGetX(eventService)", throwing = "e")
 	public void logEventSearchExceptopn(final JoinPoint joinPoint, final IEventService eventService, final Exception e) throws Exception
 	{
 		final String callingMethod = joinPoint.getSignature().getName();

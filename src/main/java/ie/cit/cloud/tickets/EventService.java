@@ -16,7 +16,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
-@Transactional
 public class EventService implements IEventService
 {
 	@Autowired
@@ -48,22 +47,26 @@ public class EventService implements IEventService
 		events.add(new Event(performers.get(2), locations.get(1), new Date(), "Bieber in Dublin", 800, 90));
 	}
 	
+	@Transactional(readOnly=true)
 	public Location getLocation(final String name)
 	{
-		return null; //eventRepository.getLocation(name);
+		return eventRepository.getLocation(name);
 	}
 
+	@Transactional(readOnly=true)
 	public List<Location> getLocations()
 	{
 
 		return locations;
 	}
 
+	@Transactional(readOnly=true)
 	public Performer getPerformer(final String name)
 	{
-		return null; //eventRepository.getPerformer(name);
+		return eventRepository.getPerformer(name);
 	}
 
+	@Transactional(readOnly=true)
 	public List<Performer> getPerformers()
 	{
 		try
@@ -78,6 +81,7 @@ public class EventService implements IEventService
 		}
 	}
 
+	@Transactional(readOnly=true)
 	public List<Event> getEvents(final String performerName, final String locationName)
 	{
 		if(performerName == null || locationName == null)

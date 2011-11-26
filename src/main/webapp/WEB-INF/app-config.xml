@@ -26,9 +26,6 @@
 			expression="org.springframework.stereotype.Controller" />
 	</context:component-scan>
 
-	<!-- <bean class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" 
-		/> -->
-
 	<jdbc:embedded-database id="dataSource" type="H2" />
 
 <!-- 
@@ -41,6 +38,9 @@
 	<aop:aspectj-autoproxy />
 
 	<tx:annotation-driven />
+
+	<!-- convert native exceptions to Spring exceptions -->
+	<bean class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />
 
 	<bean id="transactionManager"
 		class="org.springframework.orm.hibernate3.HibernateTransactionManager">

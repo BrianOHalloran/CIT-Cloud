@@ -19,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.transaction.annotation.Transactional;
 
 @ContextConfiguration
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -53,6 +54,7 @@ public class EventServiceTest //extends org.springframework.test.context.junit4.
 	}
 
 	@Test
+	@Transactional
 	public final void testEventService()
 	{
 		final IEventService service = new EventService();
@@ -60,6 +62,7 @@ public class EventServiceTest //extends org.springframework.test.context.junit4.
 	}
 
 	@Test
+	@Transactional
 	public final void testGetLocation()
 	{
 		final Location location = service.getLocation("Cork");
@@ -68,6 +71,7 @@ public class EventServiceTest //extends org.springframework.test.context.junit4.
 	}
 
 	@Test
+	@Transactional
 	public final void testGetLocations()
 	{
 		assertNotNull(service.getLocations());
@@ -75,6 +79,7 @@ public class EventServiceTest //extends org.springframework.test.context.junit4.
 	}
 
 	@Test
+	@Transactional
 	public final void testGetPerformer()
 	{
 		final Performer performer = service.getPerformer("U2");
@@ -83,6 +88,7 @@ public class EventServiceTest //extends org.springframework.test.context.junit4.
 	}
 
 	@Test
+	@Transactional
 	public final void testGetPerformers()
 	{
 		assertNotNull(service.getPerformers());
@@ -90,6 +96,7 @@ public class EventServiceTest //extends org.springframework.test.context.junit4.
 	}
 
 	@Test
+	@Transactional
 	public final void testGetEvents()
 	{
 		final List<Event> events = service.getEvents("", ""); 
