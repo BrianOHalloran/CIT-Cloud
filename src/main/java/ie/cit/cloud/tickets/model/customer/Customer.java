@@ -44,12 +44,13 @@ public class Customer
 
 	}
 
-	public Customer(final Long id, final String name, final String phoneNumber, final String creditCard)
+	public Customer(final String name, final String phoneNumber, final String creditCard, final String username, final String password)
 	{
-		this.id = id;
 		this.name = name;
 		this.phoneNumber = phoneNumber;
 		this.creditCard = creditCard;
+		this.username = username;
+		this.password = password;
 	}
 
 	/* (non-Javadoc)
@@ -58,11 +59,6 @@ public class Customer
 	public Long getId()
 	{
 		return id;
-	}
-
-	public void setId(final Long id)
-	{
-		this.id = id;
 	}
 
 	/* (non-Javadoc)

@@ -46,10 +46,7 @@ public class Location
 	{
 		return id;
 	}
-	public void setId(final Long id)
-	{
-		this.id = id;
-	}
+	
 	/* (non-Javadoc)
 	 * @see ie.cit.cloud.tickets.model.performance.ILocation#getName()
 	 */

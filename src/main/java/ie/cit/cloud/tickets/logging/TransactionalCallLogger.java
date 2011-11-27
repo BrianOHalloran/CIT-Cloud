@@ -48,7 +48,7 @@ public class TransactionalCallLogger extends TicketLogger
 	}
 
 	@AfterThrowing(value = "ie.cit.cloud.tickets.logging.PointcutCatalog.transactionalCalls()", throwing = "e")
-	public void logEventSearchExceptopn(final JoinPoint joinPoint, final Exception e) throws Exception
+	public void logEventSearchException(final JoinPoint joinPoint, final Exception e) throws Exception
 	{
 		final String callingMethod = joinPoint.getSignature().getName();
 		logger.error(callingMethod + " event search throws " + e.getClass().getSimpleName() + " with message " + e.getMessage());

@@ -1,6 +1,5 @@
 package ie.cit.cloud.tickets.model.performance;
 
-
 import java.util.Date;
 
 import javax.persistence.Entity;
@@ -69,7 +68,9 @@ public class Event
 		this.ticketPrice = ticketPrice;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see ie.cit.cloud.tickets.model.performance.IEvent#getId()
 	 */
 	public String getId()
@@ -82,7 +83,9 @@ public class Event
 		this.id = id;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see ie.cit.cloud.tickets.model.performance.IEvent#getPerformer()
 	 */
 	public Performer getPerformer()
@@ -90,15 +93,21 @@ public class Event
 		return performer;
 	}
 
-	/* (non-Javadoc)
-	 * @see ie.cit.cloud.tickets.model.performance.IEvent#setPerformer(ie.cit.cloud.tickets.model.performance.IPerformer)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * ie.cit.cloud.tickets.model.performance.IEvent#setPerformer(ie.cit.cloud
+	 * .tickets.model.performance.IPerformer)
 	 */
 	public void setPerformer(final Performer performer)
 	{
 		this.performer = performer;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see ie.cit.cloud.tickets.model.performance.IEvent#getLocation()
 	 */
 	public Location getLocation()
@@ -106,15 +115,21 @@ public class Event
 		return location;
 	}
 
-	/* (non-Javadoc)
-	 * @see ie.cit.cloud.tickets.model.performance.IEvent#setLocation(ie.cit.cloud.tickets.model.performance.ILocation)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * ie.cit.cloud.tickets.model.performance.IEvent#setLocation(ie.cit.cloud
+	 * .tickets.model.performance.ILocation)
 	 */
 	public void setLocation(final Location location)
 	{
 		this.location = location;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see ie.cit.cloud.tickets.model.performance.IEvent#getDate()
 	 */
 	public Date getDate()
@@ -122,15 +137,20 @@ public class Event
 		return date;
 	}
 
-	/* (non-Javadoc)
-	 * @see ie.cit.cloud.tickets.model.performance.IEvent#setDate(java.util.Date)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * ie.cit.cloud.tickets.model.performance.IEvent#setDate(java.util.Date)
 	 */
 	public void setDate(final Date date)
 	{
 		this.date = date;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see ie.cit.cloud.tickets.model.performance.IEvent#getEventName()
 	 */
 	public String getEventName()
@@ -138,15 +158,21 @@ public class Event
 		return eventName;
 	}
 
-	/* (non-Javadoc)
-	 * @see ie.cit.cloud.tickets.model.performance.IEvent#setEventName(java.lang.String)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * ie.cit.cloud.tickets.model.performance.IEvent#setEventName(java.lang.
+	 * String)
 	 */
 	public void setEventName(final String eventName)
 	{
 		this.eventName = eventName;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see ie.cit.cloud.tickets.model.performance.IEvent#getTicketCount()
 	 */
 	public int getTicketCount()
@@ -154,7 +180,9 @@ public class Event
 		return ticketCount;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see ie.cit.cloud.tickets.model.performance.IEvent#setTicketCount(int)
 	 */
 	public void setTicketCount(final int ticketCount)
@@ -162,7 +190,9 @@ public class Event
 		this.ticketCount = ticketCount;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see ie.cit.cloud.tickets.model.performance.IEvent#getTicketPrice()
 	 */
 	public int getTicketPrice()
@@ -170,7 +200,9 @@ public class Event
 		return ticketPrice;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see ie.cit.cloud.tickets.model.performance.IEvent#setTicketPrice(int)
 	 */
 	public void setTicketPrice(final int ticketPrice)
@@ -188,9 +220,8 @@ public class Event
 		if(other != null && other instanceof Event)
 		{
 			final Event otherEvent = (Event)other;
-			return performer.equals(otherEvent.getPerformer()) && 
-					location.equals(otherEvent.getLocation()) &&
-					date.equals(otherEvent.getDate());
+			return performer.equals(otherEvent.getPerformer()) && location.equals(otherEvent.getLocation())
+					&& date.equals(otherEvent.getDate());
 		}
 		return false;
 	}
