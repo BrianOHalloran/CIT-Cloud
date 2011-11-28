@@ -67,7 +67,12 @@ public class EventJsonController
     	response.addHeader("Performer", getLocationForChildResource(request, newPerformer.getName()));
     }
 	
-
+    @RequestMapping(value = "/performer/{performerId}", method = RequestMethod.DELETE)
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deletePerformer(@PathVariable("performerId") Long performerId)
+    {
+    	eventService.deletePerformer(performerId);
+    }
 
     
     

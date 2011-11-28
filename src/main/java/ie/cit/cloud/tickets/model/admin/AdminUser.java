@@ -2,6 +2,8 @@ package ie.cit.cloud.tickets.model.admin;
 
 public class AdminUser
 {
+	private Long id;
+	
 	private String username;
 	
 	private String password;
@@ -17,6 +19,11 @@ public class AdminUser
 		this.password = password;
 	}
 
+	public Long getId()
+	{
+		return id;
+	}
+
 	public String getUsername()
 	{
 		return username;
@@ -27,12 +34,17 @@ public class AdminUser
 		return password;
 	}
 
-	public void setUsername(String username)
+	public void setId(final Long id)
+	{
+		this.id = id;
+	}
+
+	public void setUsername(final String username)
 	{
 		this.username = username;
 	}
 
-	public void setPassword(String password)
+	public void setPassword(final String password)
 	{
 		this.password = password;
 	}

@@ -10,6 +10,7 @@ import javax.persistence.InheritanceType;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.CascadeType;
 import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
@@ -19,7 +20,7 @@ public class Event
 {
 	@Id
 	@GeneratedValue
-	private String id;
+	private int id;
 
 	@NotEmpty
 	@OneToOne
@@ -73,12 +74,12 @@ public class Event
 	 * 
 	 * @see ie.cit.cloud.tickets.model.performance.IEvent#getId()
 	 */
-	public String getId()
+	public int getId()
 	{
 		return id;
 	}
 
-	public void setId(final String id)
+	public void setId(int id)
 	{
 		this.id = id;
 	}

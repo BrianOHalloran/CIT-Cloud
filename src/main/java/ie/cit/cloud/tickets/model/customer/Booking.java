@@ -50,8 +50,8 @@ public class Booking
 	{
 		return id;
 	}
-
-	public final void setId(final Long id)
+	
+	public void setId(Long id)
 	{
 		this.id = id;
 	}

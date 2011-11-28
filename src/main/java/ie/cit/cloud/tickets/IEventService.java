@@ -21,6 +21,8 @@ public interface IEventService
 
 	Performer createPerformer(final String name);
 
+	void deletePerformer(final Long performerId);
+
 	List<Event> getEvents();
 
 	List<Event> getEventsFor(final String performerName);

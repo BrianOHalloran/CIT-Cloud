@@ -72,6 +72,12 @@ public class EventService implements IEventService
 		return eventRepository.createPerformer(name);
 	}
 	
+	@Transactional
+	public void deletePerformer(final Long performerId)
+	{
+		eventRepository.deletePerformer(performerId);
+	}
+	
 	@Transactional(readOnly = true)
 	public Performer getPerformer(final String name)
 	{

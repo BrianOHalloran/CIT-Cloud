@@ -11,6 +11,9 @@ import ie.cit.cloud.tickets.model.performance.Performer;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.SortedSet;
+import java.util.TreeSet;
+
 import javax.persistence.Query;
 
 import org.springframework.stereotype.Repository;
@@ -36,6 +39,34 @@ public class EventRepository implements IEventRepository
 	}
 	
 	@Override
+	public void deletePerformer(final Long performerId)
+	{
+		final Performer performer = getPerformer(performerId);
+		if(performer == null)
+		{
+			return;
+		}
+		
+		// TODO: implement the actual delete from the database
+		
+//		final List<Event> events = getEventsForPerformer(performer.getName());
+//		if(events != null && !events.isEmpty())
+//		{
+//			final SortedSet<Integer> eventIds = new TreeSet<Integer>();
+//
+//			for(final Event event : events)
+//			{
+//				eventIds.add(event.getId());
+//			}
+//			
+//			final Query query = em.createQuery("from Booking b where b.event_id in {:eventIds}");
+//			query.setParameter("eventIds", eventIds);
+//			query.executeUpdate();
+//			
+//		}
+	}
+	
+	@Override
 	public Performer getPerformer(final String performerName)
 	{
 		final Query query = em.createQuery("from Performer p where p.name = :performerName");
@@ -48,6 +79,18 @@ public class EventRepository implements IEventRepository
 		return null;
 	}
 
+	private Performer getPerformer(final Long performerId)
+	{
+		final Query query = em.createQuery("from Performer p where p.id = :performerId");
+		query.setParameter("performerId", performerId);
+		final Object result = query.getSingleResult();
+		if(result != null && result instanceof Performer)
+		{
+			return (Performer)result;
+		}
+		return null;
+	}
+	
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Performer> getPerformers()

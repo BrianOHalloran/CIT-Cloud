@@ -13,6 +13,7 @@ public interface IEventRepository
 	Performer createPerformer(final String name);
 	Performer getPerformer(final String performerName);
 	List<Performer> getPerformers();
+	void deletePerformer(final Long performerId);
 	
 	Location createLocation(final String locationName,
 			final int ticketCount);
