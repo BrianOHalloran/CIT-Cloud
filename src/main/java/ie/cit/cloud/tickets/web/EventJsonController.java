@@ -58,12 +58,12 @@ public class EventJsonController
     /*
      * try: 
      * curl -i -H "Content-Type: application/json" 
-     * 		-X POST -d 'U2' 
+     * 		-X POST -d '{"name":"Cork"}' 
      * 		http://localhost:8080/tickets/api/performer
      */
-    public void createPerformer(@RequestBody final String performerName, final HttpServletRequest request, final HttpServletResponse response)
+    public void createPerformer(@RequestBody final Performer performerName, final HttpServletRequest request, final HttpServletResponse response)
     {
-    	final Performer newPerformer = eventService.createPerformer(performerName);
+    	final Performer newPerformer = eventService.createPerformer(performerName.getName());
     	response.addHeader("Performer", getLocationForChildResource(request, newPerformer.getName()));
     }
 	

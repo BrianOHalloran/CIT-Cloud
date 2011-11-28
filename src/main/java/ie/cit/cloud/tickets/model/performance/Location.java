@@ -26,14 +26,14 @@ public class Location
 
 	@Basic
 	@NotEmpty
-	private int maxTicketCount = 0;
+	private Integer maxTicketCount = 0;
 
 	public Location()
 	{
 		
 	}
 	
-	public Location(final String locationName, final int maxTicketCount)
+	public Location(final String locationName, final Integer maxTicketCount)
 	{
 		name = locationName;
 		this.maxTicketCount = maxTicketCount;
