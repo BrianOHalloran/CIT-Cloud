@@ -3,6 +3,7 @@ package ie.cit.cloud.tickets;
 import java.util.Date;
 import java.util.List;
 
+import ie.cit.cloud.tickets.model.customer.Booking;
 import ie.cit.cloud.tickets.model.performance.Event;
 import ie.cit.cloud.tickets.model.performance.Location;
 import ie.cit.cloud.tickets.model.performance.Performer;
@@ -46,4 +47,6 @@ public interface IEventService
 			final String eventName, 
 			final int ticketCount,
 			final int ticketPrice);
+	
+	List<Booking> getBookings();
 }

@@ -192,8 +192,6 @@ public class EventJsonController
 //    	response.addHeader("Performer", getLocationForChildResource(request, newLocation.getName()));
 //    }
 	
-    
-    
     private String getLocationForChildResource(final HttpServletRequest request, final Object childIdentifier)
 	{
 		// get the current URL from the request

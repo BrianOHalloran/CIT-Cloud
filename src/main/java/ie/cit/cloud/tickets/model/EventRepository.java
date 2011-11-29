@@ -3,6 +3,7 @@ package ie.cit.cloud.tickets.model;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import ie.cit.cloud.tickets.model.customer.Booking;
 import ie.cit.cloud.tickets.model.customer.Customer;
 import ie.cit.cloud.tickets.model.performance.Event;
 import ie.cit.cloud.tickets.model.performance.Location;
@@ -16,6 +17,7 @@ import java.util.TreeSet;
 
 import javax.persistence.Query;
 
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Repository;
 
 @Repository("hibernateEventRepository")
@@ -169,10 +171,30 @@ public class EventRepository implements IEventRepository
 	@Override
 	public List<Event> getEvents(final Performer performer, final Location location)
 	{
-		final Query query = em.createQuery("from Event e where e.location.name = :locationName and e.performer.name = :performerName");
-		query.setParameter("locationName", location.getName());
-		query.setParameter("performerName", performer.getName());
-		return query.getResultList();
+		Query query = null;
+		if(performer != null && location != null)
+		{
+			query = em.createQuery("from Event e where e.location.id = :locationId and e.performer.id = :performerId");
+			query.setParameter("locationId", location.getId());
+			query.setParameter("performerId", performer.getId());
+			return query.getResultList();
+		}
+		else if(performer == null && location != null)
+		{
+			query = em.createQuery("from Event e where e.location.id = :locationId");
+			query.setParameter("locationId", location.getId());
+			return query.getResultList();
+		}
+		else if(performer != null && location == null)
+		{
+			query = em.createQuery("from Event e where e.performer.id = :performerId");
+			query.setParameter("performerId", performer.getId());
+			return query.getResultList();
+		}
+		else
+		{
+			return Collections.emptyList();
+		}
 	}
 
 	@SuppressWarnings("unchecked")
@@ -203,5 +225,22 @@ public class EventRepository implements IEventRepository
 		final Customer customer = new Customer(name, phoneNumber, creditCard, username, password);
 		em.persist(customer);
 		return customer;
+	}
+	
+	public List<Booking> getCustomerBookings()
+	{
+		final Query query = em.createQuery("from Booking b where b.customer.username = :username");
+		query.setParameter("username", getCurrentUsername());
+		final List<Booking> events = (List<Booking>)query.getResultList();
+		if(events != null && !events.isEmpty())
+		{
+			return (List<Booking>)events;
+		}
+		return Collections.emptyList();
+	}
+	
+	private String getCurrentUsername()
+	{
+		return SecurityContextHolder.getContext().getAuthentication().getName();
 	}
 }

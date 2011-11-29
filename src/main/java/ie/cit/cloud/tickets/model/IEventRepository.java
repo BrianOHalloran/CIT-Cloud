@@ -1,5 +1,6 @@
 package ie.cit.cloud.tickets.model;
 
+import ie.cit.cloud.tickets.model.customer.Booking;
 import ie.cit.cloud.tickets.model.customer.Customer;
 import ie.cit.cloud.tickets.model.performance.Event;
 import ie.cit.cloud.tickets.model.performance.Location;
@@ -40,4 +41,6 @@ public interface IEventRepository
 			final String creditCard, 
 			final String username, 
 			final String password);
+	
+	List<Booking> getCustomerBookings();
 }

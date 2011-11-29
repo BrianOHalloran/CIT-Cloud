@@ -18,25 +18,35 @@ body
 </style>
 </head>
 <body>
-<%--
- 	User: <security:authentication property="principal.username"/>
-	</br>
-	<a href="j_spring_security_logout">Logout</a> 
-	</br>
- --%>
- 	<h1 align="center">Ticket Slave</h1>
-	<h2 align="center"><i>The Alternative Ticket and Event Booking Application</i></h2>
-	<img src="springsource.png" align=middle>
 
+ 	User: <security:authentication property="principal.username"/> : <a href="j_spring_security_logout">Logout</a> 
+	</br>
+
+ 	<h1 align="center">Ticket Slave Account Section</h1>
 	<hr>
 
-	<form action="doSearch" method="get">
-		Performer (Available: ${fn:length(performers)}): <input type="text" name="performerSelection" />
-		<br />
-		Location (Available: ${fn:length(locations)}): <input type="text" name="locationSelection" /> 
-		<br />
-		<input type="submit" value="Search for Events">
-		<br />
+	<h2 align="center">
+		<i>Booking history for <security:authentication property="principal.username"/></i>
+	</h2>
+	<form action="showAccountData" method="get">
+		<table border="1" align="center">
+			<tr>
+				<th width="100">Performer</th>
+				<th width="100">Location</th>
+				<th width="100">Event Name</th>
+				<th width="100">Date</th>
+				<th width="100">Number of tickets</th>
+			</tr>
+			<c:forEach var="booking" items="${bookings}" varStatus="index">
+				<tr>
+					<td>${booking.event.performer.name}</td>
+					<td>${booking.event.location.name}</td>
+					<td>${booking.event.eventName}</td>
+					<td>${booking.event.date}</td>
+					<td>${booking.numTickets}</td>
+				</tr>
+			</c:forEach>
+		</table>
 	</form>
 
 <%-- 

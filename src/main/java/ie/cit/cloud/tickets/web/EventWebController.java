@@ -33,4 +33,20 @@ public class EventWebController
     	model.addAttribute("locations", eventService.getLocations());
     	return "search";
     }
+
+    @RequestMapping(value = { "bookEvent" }, method = GET)
+    public String bookEvent(Model model)
+    {
+    	return "accounts/account";
+    }
+
+    @RequestMapping(value = { "showAccountData" }, method = GET)
+    public String bookingLookup(Model model)
+    {
+    	model.addAttribute("bookings", eventService.getBookings());
+    	model.addAttribute("customerName", "test_customer_name");
+    	model.addAttribute("customerPhone", "test_customer_phone");
+    	model.addAttribute("customerCreditCard", "test_customer_card");
+    	return "accounts/account";
+    }
 }

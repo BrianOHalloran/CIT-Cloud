@@ -22,6 +22,15 @@
 	<img src="springsource.png" align="middle">
 
 	<form action="doSearch" method="get">
+		Performer (Available: ${fn:length(performers)}): <input type="text" name="performerSelection" />
+		<br />
+		Location (Available: ${fn:length(locations)}): <input type="text" name="locationSelection" /> 
+		<br />
+		<input type="submit" value="Search for Events">
+		<br />
+	</form>
+<%-- 
+	<form action="doSearch" method="get">
 		Select event performer (Available: ${fn:length(performers)})
 		<table>
 			<select name="performerSelection" size="1">
@@ -47,8 +56,43 @@
 		<input type="submit" value="Search for Events">
 	</form>
 	<hr>
+ --%>
 
-	<h2 align="center"><i>Search results</i></h2>
+
+
+	<h2 align="center">
+		<i>Search results</i>
+	</h2>
+	<form action="bookEvent" method="post">
+		<table border="1" align="center">
+			<tr>
+				<th width="100">Performer</th>
+				<th width="100">Location</th>
+				<th width="100">Event Name</th>
+				<th width="100">Date</th>
+				<th width="100">Event Id</th>
+				<th width="100">Number of tickets</th>
+				<th width="100">Book me?</th>
+			</tr>
+			<c:forEach var="event" items="${events}" varStatus="index">
+				<tr>
+					<td>${event.performer.name}</td>
+					<td>${event.location.name}</td>
+					<td>${event.eventName}</td>
+					<td>${event.date}</td>
+					<td>${event.id}</td>
+					<select name="ticketCountSelection" size="1">
+						<option value="1">1</option>
+						<option selected value="2">2</option>
+						<option value="3">3</option>
+						<option value="4">4</option>
+					</select>
+					<input type="submit" value="Book Event">
+				</tr>
+			</c:forEach>
+		</table>
+	</form>
+	<%-- 
 	<table>
 		<c:forEach var="event" items="${events}" varStatus="index">
 			<p>
@@ -56,9 +100,10 @@
 				<td>${event.location.name}</td>
 				<td>${event.eventName}</td>
 			</p>
+			<br />
 		</c:forEach>
 	</table>
 	<hr>
-
+ --%>
 	</body>
 </html>
