@@ -20,6 +20,7 @@ body
 <body>
 
  	User: <security:authentication property="principal.username"/> : <a href="j_spring_security_logout">Logout</a> 
+ 
 	</br>
 
  	<h1 align="center">Ticket Slave Account Section</h1>

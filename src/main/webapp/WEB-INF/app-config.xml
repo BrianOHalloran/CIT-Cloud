@@ -21,7 +21,7 @@
 		<context:exclude-filter type="annotation"
 			expression="org.springframework.stereotype.Controller" />
 	</context:component-scan>
-
+<!-- 
 	<jdbc:embedded-database id="dataSource" type="H2" />
 	<bean id="org.h2.tools.Server-WebServer" 
 		class="org.h2.tools.Server"
@@ -32,13 +32,12 @@
 		destroy-method="stop">
 		<constructor-arg value="-web,-webPort,8082" />
 	</bean>
-
+ -->
 <!-- 
 	<cloud:data-source id="dataSource" service-name="ticketsDb" />
  -->	
-<!-- 
+
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" />
- -->
 
 	<aop:aspectj-autoproxy />
 
@@ -63,7 +62,8 @@
 	</bean>
 
 	<security:http auto-config="true">	<!-- register default filters with auto-config -->
-		<security:intercept-url pattern="/account/*" access="ROLE_USER"/>
+		<security:intercept-url pattern="/accounts/*" access="ROLE_USER"/>
+		<security:logout logout-url="/logout" logout-success-url="/index.jsp"/>
 	</security:http>
 
 	<security:authentication-manager>

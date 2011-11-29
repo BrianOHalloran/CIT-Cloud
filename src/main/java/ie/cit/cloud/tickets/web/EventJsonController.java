@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import ie.cit.cloud.tickets.IEventService;
 import ie.cit.cloud.tickets.model.performance.Event;
+import ie.cit.cloud.tickets.model.performance.EventCreator;
 import ie.cit.cloud.tickets.model.performance.Location;
 import ie.cit.cloud.tickets.model.performance.Performer;
 import ie.cit.cloud.tickets.web.exceptions.WebNotFoundException;
@@ -30,7 +31,11 @@ public class EventJsonController
 	IEventService eventService;
 
 	@RequestMapping("performers")
-	/* try with curl http://localhost:8080/tickets/api/performers */
+	/* 
+	 * try with 
+	 * curl http://localhost:8080/tickets/api/performers 
+	 * 
+	 * */
 	public @ResponseBody List<Performer> getPerformers()
 	{
 		return eventService.getPerformers();
@@ -39,6 +44,7 @@ public class EventJsonController
     @RequestMapping(value = "/performer/{performerName}", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     /* 
+     *
      * try with 
      * curl http://localhost:8080/tickets/api/performer/U2 
      * 
@@ -56,10 +62,12 @@ public class EventJsonController
     @RequestMapping(value = "/performer", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
     /*
+     * 
      * try: 
      * curl -i -H "Content-Type: application/json" 
-     * 		-X POST -d '{"name":"Cork"}' 
+     * 		-X POST -d '{"name":"U2"}' 
      * 		http://localhost:8080/tickets/api/performer
+     * 
      */
     public void createPerformer(@RequestBody final Performer performerName, final HttpServletRequest request, final HttpServletResponse response)
     {
@@ -77,7 +85,12 @@ public class EventJsonController
     
     
 	@RequestMapping("locations")
-	/* try with curl http://localhost:8080/tickets/api/locations */
+	/* 
+	 * 
+	 * try with 
+	 * curl http://localhost:8080/tickets/api/locations 
+	 * 
+	 * */
 	public @ResponseBody List<Location> getLocations()
 	{
 		return eventService.getLocations();
@@ -86,6 +99,7 @@ public class EventJsonController
     @RequestMapping(value = "/location/{locationName}", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     /* 
+     * 
      * try with 
      * curl http://localhost:8080/tickets/api/location/Cork 
      * 
@@ -103,10 +117,12 @@ public class EventJsonController
     @RequestMapping(value = "/location", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
     /*
+     * 
      * try: 
      * curl -i -H "Content-Type: application/json" 
-     * 		-X POST -d <SORT_OUT_THE_CORRECT_MAPPING> 
+     * 		-X POST -d {"name":"Cork","maxTicketCount":"500"} 
      * 		http://localhost:8080/tickets/api/location
+     * 
      */
     public void createLocation(@RequestBody final Location location, final HttpServletRequest request, final HttpServletResponse response)
     {
@@ -120,7 +136,12 @@ public class EventJsonController
     
     
 	@RequestMapping("events")
-	/* try with curl http://localhost:8080/tickets/api/events */
+	/* 
+	 * 
+	 * try with
+	 * curl http://localhost:8080/tickets/api/events
+	 * 
+	 *  */
 	public @ResponseBody List<Event> getEvents()
 	{
 		return eventService.getEvents();
@@ -129,6 +150,7 @@ public class EventJsonController
     @RequestMapping(value = "/event/performer/{performer}", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     /* 
+     * 
      * try with 
      * curl http://localhost:8080/tickets/api/location/Cork 
      * 
@@ -146,6 +168,7 @@ public class EventJsonController
     @RequestMapping(value = "/event/location/{location}", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     /* 
+     * 
      * try with 
      * curl http://localhost:8080/tickets/api/location/Cork 
      * 
@@ -163,6 +186,7 @@ public class EventJsonController
     @RequestMapping(value = "/event/performer/{performer}/location/{location}", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     /* 
+     *
      * try with 
      * curl http://localhost:8080/tickets/api/location/Cork 
      * 
@@ -177,19 +201,26 @@ public class EventJsonController
     	return event;
     }
 	
-//    @RequestMapping(value = "/location", method = RequestMethod.POST)
-//    @ResponseStatus(HttpStatus.CREATED)
-//    /*
-//     * try: 
-//     * curl -i -H "Content-Type: application/json" 
-//     * 		-X POST -d <SORT_OUT_THE_CORRECT_MAPPING> 
-//     * 		http://localhost:8080/tickets/api/location
-//     */
-//    public void createLocation(@RequestBody final Location location, final HttpServletRequest request, final HttpServletResponse response)
+    @RequestMapping(value = "/event", method = RequestMethod.POST)
+    @ResponseStatus(HttpStatus.CREATED)
+    /*
+     *
+     * try: 
+     * curl -i -H "Content-Type: application/json" 
+     * 		-X POST -d { } 
+     * 		http://localhost:8080/tickets/api/event
+     */
+    public void createEvent(@RequestBody final Event newEvent, final HttpServletRequest request, final HttpServletResponse response)
+    {
+    	// TODO: need to sort out the mapping from JSON to Location object
+    	final Event event = eventService.createEvent(newEvent.getPerformer(), newEvent.getLocation(), newEvent.getDate(), newEvent.getEventName(), newEvent.getTicketCount(), newEvent.getTicketPrice());
+    	response.addHeader("Event", getLocationForChildResource(request, event.getEventName()));
+    }
+//    public void createEvent(@RequestBody final EventCreator newEvent, final HttpServletRequest request, final HttpServletResponse response)
 //    {
 //    	// TODO: need to sort out the mapping from JSON to Location object
-//    	final Location newLocation = eventService.createLocation(location.getName(), location.getMaxTicketCount());
-//    	response.addHeader("Performer", getLocationForChildResource(request, newLocation.getName()));
+//    	final Event event = eventService.createEvent(newEvent.getPerformerId(), newEvent.getLocationId(), newEvent.getDate(), newEvent.getEventName(), newEvent.getTicketCount(), newEvent.getTicketPrice());
+//    	response.addHeader("Event", getLocationForChildResource(request, event.getEventName()));
 //    }
 	
     private String getLocationForChildResource(final HttpServletRequest request, final Object childIdentifier)

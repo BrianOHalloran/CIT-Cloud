@@ -9,6 +9,8 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.CascadeType;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -22,25 +24,26 @@ public class Event
 	@GeneratedValue
 	private int id;
 
-	@NotEmpty
+	@NotNull
 	@OneToOne
 	private Performer performer;
 
-	@NotEmpty
+	@NotNull
 	@OneToOne
 	private Location location;
 
-	@NotEmpty
+	@NotNull
+//	@NotEmpty
 	private Date date;
 
 	@NotEmpty
 	private String eventName;
 
-	@NotEmpty
-	private int ticketCount;
+	@Min(value = 1)
+	private Integer ticketCount;
 
-	@NotEmpty
-	private int ticketPrice;
+	@Min(value = 1)
+	private Integer ticketPrice;
 
 	public Event()
 	{
@@ -51,8 +54,8 @@ public class Event
 			final Location location, 
 			final Date date, 
 			final String eventName, 
-			final int ticketCount,
-			final int ticketPrice)
+			final Integer ticketCount,
+			final Integer ticketPrice)
 	{
 		this.performer = performer;
 		this.location = location;

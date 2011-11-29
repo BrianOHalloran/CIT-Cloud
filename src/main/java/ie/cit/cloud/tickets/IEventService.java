@@ -34,8 +34,8 @@ public interface IEventService
 
 	Event getEvent(final String performerName, final String locationName, final Date eventDate);
 
-	Event createEvent(final String performer, 
-			final String location, 
+	Event createEvent(final int performer, 
+			final int location, 
 			final Date date, 
 			final String eventName, 
 			final int ticketCount,

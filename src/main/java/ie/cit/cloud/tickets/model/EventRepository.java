@@ -69,6 +69,19 @@ public class EventRepository implements IEventRepository
 	}
 	
 	@Override
+	public Performer getPerformer(int performerId)
+	{
+		final Query query = em.createQuery("from Performer p where p.id = :performerId");
+		query.setParameter("performerId", performerId);
+		final Object result = query.getSingleResult();
+		if(result != null && result instanceof Performer)
+		{
+			return (Performer)result;
+		}
+		return null;
+	}
+
+	@Override
 	public Performer getPerformer(final String performerName)
 	{
 		final Query query = em.createQuery("from Performer p where p.name = :performerName");
@@ -107,6 +120,19 @@ public class EventRepository implements IEventRepository
 		return location;
 	}
  
+	@Override
+	public Location getLocation(int locationId)
+	{
+		final Query query = em.createQuery("from Location p where p.id = :locationId");
+		query.setParameter("locationId", locationId);
+		final Object result = query.getSingleResult();
+		if(result != null && result instanceof Location)
+		{
+			return (Location)result;
+		}
+		return null;
+	}
+
 	@Override
 	public Location getLocation(final String locationName)
 	{
@@ -211,6 +237,10 @@ public class EventRepository implements IEventRepository
 			final int ticketCount,
 			final int ticketPrice)
 	{
+		if(ticketCount < 0 || ticketPrice < 0)
+		{
+			return null;
+		}
 		final Event event = new Event(performer, location, date, eventName, ticketCount, ticketPrice);
 		em.persist(event);
 		return event;
@@ -227,6 +257,7 @@ public class EventRepository implements IEventRepository
 		return customer;
 	}
 	
+	@SuppressWarnings("unchecked")
 	public List<Booking> getCustomerBookings()
 	{
 		final Query query = em.createQuery("from Booking b where b.customer.username = :username");

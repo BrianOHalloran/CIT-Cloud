@@ -20,6 +20,9 @@
 	<h1 align="center">Ticket Slave</h1>
 	<h2 align="center"><i>The Alternative Ticket and Event Booking Application</i></h2>
 	<img src="springsource.png" align="middle">
+	<form action="accounts/account" method="get">
+		<input type="submit" value="Login">
+	</form>
 
 	<form action="doSearch" method="get">
 		Performer (Available: ${fn:length(performers)}): <input type="text" name="performerSelection" />

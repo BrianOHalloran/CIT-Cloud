@@ -40,7 +40,7 @@ public class EventWebController
     	return "accounts/account";
     }
 
-    @RequestMapping(value = { "showAccountData" }, method = GET)
+    @RequestMapping(value = { "accounts/account" }, method = GET)
     public String bookingLookup(Model model)
     {
     	model.addAttribute("bookings", eventService.getBookings());

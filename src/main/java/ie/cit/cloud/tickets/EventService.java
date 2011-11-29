@@ -145,19 +145,19 @@ public class EventService implements IEventService
 	}
 	
 	@Transactional
-	public Event createEvent(final String performer, 
-			final String location, 
+	public Event createEvent(final int performerId, 
+			final int locationId, 
 			final Date date, 
 			final String eventName, 
 			final int ticketCount,
 			final int ticketPrice)
 	{
-		if(performer == null || location == null || date == null)
+		if(date == null || eventName == null)
 		{
 			return null;
 		}
 		
-		return createEvent(eventRepository.getPerformer(performer), eventRepository.getLocation(location), date, eventName, ticketCount, ticketPrice);
+		return createEvent(eventRepository.getPerformer(performerId), eventRepository.getLocation(locationId), date, eventName, ticketCount, ticketPrice);
 	}
 
 	@Transactional

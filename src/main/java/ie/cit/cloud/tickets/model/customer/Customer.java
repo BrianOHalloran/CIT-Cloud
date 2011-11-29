@@ -29,6 +29,7 @@ public class Customer
 	private String phoneNumber;
 
 	@Basic
+	@NotEmpty
 	private String creditCard;
 
 	@Basic

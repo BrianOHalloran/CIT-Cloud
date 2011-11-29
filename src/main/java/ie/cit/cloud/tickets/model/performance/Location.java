@@ -8,6 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.Table;
+import javax.validation.constraints.Min;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -25,7 +26,7 @@ public class Location
 	private String name;
 
 	@Basic
-	@NotEmpty
+	@Min(value = 1)
 	private Integer maxTicketCount = 0;
 
 	public Location()

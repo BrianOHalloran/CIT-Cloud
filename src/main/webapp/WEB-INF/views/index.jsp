@@ -27,6 +27,9 @@ body
  	<h1 align="center">Ticket Slave</h1>
 	<h2 align="center"><i>The Alternative Ticket and Event Booking Application</i></h2>
 	<img src="springsource.png" align=middle>
+	<form action="accounts/account" method="get">
+		<input type="submit" value="Login">
+	</form>
 
 	<hr>
 
