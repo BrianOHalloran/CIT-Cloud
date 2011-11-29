@@ -41,7 +41,7 @@ public class EventRepository implements IEventRepository
 	}
 	
 	@Override
-	public void deletePerformer(final Long performerId)
+	public void deletePerformer(final Integer performerId)
 	{
 		final Performer performer = getPerformer(performerId);
 		if(performer == null)
@@ -69,7 +69,7 @@ public class EventRepository implements IEventRepository
 	}
 	
 	@Override
-	public Performer getPerformer(int performerId)
+	public Performer getPerformer(Integer performerId)
 	{
 		final Query query = em.createQuery("from Performer p where p.id = :performerId");
 		query.setParameter("performerId", performerId);
@@ -94,18 +94,6 @@ public class EventRepository implements IEventRepository
 		return null;
 	}
 
-	private Performer getPerformer(final Long performerId)
-	{
-		final Query query = em.createQuery("from Performer p where p.id = :performerId");
-		query.setParameter("performerId", performerId);
-		final Object result = query.getSingleResult();
-		if(result != null && result instanceof Performer)
-		{
-			return (Performer)result;
-		}
-		return null;
-	}
-	
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Performer> getPerformers()
@@ -123,7 +111,7 @@ public class EventRepository implements IEventRepository
 	@Override
 	public Location getLocation(int locationId)
 	{
-		final Query query = em.createQuery("from Location p where p.id = :locationId");
+		final Query query = em.createQuery("from Location l where l.id = :locationId");
 		query.setParameter("locationId", locationId);
 		final Object result = query.getSingleResult();
 		if(result != null && result instanceof Location)
@@ -227,30 +215,24 @@ public class EventRepository implements IEventRepository
 	@Override
 	public List<Event> getEvents()
 	{
-		return em.createQuery("from Event").getResultList();
+		final List<Event> events = em.createQuery("from Event").getResultList();
+		if(events != null && !events.isEmpty())
+		{
+			return (List<Event>)events;
+		}
+		return Collections.emptyList();
 	}
 	
-	public Event createEvent(final Performer performer, 
-			final Location location, 
-			final Date date, 
-			final String eventName, 
-			final int ticketCount,
-			final int ticketPrice)
+	@Override
+	public Event createEvent(final Performer performer, final Location location, final Date date, final String eventName, final int ticketCount, final int ticketPrice)
 	{
-		if(ticketCount < 0 || ticketPrice < 0)
-		{
-			return null;
-		}
 		final Event event = new Event(performer, location, date, eventName, ticketCount, ticketPrice);
 		em.persist(event);
 		return event;
 	}
 
-	public Customer createCustomer(final String name, 
-			final String phoneNumber, 
-			final String creditCard, 
-			final String username, 
-			final String password)
+	@Override
+	public Customer createCustomer(final String name, final String phoneNumber, final String creditCard, final String username, final String password)
 	{
 		final Customer customer = new Customer(name, phoneNumber, creditCard, username, password);
 		em.persist(customer);

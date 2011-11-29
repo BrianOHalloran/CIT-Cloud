@@ -55,7 +55,7 @@ public class EventService implements IEventService
 	}
 	
 	@Transactional
-	public void deletePerformer(final Long performerId)
+	public void deletePerformer(final Integer performerId)
 	{
 		eventRepository.deletePerformer(performerId);
 	}
@@ -157,7 +157,9 @@ public class EventService implements IEventService
 			return null;
 		}
 		
-		return createEvent(eventRepository.getPerformer(performerId), eventRepository.getLocation(locationId), date, eventName, ticketCount, ticketPrice);
+		Performer performer = eventRepository.getPerformer(performerId);
+		Location location = eventRepository.getLocation(locationId);
+		return createEvent(performer, location, date, eventName, ticketCount, ticketPrice);
 	}
 
 	@Transactional
@@ -168,7 +170,7 @@ public class EventService implements IEventService
 			final int ticketCount,
 			final int ticketPrice)
 	{
-		if(performer == null || location == null || date == null)
+		if(performer == null || location == null || date == null || ticketCount < 0 || ticketPrice < 0)
 		{
 			return null;
 		}

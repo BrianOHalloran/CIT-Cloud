@@ -33,10 +33,6 @@
 		<constructor-arg value="-web,-webPort,8082" />
 	</bean>
  -->
-<!-- 
-	<cloud:data-source id="dataSource" service-name="ticketsDb" />
- -->	
-
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" />
 
 	<aop:aspectj-autoproxy />

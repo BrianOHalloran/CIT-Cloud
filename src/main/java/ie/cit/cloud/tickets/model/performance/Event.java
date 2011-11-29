@@ -22,7 +22,7 @@ public class Event
 {
 	@Id
 	@GeneratedValue
-	private int id;
+	private Long id;
 
 	@NotNull
 	@OneToOne
@@ -77,14 +77,9 @@ public class Event
 	 * 
 	 * @see ie.cit.cloud.tickets.model.performance.IEvent#getId()
 	 */
-	public int getId()
+	public Long getId()
 	{
 		return id;
-	}
-
-	public void setId(int id)
-	{
-		this.id = id;
 	}
 
 	/*

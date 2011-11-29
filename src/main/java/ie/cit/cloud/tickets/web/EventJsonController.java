@@ -77,7 +77,7 @@ public class EventJsonController
 	
     @RequestMapping(value = "/performer/{performerId}", method = RequestMethod.DELETE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deletePerformer(@PathVariable("performerId") Long performerId)
+    public void deletePerformer(@PathVariable("performerId") Integer performerId)
     {
     	eventService.deletePerformer(performerId);
     }
@@ -152,7 +152,7 @@ public class EventJsonController
     /* 
      * 
      * try with 
-     * curl http://localhost:8080/tickets/api/location/Cork 
+     * curl http://localhost:8080/tickets/api/event/performer/U2 
      * 
      * */
     public @ResponseBody List<Event> getEventByPerformer(@PathVariable("performer") String performerName)
@@ -170,7 +170,7 @@ public class EventJsonController
     /* 
      * 
      * try with 
-     * curl http://localhost:8080/tickets/api/location/Cork 
+     * curl http://localhost:8080/tickets/api/event/location/Cork 
      * 
      * */
     public @ResponseBody List<Event> getEventByLocation(@PathVariable("location") String locationName)
@@ -188,7 +188,7 @@ public class EventJsonController
     /* 
      *
      * try with 
-     * curl http://localhost:8080/tickets/api/location/Cork 
+     * curl http://localhost:8080/tickets/api/event/performer/U2/location/Cork 
      * 
      * */
     public @ResponseBody List<Event> getEventByPerformerAndLocation(@PathVariable("performer") String performerName, @PathVariable("location") String locationName)
@@ -207,7 +207,7 @@ public class EventJsonController
      *
      * try: 
      * curl -i -H "Content-Type: application/json" 
-     * 		-X POST -d { } 
+     * 		-X POST -d '{"performer":{"name":"U2"}, "location":{"name":"Cork", "maxTicketCount":500}, "eventName":"U2 in Cork", "date":"1322593942892", "ticketCount":"400", "ticketPrice":"120" }' 
      * 		http://localhost:8080/tickets/api/event
      */
     public void createEvent(@RequestBody final Event newEvent, final HttpServletRequest request, final HttpServletResponse response)
@@ -222,7 +222,11 @@ public class EventJsonController
 //    	final Event event = eventService.createEvent(newEvent.getPerformerId(), newEvent.getLocationId(), newEvent.getDate(), newEvent.getEventName(), newEvent.getTicketCount(), newEvent.getTicketPrice());
 //    	response.addHeader("Event", getLocationForChildResource(request, event.getEventName()));
 //    }
-	
+
+    
+    
+    
+    
     private String getLocationForChildResource(final HttpServletRequest request, final Object childIdentifier)
 	{
 		// get the current URL from the request

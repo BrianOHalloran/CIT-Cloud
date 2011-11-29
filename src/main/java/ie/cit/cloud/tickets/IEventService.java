@@ -22,7 +22,7 @@ public interface IEventService
 
 	Performer createPerformer(final String name);
 
-	void deletePerformer(final Long performerId);
+	void deletePerformer(final Integer performerId);
 
 	List<Event> getEvents();
 
