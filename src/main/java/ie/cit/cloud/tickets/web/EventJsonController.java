@@ -77,7 +77,7 @@ public class EventJsonController
 	
     @RequestMapping(value = "/performer/{performerId}", method = RequestMethod.DELETE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deletePerformer(@PathVariable("performerId") Integer performerId)
+    public void deletePerformer(@PathVariable("performerId") Long performerId)
     {
     	eventService.deletePerformer(performerId);
     }
@@ -126,7 +126,6 @@ public class EventJsonController
      */
     public void createLocation(@RequestBody final Location location, final HttpServletRequest request, final HttpServletResponse response)
     {
-    	// TODO: need to sort out the mapping from JSON to Location object
     	final Location newLocation = eventService.createLocation(location.getName(), location.getMaxTicketCount());
     	response.addHeader("Performer", getLocationForChildResource(request, newLocation.getName()));
     }
@@ -210,18 +209,18 @@ public class EventJsonController
      * 		-X POST -d '{"performer":{"name":"U2"}, "location":{"name":"Cork", "maxTicketCount":500}, "eventName":"U2 in Cork", "date":"1322593942892", "ticketCount":"400", "ticketPrice":"120" }' 
      * 		http://localhost:8080/tickets/api/event
      */
-    public void createEvent(@RequestBody final Event newEvent, final HttpServletRequest request, final HttpServletResponse response)
-    {
-    	// TODO: need to sort out the mapping from JSON to Location object
-    	final Event event = eventService.createEvent(newEvent.getPerformer(), newEvent.getLocation(), newEvent.getDate(), newEvent.getEventName(), newEvent.getTicketCount(), newEvent.getTicketPrice());
-    	response.addHeader("Event", getLocationForChildResource(request, event.getEventName()));
-    }
-//    public void createEvent(@RequestBody final EventCreator newEvent, final HttpServletRequest request, final HttpServletResponse response)
+//    public void createEvent(@RequestBody final Event newEvent, final HttpServletRequest request, final HttpServletResponse response)
 //    {
-//    	// TODO: need to sort out the mapping from JSON to Location object
-//    	final Event event = eventService.createEvent(newEvent.getPerformerId(), newEvent.getLocationId(), newEvent.getDate(), newEvent.getEventName(), newEvent.getTicketCount(), newEvent.getTicketPrice());
+//    	// TODO: need to sort out the mapping from JSON to Event object
+//    	final Event event = eventService.createEvent(newEvent.getPerformer(), newEvent.getLocation(), newEvent.getDate(), newEvent.getEventName(), newEvent.getTicketCount(), newEvent.getTicketPrice());
 //    	response.addHeader("Event", getLocationForChildResource(request, event.getEventName()));
 //    }
+    public void createEvent(@RequestBody final EventCreator newEvent, final HttpServletRequest request, final HttpServletResponse response)
+    {
+    	// TODO: need to sort out the mapping from JSON to Event object
+    	final Event event = eventService.createEvent(newEvent.getPerformerId(), newEvent.getLocationId(), newEvent.getDate(), newEvent.getEventName(), newEvent.getTicketCount(), newEvent.getTicketPrice());
+    	response.addHeader("Event", getLocationForChildResource(request, event.getEventName()));
+    }
 
     
     

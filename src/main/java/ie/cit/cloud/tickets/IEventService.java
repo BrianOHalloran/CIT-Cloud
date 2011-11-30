@@ -10,7 +10,7 @@ import ie.cit.cloud.tickets.model.performance.Performer;
 
 public interface IEventService
 {
-	Location createLocation(final String locationName, final int maxTicketCount);
+	Location createLocation(final String locationName, final Long maxTicketCount);
 
 	Location getLocation(final String name);
 
@@ -22,7 +22,7 @@ public interface IEventService
 
 	Performer createPerformer(final String name);
 
-	void deletePerformer(final Integer performerId);
+	void deletePerformer(final Long performerId);
 
 	List<Event> getEvents();
 
@@ -34,19 +34,19 @@ public interface IEventService
 
 	Event getEvent(final String performerName, final String locationName, final Date eventDate);
 
-	Event createEvent(final int performer, 
-			final int location, 
+	Event createEvent(final Long performer, 
+			final Long location, 
 			final Date date, 
 			final String eventName, 
-			final int ticketCount,
-			final int ticketPrice);
+			final Long ticketCount,
+			final Long ticketPrice);
 
 	Event createEvent(final Performer performer, 
 			final Location location, 
 			final Date date, 
 			final String eventName, 
-			final int ticketCount,
-			final int ticketPrice);
+			final Long ticketCount,
+			final Long ticketPrice);
 	
 	List<Booking> getBookings();
 }

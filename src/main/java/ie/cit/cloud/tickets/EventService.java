@@ -30,7 +30,7 @@ public class EventService implements IEventService
 	}
 
 	@Transactional
-	public Location createLocation(final String locationName, final int maxTicketCount)
+	public Location createLocation(final String locationName, final Long maxTicketCount)
 	{
 		return eventRepository.createLocation(locationName, maxTicketCount);
 	}
@@ -55,7 +55,7 @@ public class EventService implements IEventService
 	}
 	
 	@Transactional
-	public void deletePerformer(final Integer performerId)
+	public void deletePerformer(final Long performerId)
 	{
 		eventRepository.deletePerformer(performerId);
 	}
@@ -97,7 +97,7 @@ public class EventService implements IEventService
 		}
 		catch(final EmptyResultDataAccessException e)
 		{
-			
+			throw e;
 		}
 		
 		Location location = null;
@@ -107,19 +107,17 @@ public class EventService implements IEventService
 		}
 		catch(final EmptyResultDataAccessException e)
 		{
-			
+			throw e;
 		}
 
-		final List<Event> events = Collections.emptyList();
 		try
 		{
-			events.addAll(eventRepository.getEvents(performer, location));
+			return eventRepository.getEvents(performer, location);
 		}
 		catch(final EmptyResultDataAccessException e)
 		{
-			
+			return Collections.emptyList();
 		}
-		return events;
 	}
 
 	@Override
@@ -145,12 +143,12 @@ public class EventService implements IEventService
 	}
 	
 	@Transactional
-	public Event createEvent(final int performerId, 
-			final int locationId, 
+	public Event createEvent(final Long performerId, 
+			final Long locationId, 
 			final Date date, 
 			final String eventName, 
-			final int ticketCount,
-			final int ticketPrice)
+			final Long ticketCount,
+			final Long ticketPrice)
 	{
 		if(date == null || eventName == null)
 		{
@@ -167,8 +165,8 @@ public class EventService implements IEventService
 			final Location location, 
 			final Date date, 
 			final String eventName, 
-			final int ticketCount,
-			final int ticketPrice)
+			final Long ticketCount,
+			final Long ticketPrice)
 	{
 		if(performer == null || location == null || date == null || ticketCount < 0 || ticketPrice < 0)
 		{

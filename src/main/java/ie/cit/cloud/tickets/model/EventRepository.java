@@ -41,7 +41,7 @@ public class EventRepository implements IEventRepository
 	}
 	
 	@Override
-	public void deletePerformer(final Integer performerId)
+	public void deletePerformer(final Long performerId)
 	{
 		final Performer performer = getPerformer(performerId);
 		if(performer == null)
@@ -69,7 +69,7 @@ public class EventRepository implements IEventRepository
 	}
 	
 	@Override
-	public Performer getPerformer(Integer performerId)
+	public Performer getPerformer(Long performerId)
 	{
 		final Query query = em.createQuery("from Performer p where p.id = :performerId");
 		query.setParameter("performerId", performerId);
@@ -101,7 +101,8 @@ public class EventRepository implements IEventRepository
 		return em.createQuery("from Performer").getResultList();
 	}
 
-	public Location createLocation(final String locationName, final int ticketCount)
+	@Override
+	public Location createLocation(final String locationName, final Long ticketCount)
 	{
 		final Location location = new Location(locationName, ticketCount);
 		em.persist(location);
@@ -109,7 +110,7 @@ public class EventRepository implements IEventRepository
 	}
  
 	@Override
-	public Location getLocation(int locationId)
+	public Location getLocation(Long locationId)
 	{
 		final Query query = em.createQuery("from Location l where l.id = :locationId");
 		query.setParameter("locationId", locationId);
@@ -224,7 +225,7 @@ public class EventRepository implements IEventRepository
 	}
 	
 	@Override
-	public Event createEvent(final Performer performer, final Location location, final Date date, final String eventName, final int ticketCount, final int ticketPrice)
+	public Event createEvent(final Performer performer, final Location location, final Date date, final String eventName, final Long ticketCount, final Long ticketPrice)
 	{
 		final Event event = new Event(performer, location, date, eventName, ticketCount, ticketPrice);
 		em.persist(event);

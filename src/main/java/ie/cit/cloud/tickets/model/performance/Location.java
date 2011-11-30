@@ -27,14 +27,14 @@ public class Location
 
 	@Basic
 	@Min(value = 1)
-	private Integer maxTicketCount = 0;
+	private Long maxTicketCount;
 
 	public Location()
 	{
 		
 	}
 	
-	public Location(final String locationName, final Integer maxTicketCount)
+	public Location(final String locationName, final Long maxTicketCount)
 	{
 		name = locationName;
 		this.maxTicketCount = maxTicketCount;
@@ -66,7 +66,7 @@ public class Location
 	/* (non-Javadoc)
 	 * @see ie.cit.cloud.tickets.model.performance.ILocation#getMaxTicketCount()
 	 */
-	public int getMaxTicketCount()
+	public Long getMaxTicketCount()
 	{
 		return maxTicketCount;
 	}
@@ -74,22 +74,21 @@ public class Location
 	/* (non-Javadoc)
 	 * @see ie.cit.cloud.tickets.model.performance.ILocation#setMaxTicketCount(int)
 	 */
-	public void setMaxTicketCount(final int maxTicketCount)
+	public void setMaxTicketCount(final Long maxTicketCount)
 	{
 		this.maxTicketCount = maxTicketCount;
 	}
 
 	public int hashCode()
 	{
-		return name.hashCode() + maxTicketCount;
+		return name.hashCode();
 	}
 	
 	public boolean equals(final Object other)
 	{
 		if(other != null && other instanceof Performer)
 		{
-			return name.equals(((Location)other).getName()) && 
-					maxTicketCount == ((Location)other).getMaxTicketCount();
+			return name.equals(((Location)other).getName());
 		}
 		return false;
 	}

@@ -12,13 +12,13 @@ import java.util.List;
 public interface IEventRepository
 {
 	Performer createPerformer(final String name);
-	Performer getPerformer(final Integer performerId);
+	Performer getPerformer(final Long performerId);
 	Performer getPerformer(final String performerName);
 	List<Performer> getPerformers();
-	void deletePerformer(final Integer performerId);
+	void deletePerformer(final Long performerId);
 	
-	Location createLocation(final String locationName, final int ticketCount);
-	Location getLocation(final int locationId);
+	Location createLocation(final String locationName, final Long ticketCount);
+	Location getLocation(final Long locationId);
 	Location getLocation(final String locationName);
 	List<Location> getLocations();
 	
@@ -34,8 +34,8 @@ public interface IEventRepository
 			final Location location, 
 			final Date date, 
 			final String eventName, 
-			final int ticketCount,
-			final int ticketPrice);
+			final Long ticketCount,
+			final Long ticketPrice);
 
 	Customer createCustomer(final String name, 
 			final String phoneNumber, 

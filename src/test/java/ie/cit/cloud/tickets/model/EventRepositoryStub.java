@@ -1,5 +1,7 @@
 package ie.cit.cloud.tickets.model;
 
+import ie.cit.cloud.tickets.model.customer.Booking;
+import ie.cit.cloud.tickets.model.customer.Customer;
 import ie.cit.cloud.tickets.model.performance.Event;
 import ie.cit.cloud.tickets.model.performance.Location;
 import ie.cit.cloud.tickets.model.performance.Performer;
@@ -79,6 +81,76 @@ public class EventRepositoryStub implements IEventRepository
 
 	@Override
 	public List<Event> getEvents()
+	{
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Performer createPerformer(String name)
+	{
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Performer getPerformer(Long performerId)
+	{
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void deletePerformer(Long performerId)
+	{
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public Location createLocation(String locationName, Long ticketCount)
+	{
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Location getLocation(Long locationId)
+	{
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Event> getEventsForPerformer(String performerName)
+	{
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Event> getEventsForLocation(String locationName)
+	{
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Event createEvent(Performer performer, Location location, Date date, String eventName, Long ticketCount, Long ticketPrice)
+	{
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Customer createCustomer(String name, String phoneNumber, String creditCard, String username, String password)
+	{
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Booking> getCustomerBookings()
 	{
 		// TODO Auto-generated method stub
 		return null;

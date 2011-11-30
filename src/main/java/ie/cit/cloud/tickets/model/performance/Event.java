@@ -12,7 +12,6 @@ import javax.persistence.Table;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
-import org.hibernate.annotations.CascadeType;
 import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
@@ -40,10 +39,10 @@ public class Event
 	private String eventName;
 
 	@Min(value = 1)
-	private Integer ticketCount;
+	private Long ticketCount;
 
 	@Min(value = 1)
-	private Integer ticketPrice;
+	private Long ticketPrice;
 
 	public Event()
 	{
@@ -54,8 +53,8 @@ public class Event
 			final Location location, 
 			final Date date, 
 			final String eventName, 
-			final Integer ticketCount,
-			final Integer ticketPrice)
+			final Long ticketCount,
+			final Long ticketPrice)
 	{
 		this.performer = performer;
 		this.location = location;
@@ -174,7 +173,7 @@ public class Event
 	 * 
 	 * @see ie.cit.cloud.tickets.model.performance.IEvent#getTicketCount()
 	 */
-	public int getTicketCount()
+	public Long getTicketCount()
 	{
 		return ticketCount;
 	}
@@ -184,7 +183,7 @@ public class Event
 	 * 
 	 * @see ie.cit.cloud.tickets.model.performance.IEvent#setTicketCount(int)
 	 */
-	public void setTicketCount(final int ticketCount)
+	public void setTicketCount(final Long ticketCount)
 	{
 		this.ticketCount = ticketCount;
 	}
@@ -194,7 +193,7 @@ public class Event
 	 * 
 	 * @see ie.cit.cloud.tickets.model.performance.IEvent#getTicketPrice()
 	 */
-	public int getTicketPrice()
+	public Long getTicketPrice()
 	{
 		return ticketPrice;
 	}
@@ -204,7 +203,7 @@ public class Event
 	 * 
 	 * @see ie.cit.cloud.tickets.model.performance.IEvent#setTicketPrice(int)
 	 */
-	public void setTicketPrice(final int ticketPrice)
+	public void setTicketPrice(final Long ticketPrice)
 	{
 		this.ticketPrice = ticketPrice;
 	}
