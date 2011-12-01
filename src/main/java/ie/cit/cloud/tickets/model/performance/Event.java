@@ -27,14 +27,14 @@ public class Event
 	@OneToOne
 	private Location location;
 
-	@NotNull
-	private Date date;
+//	@NotNull
+//	private Date date;
 
 	@Min(value = 1)
 	private Long ticketCount;
 
-	@Min(value = 1)
-	private Long ticketPrice;
+//	@Min(value = 1)
+//	private Long ticketPrice;
 
 	public Event()
 	{
@@ -43,14 +43,15 @@ public class Event
 
 	public Event(final Performer performer, 
 			final Location location, 
-			final Date date, 
+//			final Date date, 
 			final String eventName, 
-			final Long ticketCount,
-			final Long ticketPrice)
+			final Long ticketCount//,
+//			final Long ticketPrice
+			)
 	{
 		this.performer = performer;
 		this.location = location;
-		this.date = date;
+//		this.date = date;
 		this.eventName = eventName;
 		if(ticketCount > location.getMaxTicketCount())
 		{
@@ -60,7 +61,7 @@ public class Event
 		{
 			this.ticketCount = ticketCount;
 		}
-		this.ticketPrice = ticketPrice;
+//		this.ticketPrice = ticketPrice;
 	}
 
 	public Performer getPerformer()
@@ -83,15 +84,15 @@ public class Event
 		this.location = location;
 	}
 
-	public Date getDate()
-	{
-		return date;
-	}
-
-	public void setDate(final Date date)
-	{
-		this.date = date;
-	}
+//	public Date getDate()
+//	{
+//		return date;
+//	}
+//
+//	public void setDate(final Date date)
+//	{
+//		this.date = date;
+//	}
 
 	public String getEventName()
 	{
@@ -113,15 +114,15 @@ public class Event
 		this.ticketCount = ticketCount;
 	}
 
-	public Long getTicketPrice()
-	{
-		return ticketPrice;
-	}
-
-	public void setTicketPrice(final Long ticketPrice)
-	{
-		this.ticketPrice = ticketPrice;
-	}
+//	public Long getTicketPrice()
+//	{
+//		return ticketPrice;
+//	}
+//
+//	public void setTicketPrice(final Long ticketPrice)
+//	{
+//		this.ticketPrice = ticketPrice;
+//	}
 
 	public int hashCode()
 	{

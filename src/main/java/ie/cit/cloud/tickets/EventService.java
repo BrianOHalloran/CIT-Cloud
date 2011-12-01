@@ -2,12 +2,10 @@ package ie.cit.cloud.tickets;
 
 import ie.cit.cloud.tickets.model.IEventRepository;
 import ie.cit.cloud.tickets.model.customer.Booking;
-import ie.cit.cloud.tickets.model.customer.Customer;
 import ie.cit.cloud.tickets.model.performance.Event;
 import ie.cit.cloud.tickets.model.performance.Location;
 import ie.cit.cloud.tickets.model.performance.Performer;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -127,7 +125,7 @@ public class EventService implements IEventService
 	public List<Event> getEvents(final String performerName, final String locationName)
 	{
 		Performer performer = null;
-		if(performerName != null)
+		if(performerName != null && !performerName.equals(""))
 		{
 			try
 			{
@@ -140,7 +138,7 @@ public class EventService implements IEventService
 		}
 		
 		Location location = null;
-		if(locationName != null)
+		if(locationName != null && !locationName.equals(""))
 		{
 			try
 			{
@@ -179,43 +177,47 @@ public class EventService implements IEventService
 	{
 		final Performer performer = eventRepository.getPerformer(performerName);
 		final Location location = eventRepository.getLocation(locationName);
-		return eventRepository.getEvent(performer, location, eventDate);
+		return eventRepository.getEvent(performer, location);
 	}
 	
 	@Transactional
 	public Event createEvent(final String performerName, 
 			final String locationName, 
-			final Date date, 
 			final String eventName, 
-			final Long ticketCount,
-			final Long ticketPrice)
+			final Long ticketCount)
 	{
-		if(date == null || eventName == null)
+		if(eventName == null)
 		{
 			return null;
 		}
 		
 		Performer performer = eventRepository.getPerformer(performerName);
 		Location location = eventRepository.getLocation(locationName);
-		if(performer == null || location == null || date == null || ticketCount < 0 || ticketPrice < 0)
+		if(performer == null || location == null || ticketCount < 0)
 		{
 			return null;
 		}
 		
-		return eventRepository.createEvent(performer, location, date, eventName, ticketCount, ticketPrice);
+		return eventRepository.createEvent(performer, location, eventName, ticketCount);
 	}
 
-	@Transactional
-	public Customer createCustomer(final String name, final String phone, final String ccNum, final String username, final String password)
-	{
-		final Customer customer = new Customer(name, phone, ccNum, username, password);
-		// TODO: populate this
-		return customer;
-	}
+//	@Transactional
+//	public Customer createCustomer(final String name, final String phone, final String ccNum, final String username, final String password)
+//	{
+//		final Customer customer = new Customer(name, phone, ccNum, username, password);
+//		// TODO: populate this
+//		return customer;
+//	}
 	
 	@Transactional(readOnly = true)
 	public List<Booking> getBookings()
 	{
 		return eventRepository.getCustomerBookings();
+	}
+	
+	@Transactional
+	public long createBooking(String performerName, String locationName, int numTickets)
+	{
+		return eventRepository.createCustomerBooking(performerName, locationName, numTickets);
 	}
 }

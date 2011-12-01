@@ -38,12 +38,16 @@ public interface IEventService
 
 	Event createEvent(final String performer, 
 			final String location, 
-			final Date date, 
 			final String eventName, 
-			final Long ticketCount,
-			final Long ticketPrice);
+			final Long ticketCount);
+//	Event createEvent(final String performer, 
+//			final String location, 
+//			final Date date, 
+//			final String eventName, 
+//			final Long ticketCount,
+//			final Long ticketPrice);
 
-	Customer createCustomer(final String name, final String phone, final String ccNum, final String username, final String password);
-	
 	List<Booking> getBookings();
+	
+	long createBooking(String performerName, String locationName, int numTickets);
 }

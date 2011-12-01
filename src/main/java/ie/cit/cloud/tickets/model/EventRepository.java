@@ -9,9 +9,7 @@ import ie.cit.cloud.tickets.model.performance.Event;
 import ie.cit.cloud.tickets.model.performance.Location;
 import ie.cit.cloud.tickets.model.performance.Performer;
 
-import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Query;
@@ -218,20 +216,47 @@ public class EventRepository implements IEventRepository
 		}
 	}
 
+	public Event getEvent(final Performer performer, final Location location)
+	{
+		Query query = null;
+		if(performer != null && location != null)
+		{
+			query = em.createQuery("from Event e where e.location.name = :locationName and e.performer.name = :performerName");
+			query.setParameter("locationName", location.getName());
+			query.setParameter("performerName", performer.getName());
+			return (Event)query.getSingleResult();
+		}
+		else if(performer == null && location != null)
+		{
+			query = em.createQuery("from Event e where e.location.name = :locationName");
+			query.setParameter("locationName", location.getName());
+			return (Event)query.getSingleResult();
+		}
+		else if(performer != null && location == null)
+		{
+			query = em.createQuery("from Event e where e.performer.id = :performerName");
+			query.setParameter("performerName", performer.getName());
+			return (Event)query.getSingleResult();
+		}
+		else
+		{
+			return null;
+		}
+	}
+	
 	@Override
-	public Event createEvent(final Performer performer, final Location location, final Date date, final String eventName, final Long ticketCount, final Long ticketPrice)
+	public Event createEvent(final Performer performer, final Location location, final String eventName, final Long ticketCount)
 	{
 		try
 		{
-			Event event = getEvent(performer, location, date);
+			Event event = getEvent(performer, location);
 			event.setEventName(eventName);
 			event.setTicketCount(ticketCount);
-			event.setTicketPrice(ticketPrice);
 			return event;
 		}
 		catch (Exception e)
 		{
-			final Event event = new Event(performer, location, date, eventName, ticketCount, ticketPrice);
+			final Event event = new Event(performer, location, eventName, ticketCount);
 			em.persist(event);
 			return event;
 		}
@@ -273,19 +298,19 @@ public class EventRepository implements IEventRepository
 		return Collections.emptyList();
 	}
 
-	@Override
-	public Event getEvent(final Performer performer, final Location location, final Date date)
-	{
-		final Query query = em.createQuery("from Event e where e.location.name = :locationName and e.performer.name = :performerName and e.date = :date");
-		query.setParameter("locationName", location.getName());
-		query.setParameter("performerName", performer.getName());
-		final Object result = query.getSingleResult();
-		if(result != null && result instanceof Event)
-		{
-			return (Event)result;
-		}
-		return null;
-	}
+//	@Override
+//	public Event getEvent(final Performer performer, final Location location, final Date date)
+//	{
+//		final Query query = em.createQuery("from Event e where e.location.name = :locationName and e.performer.name = :performerName and e.date = :date");
+//		query.setParameter("locationName", location.getName());
+//		query.setParameter("performerName", performer.getName());
+//		final Object result = query.getSingleResult();
+//		if(result != null && result instanceof Event)
+//		{
+//			return (Event)result;
+//		}
+//		return null;
+//	}
 
 	@Override
 	public Customer createCustomer(final String name, final String phoneNumber, final String creditCard, final String username, final String password)
@@ -298,7 +323,7 @@ public class EventRepository implements IEventRepository
 	@SuppressWarnings("unchecked")
 	public List<Booking> getCustomerBookings()
 	{
-		final Query query = em.createQuery("from Booking b where b.customer.username = :username");
+		final Query query = em.createQuery("from Booking b where b.user = :username");
 		query.setParameter("username", getCurrentUsername());
 		final List<Booking> events = (List<Booking>)query.getResultList();
 		if(events != null && !events.isEmpty())
@@ -306,6 +331,16 @@ public class EventRepository implements IEventRepository
 			return (List<Booking>)events;
 		}
 		return Collections.emptyList();
+	}
+	
+	public long createCustomerBooking(final String performerName, final String locationName, final int ticketCount)
+	{
+		Performer performer = getPerformer(performerName);
+		Location location = getLocation(locationName);
+		Event event = getEvent(performer, location);
+		final Booking booking = new Booking(getCurrentUsername(), event, ticketCount);
+		em.persist(booking);
+		return booking.getId();
 	}
 	
 	private String getCurrentUsername()

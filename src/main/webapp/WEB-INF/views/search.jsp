@@ -20,6 +20,7 @@
 	<h1 align="center">Ticket Slave</h1>
 	<h2 align="center"><i>The Alternative Ticket and Event Booking Application</i></h2>
 	<img src="springsource.png" align="middle">
+
 	<form action="accounts/account" method="get">
 		<input type="submit" value="Login">
 	</form>
@@ -36,13 +37,16 @@
 	<h2 align="center">
 		<i>Search results</i>
 	</h2>
+	<form action="secure/account" method="post">
 	<table border="1" align="center">
 		<tr>
 			<th width="100">Performer</th>
 			<th width="100">Location</th>
 			<th width="100">Event Name</th>
 			<th width="100">Date</th>
-			<th width="100">Event Id</th>
+			<th width="100">Remaining</th>
+			<th width="100">Ticket Count</th>
+			<th width="100">Book</th>
 			</tr>
 		<c:forEach var="event" items="${events}" varStatus="index">
 			<tr align="center">
@@ -50,40 +54,19 @@
 				<td>${event.location.name}</td>
 				<td>${event.eventName}</td>
 				<td>${event.date}</td>
-				<td>${event.id}</td>
+				<td>${event.ticketCount}</td>
+				<td>
+					<select name="ticketCountSelection" size="1">
+						<option value="1">1</option>
+						<option selected value="2">2</option>
+						<option value="3">3</option>
+						<option value="4">4</option>
+					</select>
+				</td>
+				<td><input type="submit" value="Book Event" /></td>
 			</tr>
 		</c:forEach>
 	</table>
-	
-	<h2 align="center">
-		<i>Book tickets</i>
-	</h2>
-
-	<form action="bookEvent" method="post">
-		Enter Event Id: <input type="text" name="eventId" />
-		<br />
-		Number of tickets: 
-		<select name="ticketCountSelection" size="1">
-			<option value="1">1</option>
-			<option selected value="2">2</option>
-			<option value="3">3</option>
-			<option value="4">4</option>
-		<br />
-		</select> <input type="submit" value="Book Event">
 	</form>
-
-	<%-- 
-	<table>
-		<c:forEach var="event" items="${events}" varStatus="index">
-			<p>
-				<td>${event.performer.name}</td>
-				<td>${event.location.name}</td>
-				<td>${event.eventName}</td>
-			</p>
-			<br />
-		</c:forEach>
-	</table>
-	<hr>
- --%>
 	</body>
 </html>

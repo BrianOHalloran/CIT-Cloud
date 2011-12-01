@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import ie.cit.cloud.tickets.IEventService;
+import ie.cit.cloud.tickets.model.customer.Booking;
 import ie.cit.cloud.tickets.model.performance.Event;
 import ie.cit.cloud.tickets.model.performance.EventCreator;
 import ie.cit.cloud.tickets.model.performance.Location;
@@ -134,7 +135,7 @@ public class EventJsonController
 	/*
 	 * 
 	 * try: curl -i -H "Content-Type: application/json" -X POST -d
-	 * {"name":"Cork","maxTicketCount":"500"}
+	 * {"name":"Cork","maxTicketCount":500}
 	 * http://localhost:8080/tickets/api/location
 	 */
 	@RequestMapping(value = "/location", method = RequestMethod.POST)
@@ -204,7 +205,7 @@ public class EventJsonController
 	/*
 	 * 
 	 * try: curl -i -H "Content-Type: application/json" -X POST -d
-	 * '{"performerName":"U2", "locationName":"Cork", "eventName":"U2 Live - Cork", "date":"1322593942892", "ticketCount":"400", "ticketPrice":"120" }'
+	 * '{"performerName":"U2", "locationName":"Cork", "eventName":"U2 Live - Cork", "ticketCount":400 }'
 	 * http://localhost:8080/tickets/api/event
 	 */
 	@RequestMapping(value = "/event", method = RequestMethod.POST)
@@ -213,14 +214,18 @@ public class EventJsonController
 	{
 		final Event event = eventService.createEvent(newEvent.getPerformerName(),
 				newEvent.getLocationName(), 
-				newEvent.getDate(),
 				newEvent.getEventName(), 
-				newEvent.getTicketCount(),
-				newEvent.getTicketPrice());
+				newEvent.getTicketCount());
 		response.addHeader("Event", getLocationForChildResource(request, event.getEventName()));
 	}	
 	
 	
+	@RequestMapping("bookings")
+	public @ResponseBody List<Booking> getBookings()
+	{
+		return eventService.getBookings();
+	}
+
 	
 		
 

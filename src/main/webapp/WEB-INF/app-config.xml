@@ -34,8 +34,8 @@
 	</bean>
  -->
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" />
-
-	<aop:aspectj-autoproxy />
+ 
+ 	<aop:aspectj-autoproxy />
 
 	<tx:annotation-driven />
 
@@ -63,6 +63,8 @@
 		<security:logout logout-url="/logout" logout-success-url="/index.jsp"/>
 	</security:http>
 
+	<security:global-method-security secured-annotations="enabled" />
+	
 	<security:authentication-manager>
 		<security:authentication-provider>
 			<security:user-service properties="classpath:users.properties">

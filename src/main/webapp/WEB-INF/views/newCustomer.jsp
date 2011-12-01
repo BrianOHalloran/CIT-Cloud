@@ -23,11 +23,29 @@ body
 	<hr>
 
 	<form action="customerCreateDetails" method="post">
-		Name:        <input type="text" name="customerName" />
-		Phone:       <input type="text" name="customerPhone" />
-		Credit Card: <input type="text" name="customerCreditCard" />
-		Username:    <input type="text" name="customerUsername" />
-		Password:    <input type="text" name="customerPassword" />
+		<table>
+			<tr>
+				<td>Name</td>
+				<td><input type="text" name="customerName" /></td>
+			</tr>
+			<tr>
+				<td>Phone</td>
+				<td><input type="text" name="customerPhone" /></td>
+			</tr>
+			<tr>
+				<td>Credit Card</td>
+				<td><input type="text" name="customerCreditCard" /></td>
+			</tr>
+			<tr>
+				<td>Username</td>
+				<td><input type="text" name="customerUsername" /></td>
+			</tr>
+			<tr>
+				<td>Password</td>
+				<td><input type="text" name="customerPassword" /></td>
+			</tr>
+		</table>
+
 		<input type="submit" value="Create Account">
 	</form>
 

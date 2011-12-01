@@ -16,26 +16,27 @@ public class EventCreator
 
 	private String locationName;
 
-	private Date date;
+//	private Date date;
 
 	private String eventName;
 
 	private Long ticketCount;
 
-	private Long ticketPrice;
+//	private Long ticketPrice;
 
 	public EventCreator()
 	{
 	}
 
-	public EventCreator(final String performerName, final String locationName, final Date date, final String eventName, final Long ticketCount, final Long ticketPrice)
+//	public EventCreator(final String performerName, final String locationName, final Date date, final String eventName, final Long ticketCount, final Long ticketPrice)
+	public EventCreator(final String performerName, final String locationName, final String eventName, final Long ticketCount)
 	{
 		this.performerName = performerName;
 		this.locationName = locationName;
-		this.date = date;
+//		this.date = date;
 		this.eventName = eventName;
 		this.ticketCount = ticketCount;
-		this.ticketPrice = ticketPrice;
+//		this.ticketPrice = ticketPrice;
 	}
 
 	public String getPerformerName()
@@ -48,10 +49,10 @@ public class EventCreator
 		return locationName;
 	}
 
-	public Date getDate()
-	{
-		return date;
-	}
+//	public Date getDate()
+//	{
+//		return date;
+//	}
 
 	public String getEventName()
 	{
@@ -63,10 +64,10 @@ public class EventCreator
 		return ticketCount;
 	}
 
-	public Long getTicketPrice()
-	{
-		return ticketPrice;
-	}
+//	public Long getTicketPrice()
+//	{
+//		return ticketPrice;
+//	}
 
 	public void setPerformerName(String performerName)
 	{
@@ -78,10 +79,10 @@ public class EventCreator
 		this.locationName = locationName;
 	}
 
-	public void setDate(Date date)
-	{
-		this.date = date;
-	}
+//	public void setDate(Date date)
+//	{
+//		this.date = date;
+//	}
 
 	public void setEventName(String eventName)
 	{
@@ -93,8 +94,8 @@ public class EventCreator
 		this.ticketCount = ticketCount;
 	}
 
-	public void setTicketPrice(Long ticketPrice)
-	{
-		this.ticketPrice = ticketPrice;
-	}
+//	public void setTicketPrice(Long ticketPrice)
+//	{
+//		this.ticketPrice = ticketPrice;
+//	}
 }

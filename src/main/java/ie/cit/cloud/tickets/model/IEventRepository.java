@@ -28,15 +28,17 @@ public interface IEventRepository
 	List<Event> getEventsForLocation(final String locationName);
 	List<Event> getEvents(final Performer performer, 
 			final Location location);
-	Event getEvent(final Performer performer, 
-			final Location location, 
-			final Date date);
+	Event getEvent(final Performer performer, final Location location);
+//	Event getEvent(final Performer performer, 
+//			final Location location, 
+//			final Date date);
 	Event createEvent(final Performer performer, 
 			final Location location, 
-			final Date date, 
+//			final Date date, 
 			final String eventName, 
-			final Long ticketCount,
-			final Long ticketPrice);
+			final Long ticketCount//,
+//			final Long ticketPrice
+			);
 
 	Customer createCustomer(final String name, 
 			final String phoneNumber, 
@@ -45,4 +47,6 @@ public interface IEventRepository
 			final String password);
 	
 	List<Booking> getCustomerBookings();
+	
+	long createCustomerBooking(final String performerName, final String locationName, final int ticketCount);
 }

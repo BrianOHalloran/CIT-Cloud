@@ -18,15 +18,10 @@ body
 </style>
 </head>
 <body>
-<%--
- 	User: <security:authentication property="principal.username"/>
-	</br>
-	<a href="j_spring_security_logout">Logout</a> 
-	</br>
- --%>
  	<h1 align="center">Ticket Slave</h1>
 	<h2 align="center"><i>The Alternative Ticket and Event Booking Application</i></h2>
 	<img src="springsource.png" align=middle>
+	
 	<form action="secure/account" method="get">
 		<input type="submit" value="Login">
 	</form>
@@ -39,14 +34,62 @@ body
 
 	<hr>
 
-	<form action="doSearch" method="get">
-		Performer (Available: ${fn:length(performers)}): <input type="text" name="performerSelection" />
-		<br />
-		Location (Available: ${fn:length(locations)}): <input type="text" name="locationSelection" /> 
-		<br />
-		<input type="submit" value="Search for Events">
-		<br />
+	<h3 align="center"><i>Current Event Listings</i></h3>
+	<table border="1" align="center">
+		<tr>
+			<th width="100">Performer</th>
+			<th width="100">Location</th>
+			<th width="100">Event Name</th>
+			<th width="100">Tickets Remaining</th>
+		</tr>
+		<c:forEach var="event" items="${events}" varStatus="index">
+			<tr align="center">
+				<td>${event.performer.name}</td>
+				<td>${event.location.name}</td>
+				<td>${event.eventName}</td>
+				<td>${event.ticketCount}</td>
+			</tr>
+		</c:forEach>
+	</table>
+
+	<hr>
+
+	<form action="secure/account" method="post">
+		<table border="1" align="center">
+			<tr>
+				<th width="100">Performer</th>
+				<th width="100">Location</th>
+				<th width="100">Ticket Count</th>
+				<th width="100">Book</th>
+			</tr>
+			<tr align="center">
+				<td>
+					<select name="performerName" size="1">
+						<c:forEach var="performer" items="${performers}" varStatus="index">
+							<option>${performer.name}</option>
+						</c:forEach>
+					</select>
+				</td>
+				<td>
+					<select name="locationName" size="1">
+						<c:forEach var="location" items="${locations}" varStatus="index">
+							<option>${location.name}</option>
+						</c:forEach>
+					</select>
+				</td>
+				<td>
+					<select name="ticketCountSelection" size="1">
+						<option value="1">1</option>
+						<option selected value="2">2</option>
+						<option value="3">3</option>
+						<option value="4">4</option>
+					</select>
+				</td>
+				<td><input type="submit" value="Book Event" /></td>
+			</tr>
+		</table>
 	</form>
+
 
 </body>
 </html>
