@@ -28,9 +28,14 @@ import org.springframework.web.util.UriTemplate;
 @RequestMapping("api")
 public class EventJsonController
 {
-	@Autowired
 	IEventService eventService;
 
+	@Autowired
+	public EventJsonController(IEventService eventService)
+	{
+		this.eventService = eventService;
+	}
+	
 	/* 
 	 * try with 
 	 * curl http://localhost:8080/tickets/api/performers 
@@ -73,7 +78,7 @@ public class EventJsonController
     public void createPerformer(@RequestBody final Performer performer, final HttpServletRequest request, final HttpServletResponse response)
     {
     	eventService.createPerformer(performer);
-    	response.addHeader("Performer", getLocationForChildResource(request, performer.getName()));
+    	response.addHeader("performer", getLocationForChildResource(request, performer.getName()));
     }
 	
     @RequestMapping(value = "/performer/{performerName}", method = RequestMethod.DELETE)
@@ -122,9 +127,9 @@ public class EventJsonController
      * curl http://localhost:8080/tickets/api/event/location/Cork 
      * 
      * */
-    public @ResponseBody List<Event> getEventByLocation(@PathVariable("location") String locationName)
+    public @ResponseBody Event getEventByLocation(@PathVariable("location") String locationName)
     {
-    	final List<Event> event = eventService.getEvents(null, locationName);
+    	final Event event = eventService.getEvent(null, locationName);
     	if(event == null)
     	{
     		throw new WebNotFoundException(locationName);
@@ -173,9 +178,9 @@ public class EventJsonController
 	 */
 	@RequestMapping(value = "/event/performer/{performer}", method = RequestMethod.GET)
 	@ResponseStatus(HttpStatus.OK)
-	public @ResponseBody List<Event> getEventByPerformer(@PathVariable("performer") String performerName)
+	public @ResponseBody Event getEventByPerformer(@PathVariable("performer") String performerName)
 	{
-		final List<Event> event = eventService.getEvents(performerName, null);
+		final Event event = eventService.getEvent(performerName, null);
 		if(event == null)
 		{
 			throw new WebNotFoundException(performerName);
@@ -191,9 +196,9 @@ public class EventJsonController
     * */
     @RequestMapping(value = "/event/performer/{performer}/location/{location}", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
-    public @ResponseBody List<Event> getEventByPerformerAndLocation(@PathVariable("performer") String performerName, @PathVariable("location") String locationName)
+    public @ResponseBody Event getEventByPerformerAndLocation(@PathVariable("performer") String performerName, @PathVariable("location") String locationName)
     {
-    	final List<Event> event = eventService.getEvents(performerName, locationName);
+    	final Event event = eventService.getEvent(performerName, locationName);
     	if(event == null)
     	{
     		throw new WebNotFoundException(locationName);

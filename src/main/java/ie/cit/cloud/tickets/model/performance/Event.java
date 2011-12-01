@@ -2,6 +2,7 @@ package ie.cit.cloud.tickets.model.performance;
 
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
@@ -27,14 +28,8 @@ public class Event
 	@OneToOne
 	private Location location;
 
-//	@NotNull
-//	private Date date;
-
 	@Min(value = 1)
-	private Long ticketCount;
-
-//	@Min(value = 1)
-//	private Long ticketPrice;
+	private Integer ticketCount;
 
 	public Event()
 	{
@@ -43,11 +38,8 @@ public class Event
 
 	public Event(final Performer performer, 
 			final Location location, 
-//			final Date date, 
 			final String eventName, 
-			final Long ticketCount//,
-//			final Long ticketPrice
-			)
+			final Integer ticketCount)
 	{
 		this.performer = performer;
 		this.location = location;
@@ -104,12 +96,12 @@ public class Event
 		this.eventName = eventName;
 	}
 
-	public Long getTicketCount()
+	public int getTicketCount()
 	{
 		return ticketCount;
 	}
 
-	public void setTicketCount(final Long ticketCount)
+	public void setTicketCount(final int ticketCount)
 	{
 		this.ticketCount = ticketCount;
 	}

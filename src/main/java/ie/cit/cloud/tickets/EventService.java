@@ -7,26 +7,23 @@ import ie.cit.cloud.tickets.model.performance.Location;
 import ie.cit.cloud.tickets.model.performance.Performer;
 
 import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 
-import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class EventService implements IEventService
 {
-	@Autowired
 	@Qualifier("hibernateEventRepository")
 	private IEventRepository eventRepository;
 
-	public EventService()
+	@Autowired
+	public EventService(final IEventRepository eventRepository)
 	{
-
+		this.eventRepository = eventRepository;
 	}
 
 	@Transactional(readOnly = true)
@@ -47,24 +44,9 @@ public class EventService implements IEventService
 	}
 
 	@Transactional
-	public Performer createPerformer(final String name)
-	{
-		final Performer performer = new Performer(name);
-		createPerformer(performer);
-		return performer;
-	}
-	
-	@Transactional
 	public void createPerformer(final Performer performer)
 	{
-		try
-		{
-			eventRepository.createPerformer(performer);
-		}
-		catch(final ConstraintViolationException e)
-		{
-			e.printStackTrace();
-		}
+		eventRepository.createPerformer(performer);
 	}
 	
 	@Transactional
@@ -92,14 +74,7 @@ public class EventService implements IEventService
 	@Transactional
 	public void createLocation(final Location location)
 	{
-		try
-		{
-			eventRepository.createLocation(location);
-		}
-		catch(final ConstraintViolationException e)
-		{
-			e.printStackTrace();
-		}
+		eventRepository.createLocation(location);
 	}
 
 	@Transactional(readOnly = true)
@@ -121,44 +96,38 @@ public class EventService implements IEventService
 		return eventRepository.getEvents();
 	}
 	
-	@Transactional(readOnly = true)
-	public List<Event> getEvents(final String performerName, final String locationName)
-	{
-		Performer performer = null;
-		if(performerName != null && !performerName.equals(""))
-		{
-			try
-			{
-				performer = eventRepository.getPerformer(performerName);
-			}
-			catch(final EmptyResultDataAccessException e)
-			{
-				return Collections.emptyList();
-			}
-		}
-		
-		Location location = null;
-		if(locationName != null && !locationName.equals(""))
-		{
-			try
-			{
-				location = eventRepository.getLocation(locationName);
-			}
-			catch(final EmptyResultDataAccessException e)
-			{
-				return Collections.emptyList();
-			}
-		}
-
-		try
-		{
-			return eventRepository.getEvents(performer, location);
-		}
-		catch(final EmptyResultDataAccessException e)
-		{
-			return Collections.emptyList();
-		}
-	}
+//	@Transactional(readOnly = true)
+//	public List<Event> getEvents(final String performerName, final String locationName)
+//	{
+//		Performer performer = null;
+//		if(performerName != null && !performerName.equals(""))
+//		{
+//			performer = eventRepository.getPerformer(performerName);
+//			if(performer == null)
+//			{
+//				return Collections.emptyList();
+//			}
+//		}
+//		
+//		Location location = null;
+//		if(locationName != null && !locationName.equals(""))
+//		{
+//			location = eventRepository.getLocation(locationName);
+//			if(location == null)
+//			{
+//				return Collections.emptyList();
+//			}
+//		}
+//
+//		try
+//		{
+//			return eventRepository.getEvents(performer, location);
+//		}
+//		catch(final EmptyResultDataAccessException e)
+//		{
+//			return Collections.emptyList();
+//		}
+//	}
 
 	@Transactional(readOnly = true)
 	public List<Event> getEventsFor(String performerName)
@@ -173,7 +142,7 @@ public class EventService implements IEventService
 	}
 
 	@Transactional(readOnly = true)
-	public Event getEvent(String performerName, String locationName, Date eventDate)
+	public Event getEvent(final String performerName, final String locationName)
 	{
 		final Performer performer = eventRepository.getPerformer(performerName);
 		final Location location = eventRepository.getLocation(locationName);
@@ -184,7 +153,7 @@ public class EventService implements IEventService
 	public Event createEvent(final String performerName, 
 			final String locationName, 
 			final String eventName, 
-			final Long ticketCount)
+			final int ticketCount)
 	{
 		if(eventName == null)
 		{
@@ -201,14 +170,6 @@ public class EventService implements IEventService
 		return eventRepository.createEvent(performer, location, eventName, ticketCount);
 	}
 
-//	@Transactional
-//	public Customer createCustomer(final String name, final String phone, final String ccNum, final String username, final String password)
-//	{
-//		final Customer customer = new Customer(name, phone, ccNum, username, password);
-//		// TODO: populate this
-//		return customer;
-//	}
-	
 	@Transactional(readOnly = true)
 	public List<Booking> getBookings()
 	{

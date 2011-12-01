@@ -15,9 +15,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class EventWebController
 {
-	@Autowired
 	IEventService eventService;
 
+	@Autowired
+	public EventWebController(IEventService eventService)
+	{
+		this.eventService = eventService;
+	}
+	
     @RequestMapping(value = { "index", "" }, method = GET)
     public String index(Model model) 
     {

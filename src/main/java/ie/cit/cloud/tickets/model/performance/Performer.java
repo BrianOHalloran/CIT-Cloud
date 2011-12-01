@@ -1,6 +1,7 @@
 package ie.cit.cloud.tickets.model.performance;
 
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;

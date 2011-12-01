@@ -2,6 +2,7 @@ package ie.cit.cloud.tickets.model.performance;
 
 
 import javax.persistence.Basic;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
@@ -19,14 +20,14 @@ public class Location
 
 	@Basic
 	@Min(value = 1)
-	private Long maxTicketCount;
+	private Integer maxTicketCount;
 
 	public Location()
 	{
 		
 	}
 	
-	public Location(final String locationName, final Long maxTicketCount)
+	public Location(final String locationName, final Integer maxTicketCount)
 	{
 		name = locationName;
 		this.maxTicketCount = maxTicketCount;
@@ -42,12 +43,12 @@ public class Location
 		this.name = name;
 	}
 
-	public Long getMaxTicketCount()
+	public int getMaxTicketCount()
 	{
 		return maxTicketCount;
 	}
 
-	public void setMaxTicketCount(final Long maxTicketCount)
+	public void setMaxTicketCount(final int maxTicketCount)
 	{
 		this.maxTicketCount = maxTicketCount;
 	}

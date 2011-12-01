@@ -33,7 +33,7 @@
 		<constructor-arg value="-web,-webPort,8082" />
 	</bean>
  -->
-	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" />
+	<cloud:data-source id="dataSource"/>
  
  	<aop:aspectj-autoproxy />
 

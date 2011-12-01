@@ -2,38 +2,32 @@ package ie.cit.cloud.tickets;
 
 import static org.junit.Assert.*;
 
+import java.util.List;
+
 import ie.cit.cloud.tickets.model.IEventRepository;
+import ie.cit.cloud.tickets.model.customer.Booking;
 import ie.cit.cloud.tickets.model.performance.Event;
 import ie.cit.cloud.tickets.model.performance.Location;
 import ie.cit.cloud.tickets.model.performance.Performer;
-
-import java.util.List;
 
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.transaction.annotation.Transactional;
 
-@ContextConfiguration
-@RunWith(SpringJUnit4ClassRunner.class)
-public class EventServiceTest //extends org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests
+import org.mockito.Mockito;
+
+public class EventServiceTest
 {
-	@Autowired
-	@Qualifier("eventRepositoryStub")
-	IEventRepository repository;
+	private IEventService eventService;
+	private IEventRepository repository;
 	
-	IEventService service;
 	
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception
 	{
+
 	}
 
 	@AfterClass
@@ -44,64 +38,129 @@ public class EventServiceTest //extends org.springframework.test.context.junit4.
 	@Before
 	public void setUp() throws Exception
 	{
-		
+		repository = Mockito.mock(IEventRepository.class);
+		eventService = new EventService(repository);
 	}
 
 	@After
 	public void tearDown() throws Exception
 	{
-		
+		eventService = null;
+		repository = null;
 	}
 
 	@Test
-	@Transactional
-	public final void testEventService()
+	public void testEventService()
 	{
-		final IEventService service = new EventService();
+		IEventService service = new EventService(repository);
 		assertNotNull(service);
 	}
 
 	@Test
-	@Transactional
-	public final void testGetLocation()
+	public void testGetPerformers()
 	{
-		final Location location = service.getLocation("Cork");
-		assertNotNull(location);
-		assertEquals("Cork", location.getName());
+		List<Performer> performers = eventService.getPerformers();
+		assertNotNull(performers);
+		assertTrue(performers.isEmpty());
 	}
 
 	@Test
-	@Transactional
-	public final void testGetLocations()
+	public void testGetPerformer()
 	{
-		assertNotNull(service.getLocations());
-		assertEquals(2, service.getLocations().size());
+		assertNull(eventService.getPerformer("U2"));
 	}
 
 	@Test
-	@Transactional
-	public final void testGetPerformer()
+	public void testCreatePerformerPerformer()
 	{
-		final Performer performer = service.getPerformer("U2");
-		assertNotNull(performer);
-		assertEquals("U2", performer.getName());
+		Performer performer = new Performer("John Digweed");
+		eventService.createPerformer(performer);
+		Mockito.verify(repository).createPerformer(performer);
 	}
 
 	@Test
-	@Transactional
-	public final void testGetPerformers()
+	public void testDeletePerformer()
 	{
-		assertNotNull(service.getPerformers());
-		assertEquals(3, service.getPerformers().size());
+		Performer performer = new Performer("Sasha");
+		eventService.deletePerformer(performer.getName());
+		Mockito.verify(repository).deletePerformer(performer);
 	}
 
 	@Test
-	@Transactional
-	public final void testGetEvents()
+	public void testGetLocations()
 	{
-		final List<Event> events = service.getEvents("", ""); 
+		List<Location> locations = eventService.getLocations();
+		assertNotNull(locations);
+		assertTrue(locations.isEmpty());
+	}
+
+	@Test
+	public void testCreateLocation()
+	{
+		Location location = new Location("Sir Henrys", 2500);
+		eventService.createLocation(location);
+		Mockito.verify(repository).createLocation(location);
+	}
+
+	@Test
+	public void testGetLocation()
+	{
+		assertNull(eventService.getLocation("Sir Henrys"));
+	}
+
+	@Test
+	public void testGetEvents()
+	{
+		List<Event> events = eventService.getEvents();
 		assertNotNull(events);
-		assertEquals(5, events.size());
+		assertTrue(events.isEmpty());
+	}
+
+	@Test
+	public void testGetEventsFor()
+	{
+		List<Event> events = eventService.getEventsFor("Paul Oakenfold");
+		assertNotNull(events);
+		assertTrue(events.isEmpty());
+	}
+
+	@Test
+	public void testGetEventsAt()
+	{
+		List<Event> events = eventService.getEventsAt("Henrys");
+		assertNotNull(events);
+		assertTrue(events.isEmpty());
+	}
+
+	@Test
+	public void testGetEvent()
+	{
+		Event event = eventService.getEvent("Paul Oakenfold", "Henrys");
+		assertNull(event);
+	}
+
+	@Test
+	public void testCreateEvent()
+	{
+		assertNull(eventService.createEvent(null, null, null, 0));
+		assertNull(eventService.createEvent("Paul Oakenfold", "Henrys", "Oakey comes to Henrys", 1500));
+	}
+
+	@Test
+	public void testGetBookings()
+	{
+		List<Booking> bookings = eventService.getBookings();
+		assertNotNull(bookings);
+		assertTrue(bookings.isEmpty());
+	}
+
+	@Test
+	public void testCreateBooking()
+	{
+		long bookingNumber = eventService.createBooking("Paul Oakenfold", "Henrys", 4);
+		
+		assertNotNull(bookingNumber);
+		assertEquals(0, bookingNumber);
 	}
 
 }

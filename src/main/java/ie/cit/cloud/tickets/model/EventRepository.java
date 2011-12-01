@@ -44,7 +44,6 @@ public class EventRepository implements IEventRepository
 		}
 	}
 	
-	@Override
 	public void deletePerformer(final Performer performer)
 	{
 //		final Performer performer = getPerformer(performerId);
@@ -106,7 +105,6 @@ public class EventRepository implements IEventRepository
 //		}
 	}
 	
-	@Override
 	public Performer getPerformer(final String performerName)
 	{
 		try
@@ -128,7 +126,6 @@ public class EventRepository implements IEventRepository
 	}
 
 	@SuppressWarnings("unchecked")
-	@Override
 	public List<Performer> getPerformers()
 	{
 		return em.createQuery("from Performer").getResultList();
@@ -138,7 +135,6 @@ public class EventRepository implements IEventRepository
 	
 	
 	
-	@Override
 	public void createLocation(final Location location)
 	{
 		try
@@ -152,7 +148,6 @@ public class EventRepository implements IEventRepository
 		}
 	}
 	
-	@Override
 	public Location getLocation(final String locationName)
 	{
 		final Query query = em.createQuery("from Location l where l.name = :locationName");
@@ -175,7 +170,6 @@ public class EventRepository implements IEventRepository
 
 	
 	@SuppressWarnings("unchecked")
-	@Override
 	public List<Event> getEvents()
 	{
 		final List<Event> events = em.createQuery("from Event").getResultList();
@@ -186,35 +180,34 @@ public class EventRepository implements IEventRepository
 		return Collections.emptyList();
 	}
 	
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<Event> getEvents(final Performer performer, final Location location)
-	{
-		Query query = null;
-		if(performer != null && location != null)
-		{
-			query = em.createQuery("from Event e where e.location.name = :locationName and e.performer.name = :performerName");
-			query.setParameter("locationName", location.getName());
-			query.setParameter("performerName", performer.getName());
-			return query.getResultList();
-		}
-		else if(performer == null && location != null)
-		{
-			query = em.createQuery("from Event e where e.location.name = :locationName");
-			query.setParameter("locationName", location.getName());
-			return query.getResultList();
-		}
-		else if(performer != null && location == null)
-		{
-			query = em.createQuery("from Event e where e.performer.id = :performerName");
-			query.setParameter("performerName", performer.getName());
-			return query.getResultList();
-		}
-		else
-		{
-			return Collections.emptyList();
-		}
-	}
+//	@SuppressWarnings("unchecked")
+//	public List<Event> getEvents(final Performer performer, final Location location)
+//	{
+//		Query query = null;
+//		if(performer != null && location != null)
+//		{
+//			query = em.createQuery("from Event e where e.location.name = :locationName and e.performer.name = :performerName");
+//			query.setParameter("locationName", location.getName());
+//			query.setParameter("performerName", performer.getName());
+//			return query.getResultList();
+//		}
+//		else if(performer == null && location != null)
+//		{
+//			query = em.createQuery("from Event e where e.location.name = :locationName");
+//			query.setParameter("locationName", location.getName());
+//			return query.getResultList();
+//		}
+//		else if(performer != null && location == null)
+//		{
+//			query = em.createQuery("from Event e where e.performer.id = :performerName");
+//			query.setParameter("performerName", performer.getName());
+//			return query.getResultList();
+//		}
+//		else
+//		{
+//			return Collections.emptyList();
+//		}
+//	}
 
 	public Event getEvent(final Performer performer, final Location location)
 	{
@@ -244,8 +237,7 @@ public class EventRepository implements IEventRepository
 		}
 	}
 	
-	@Override
-	public Event createEvent(final Performer performer, final Location location, final String eventName, final Long ticketCount)
+	public Event createEvent(final Performer performer, final Location location, final String eventName, final int ticketCount)
 	{
 		try
 		{
@@ -312,7 +304,6 @@ public class EventRepository implements IEventRepository
 //		return null;
 //	}
 
-	@Override
 	public Customer createCustomer(final String name, final String phoneNumber, final String creditCard, final String username, final String password)
 	{
 		final Customer customer = new Customer(name, phoneNumber, creditCard, username, password);

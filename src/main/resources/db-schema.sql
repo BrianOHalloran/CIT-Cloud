@@ -1,5 +1,0 @@
-create table if not exists CUSTOMER(id int, name varchar(250), phone varchar(250), credit_card varchar(250), username varchar(250), password varchar(250), primary key(id))
-create table if not exists LOCATION (id int, name varchar(250), max_ticket_count int, primary key(id))
-create table if not exists PERFORMER (id int, name varchar(250), primary key(id))
-create table if not exists EVENT (id int, location_id int, performer_id int, eventName varchar(250), data date, ticket_count int, ticket_price int primary key(id))
-create table if not exists BOOKING(id int, customer_id int, event_id int, num_tickets int, primary key(id))

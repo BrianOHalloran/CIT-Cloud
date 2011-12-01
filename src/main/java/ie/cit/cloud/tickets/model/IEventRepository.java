@@ -26,8 +26,8 @@ public interface IEventRepository
 	List<Event> getEvents();
 	List<Event> getEventsForPerformer(final String performerName);
 	List<Event> getEventsForLocation(final String locationName);
-	List<Event> getEvents(final Performer performer, 
-			final Location location);
+//	List<Event> getEvents(final Performer performer, 
+//			final Location location);
 	Event getEvent(final Performer performer, final Location location);
 //	Event getEvent(final Performer performer, 
 //			final Location location, 
@@ -36,7 +36,7 @@ public interface IEventRepository
 			final Location location, 
 //			final Date date, 
 			final String eventName, 
-			final Long ticketCount//,
+			final int ticketCount//,
 //			final Long ticketPrice
 			);
 
