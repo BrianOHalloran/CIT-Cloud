@@ -27,8 +27,14 @@ body
  	<h1 align="center">Ticket Slave</h1>
 	<h2 align="center"><i>The Alternative Ticket and Event Booking Application</i></h2>
 	<img src="springsource.png" align=middle>
-	<form action="accounts/account" method="get">
+	<form action="secure/account" method="get">
 		<input type="submit" value="Login">
+	</form>
+
+	<hr>
+
+	<form action="createCustomer" method="get">
+		<input type="submit" value="Create Account">
 	</form>
 
 	<hr>
@@ -42,33 +48,5 @@ body
 		<br />
 	</form>
 
-<%-- 
-	<form action="doSearch" method="get">
-		Select event performer (Available: ${fn:length(performers)})
-		<table>
-			<select name="performerSelection" size="1">
-				<option selected value="ALL_PERFORMERS">All</option>
-				<c:forEach var="performer" items="${performers}" varStatus="index">
-					<option value="${performer.name}">${performer.name}</option>
-				</c:forEach>
-			</select>
-		</table>
-		<hr>
-
-		Select event location (Available: ${fn:length(locations)})
-		<table>
-			<select name="locationSelection" size="1">
-				<option selected value="ALL_LOCATIONS">All</option>
-				<c:forEach var="location" items="${locations}" varStatus="index">
-					<option value="${location.name}">${location.name}</option>
-				</c:forEach>
-			</select>
-		</table>
-		<hr>
-
-		<input type="submit" value="Search for Events">
-	</form>
-	<hr>
- --%>
 </body>
 </html>

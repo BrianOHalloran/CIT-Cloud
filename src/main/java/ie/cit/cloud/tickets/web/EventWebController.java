@@ -1,7 +1,7 @@
 package ie.cit.cloud.tickets.web;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
-//import static org.springframework.web.bind.annotation.RequestMethod.POST;
+import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 import ie.cit.cloud.tickets.IEventService;
 
@@ -17,7 +17,7 @@ public class EventWebController
 	@Autowired
 	IEventService eventService;
 
-    @RequestMapping(value = { "index", "" }, method = GET)
+    @RequestMapping(value = "index", method = GET)
     public String index(Model model) 
     {
     	model.addAttribute("performers", eventService.getPerformers());
@@ -25,7 +25,7 @@ public class EventWebController
     	return "index";
     }
 
-    @RequestMapping(value = { "doSearch", "" }, method = GET)
+    @RequestMapping(value = "doSearch", method = GET)
     public String eventLookup(@RequestParam(value="performerSelection") String performer, @RequestParam(value="locationSelection") String location, Model model) 
     {
     	model.addAttribute("events", eventService.getEvents(performer, location));
@@ -34,19 +34,37 @@ public class EventWebController
     	return "search";
     }
 
-    @RequestMapping(value = { "bookEvent" }, method = GET)
+    @RequestMapping(value = "createCustomer", method = GET)
+    public String createCustomerPage(Model model)
+    {
+    	return "newCustomer";
+    }
+    
+    @RequestMapping(value = "customerCreateDetails", method = POST)
+    public String customerDetailsEntry(@RequestParam(value="customerName") String customerName,
+    		@RequestParam(value="customerPhone") String customerPhone, 
+    		@RequestParam(value="customerCreditCard") String customerCreditCard,
+    		@RequestParam(value="customerUsername") String customerUsername,
+    		@RequestParam(value="customerPassword") String customerPassword)
+    {
+    	eventService.createCustomer(customerName, customerPhone, customerCreditCard, customerUsername, customerPassword);
+    	
+    	return "redirect:index.html";
+    }
+    
+    @RequestMapping(value = "bookEvent", method = GET)
     public String bookEvent(Model model)
     {
-    	return "accounts/account";
+    	return "redirect:index.html";
     }
 
-    @RequestMapping(value = { "accounts/account" }, method = GET)
+    @RequestMapping(value = "secure/account", method = GET)
     public String bookingLookup(Model model)
     {
     	model.addAttribute("bookings", eventService.getBookings());
     	model.addAttribute("customerName", "test_customer_name");
     	model.addAttribute("customerPhone", "test_customer_phone");
     	model.addAttribute("customerCreditCard", "test_customer_card");
-    	return "accounts/account";
+    	return "account";
     }
 }

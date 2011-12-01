@@ -1,15 +1,11 @@
 package ie.cit.cloud.tickets.model.performance;
 
 
-import javax.persistence.Basic;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.Table;
-
-import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
 @Table(name = "PERFORMER")
@@ -17,11 +13,6 @@ import org.hibernate.validator.constraints.NotEmpty;
 public class Performer
 {
 	@Id
-	@GeneratedValue
-	private Long id;
-
-	@Basic
-	@NotEmpty
 	private String name;
 
 	public Performer()
@@ -34,14 +25,6 @@ public class Performer
 		name = performerName;
 	}
 	
-	/* (non-Javadoc)
-	 * @see ie.cit.cloud.tickets.model.performance.IPerformer#getId()
-	 */
-	public Long getId()
-	{
-		return id;
-	}
-
 	/* (non-Javadoc)
 	 * @see ie.cit.cloud.tickets.model.performance.IPerformer#getName()
 	 */

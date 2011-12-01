@@ -12,9 +12,9 @@ import java.util.Date;
  */
 public class EventCreator
 {
-	private Long performerId;
+	private String performerName;
 
-	private Long locationId;
+	private String locationName;
 
 	private Date date;
 
@@ -28,24 +28,24 @@ public class EventCreator
 	{
 	}
 
-	public EventCreator(final Long performerId, final Long locationId, final Date date, final String eventName, final Long ticketCount, final Long ticketPrice)
+	public EventCreator(final String performerName, final String locationName, final Date date, final String eventName, final Long ticketCount, final Long ticketPrice)
 	{
-		this.performerId = performerId;
-		this.locationId = locationId;
+		this.performerName = performerName;
+		this.locationName = locationName;
 		this.date = date;
 		this.eventName = eventName;
 		this.ticketCount = ticketCount;
 		this.ticketPrice = ticketPrice;
 	}
 
-	public Long getPerformerId()
+	public String getPerformerName()
 	{
-		return performerId;
+		return performerName;
 	}
 
-	public Long getLocationId()
+	public String getLocationName()
 	{
-		return locationId;
+		return locationName;
 	}
 
 	public Date getDate()
@@ -68,14 +68,14 @@ public class EventCreator
 		return ticketPrice;
 	}
 
-	public void setPerformerId(Long performerId)
+	public void setPerformerName(String performerName)
 	{
-		this.performerId = performerId;
+		this.performerName = performerName;
 	}
 
-	public void setLocationId(Long locationId)
+	public void setLocationName(String locationName)
 	{
-		this.locationId = locationId;
+		this.locationName = locationName;
 	}
 
 	public void setDate(Date date)

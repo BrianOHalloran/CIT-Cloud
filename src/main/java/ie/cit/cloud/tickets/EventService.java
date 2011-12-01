@@ -2,6 +2,7 @@ package ie.cit.cloud.tickets;
 
 import ie.cit.cloud.tickets.model.IEventRepository;
 import ie.cit.cloud.tickets.model.customer.Booking;
+import ie.cit.cloud.tickets.model.customer.Customer;
 import ie.cit.cloud.tickets.model.performance.Event;
 import ie.cit.cloud.tickets.model.performance.Location;
 import ie.cit.cloud.tickets.model.performance.Performer;
@@ -11,6 +12,7 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
+import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -29,58 +31,92 @@ public class EventService implements IEventService
 
 	}
 
-	@Transactional
-	public Location createLocation(final String locationName, final Long maxTicketCount)
-	{
-		return eventRepository.createLocation(locationName, maxTicketCount);
-	}
-	
 	@Transactional(readOnly = true)
-	public Location getLocation(final String name)
+	public List<Performer> getPerformers()
 	{
-		return eventRepository.getLocation(name);
+		final List<Performer> performers = eventRepository.getPerformers();
+		if(performers != null)
+		{
+			return performers;
+		}
+		return Collections.emptyList();
 	}
 
-	@Transactional(readOnly = true)
-	public List<Location> getLocations()
-	{
-
-		return eventRepository.getLocations();
-	}
-
-	@Transactional
-	public Performer createPerformer(final String name)
-	{
-		return eventRepository.createPerformer(name);
-	}
-	
-	@Transactional
-	public void deletePerformer(final Long performerId)
-	{
-		eventRepository.deletePerformer(performerId);
-	}
-	
 	@Transactional(readOnly = true)
 	public Performer getPerformer(final String name)
 	{
 		return eventRepository.getPerformer(name);
 	}
 
-	@Transactional(readOnly = true)
-	public List<Performer> getPerformers()
+	@Transactional
+	public Performer createPerformer(final String name)
+	{
+		final Performer performer = new Performer(name);
+		createPerformer(performer);
+		return performer;
+	}
+	
+	@Transactional
+	public void createPerformer(final Performer performer)
 	{
 		try
 		{
-			return eventRepository.getPerformers();
+			eventRepository.createPerformer(performer);
 		}
-		catch(final Exception e)
+		catch(final ConstraintViolationException e)
 		{
-			// TODO: logging of exceptions
 			e.printStackTrace();
-			return Collections.emptyList();
+		}
+	}
+	
+	@Transactional
+	public void deletePerformer(final String performerName)
+	{
+		eventRepository.deletePerformer(new Performer(performerName));
+	}
+	
+
+	
+	
+	@Transactional(readOnly = true)
+	public List<Location> getLocations()
+	{
+
+		final List<Location> locations = eventRepository.getLocations();
+		if(locations != null)
+		{
+			return locations;
+		}
+		return Collections.emptyList();
+	}
+
+
+	@Transactional
+	public void createLocation(final Location location)
+	{
+		try
+		{
+			eventRepository.createLocation(location);
+		}
+		catch(final ConstraintViolationException e)
+		{
+			e.printStackTrace();
 		}
 	}
 
+	@Transactional(readOnly = true)
+	public Location getLocation(final String name)
+	{
+		return eventRepository.getLocation(name);
+	}
+
+
+	
+	
+	
+	
+	
+	
 	@Transactional(readOnly = true)
 	public List<Event> getEvents()
 	{
@@ -91,23 +127,29 @@ public class EventService implements IEventService
 	public List<Event> getEvents(final String performerName, final String locationName)
 	{
 		Performer performer = null;
-		try
+		if(performerName != null)
 		{
-			performer = eventRepository.getPerformer(performerName);
-		}
-		catch(final EmptyResultDataAccessException e)
-		{
-			throw e;
+			try
+			{
+				performer = eventRepository.getPerformer(performerName);
+			}
+			catch(final EmptyResultDataAccessException e)
+			{
+				return Collections.emptyList();
+			}
 		}
 		
 		Location location = null;
-		try
+		if(locationName != null)
 		{
-			location = eventRepository.getLocation(locationName);
-		}
-		catch(final EmptyResultDataAccessException e)
-		{
-			throw e;
+			try
+			{
+				location = eventRepository.getLocation(locationName);
+			}
+			catch(final EmptyResultDataAccessException e)
+			{
+				return Collections.emptyList();
+			}
 		}
 
 		try
@@ -120,14 +162,12 @@ public class EventService implements IEventService
 		}
 	}
 
-	@Override
 	@Transactional(readOnly = true)
 	public List<Event> getEventsFor(String performerName)
 	{
 		return eventRepository.getEventsForPerformer(performerName);
 	}
 
-	@Override
 	@Transactional(readOnly = true)
 	public List<Event> getEventsAt(String locationName)
 	{
@@ -143,8 +183,8 @@ public class EventService implements IEventService
 	}
 	
 	@Transactional
-	public Event createEvent(final Long performerId, 
-			final Long locationId, 
+	public Event createEvent(final String performerName, 
+			final String locationName, 
 			final Date date, 
 			final String eventName, 
 			final Long ticketCount,
@@ -155,25 +195,22 @@ public class EventService implements IEventService
 			return null;
 		}
 		
-		Performer performer = eventRepository.getPerformer(performerId);
-		Location location = eventRepository.getLocation(locationId);
-		return createEvent(performer, location, date, eventName, ticketCount, ticketPrice);
-	}
-
-	@Transactional
-	public Event createEvent(final Performer performer, 
-			final Location location, 
-			final Date date, 
-			final String eventName, 
-			final Long ticketCount,
-			final Long ticketPrice)
-	{
+		Performer performer = eventRepository.getPerformer(performerName);
+		Location location = eventRepository.getLocation(locationName);
 		if(performer == null || location == null || date == null || ticketCount < 0 || ticketPrice < 0)
 		{
 			return null;
 		}
 		
 		return eventRepository.createEvent(performer, location, date, eventName, ticketCount, ticketPrice);
+	}
+
+	@Transactional
+	public Customer createCustomer(final String name, final String phone, final String ccNum, final String username, final String password)
+	{
+		final Customer customer = new Customer(name, phone, ccNum, username, password);
+		// TODO: populate this
+		return customer;
 	}
 	
 	@Transactional(readOnly = true)

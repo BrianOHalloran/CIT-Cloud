@@ -9,14 +9,15 @@ import ie.cit.cloud.tickets.model.performance.Event;
 import ie.cit.cloud.tickets.model.performance.Location;
 import ie.cit.cloud.tickets.model.performance.Performer;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
-import java.util.SortedSet;
-import java.util.TreeSet;
 
 import javax.persistence.Query;
 
+import org.hibernate.exception.ConstraintViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Repository;
 
@@ -32,64 +33,98 @@ public class EventRepository implements IEventRepository
 
 	}
 
-	@Override
-	public Performer createPerformer(final String name)
+	public void createPerformer(final Performer performer)
 	{
-		final Performer performer = new Performer(name);
-		em.persist(performer);
-		return performer;
+		try
+		{
+			em.persist(performer);
+		}
+		catch(final ConstraintViolationException e)
+		{
+			// TODO local logging needed
+			e.printStackTrace();
+		}
 	}
 	
 	@Override
-	public void deletePerformer(final Long performerId)
+	public void deletePerformer(final Performer performer)
 	{
-		final Performer performer = getPerformer(performerId);
-		if(performer == null)
-		{
-			return;
-		}
-		
-		// TODO: implement the actual delete from the database
-		
-//		final List<Event> events = getEventsForPerformer(performer.getName());
+//		final Performer performer = getPerformer(performerId);
+//		if(performer == null)
+//		{
+//			return;
+//		}
+//		
+//		// TODO: implement the actual delete from the database
+//		
+//		List<Event> events = null;
+//		try
+//		{
+//			events = getEventsForPerformer(performer.getName());
+//		}
+//		catch(EmptyResultDataAccessException e)
+//		{
+//			
+//		}
 //		if(events != null && !events.isEmpty())
 //		{
-//			final SortedSet<Integer> eventIds = new TreeSet<Integer>();
+//			final List<Long> eventIds = new ArrayList<Long>();
 //
 //			for(final Event event : events)
 //			{
 //				eventIds.add(event.getId());
 //			}
 //			
-//			final Query query = em.createQuery("from Booking b where b.event_id in {:eventIds}");
-//			query.setParameter("eventIds", eventIds);
+//			try
+//			{
+//				final Query query = em.createQuery("delete from Booking b where b.event_id in (:eventIds)");
+//				query.setParameter("eventIds", eventIds); //.toArray(new Long[eventIds.size()]));
+//				query.executeUpdate();
+//			}
+//			catch(Exception e)
+//			{
+//				
+//			}
+//			try
+//			{
+//				final Query query = em.createQuery("delete from Event e where e.id in (:eventIds)");
+//				query.setParameter("eventIds", eventIds); //.toArray(new Long[eventIds.size()]));
+//				query.executeUpdate();
+//			}
+//			catch(Exception e)
+//			{
+//				
+//			}
+//		}
+//		try
+//		{
+//			final Query query = em.createQuery("delete from Performer p where p.id = :performerId");
+//			query.setParameter("performerId", performerId); //.toArray(new Long[eventIds.size()]));
 //			query.executeUpdate();
+//		}
+//		catch(Exception e)
+//		{
 //			
 //		}
 	}
 	
 	@Override
-	public Performer getPerformer(Long performerId)
-	{
-		final Query query = em.createQuery("from Performer p where p.id = :performerId");
-		query.setParameter("performerId", performerId);
-		final Object result = query.getSingleResult();
-		if(result != null && result instanceof Performer)
-		{
-			return (Performer)result;
-		}
-		return null;
-	}
-
-	@Override
 	public Performer getPerformer(final String performerName)
 	{
-		final Query query = em.createQuery("from Performer p where p.name = :performerName");
-		query.setParameter("performerName", performerName);
-		final Object result = query.getSingleResult();
-		if(result != null && result instanceof Performer)
+		try
 		{
-			return (Performer)result;
+			final Query query = em.createQuery("from Performer p where p.name = :performerName");
+			query.setParameter("performerName", performerName);
+			final Object result = query.getSingleResult();
+			if(result != null && result instanceof Performer)
+			{
+				return (Performer)result;
+			}
+		}
+		catch(final EmptyResultDataAccessException e)
+		{
+			// TODO: internal logging needed for catching this
+			e.printStackTrace();
 		}
 		return null;
 	}
@@ -101,27 +136,24 @@ public class EventRepository implements IEventRepository
 		return em.createQuery("from Performer").getResultList();
 	}
 
+	
+	
+	
+	
 	@Override
-	public Location createLocation(final String locationName, final Long ticketCount)
+	public void createLocation(final Location location)
 	{
-		final Location location = new Location(locationName, ticketCount);
-		em.persist(location);
-		return location;
-	}
- 
-	@Override
-	public Location getLocation(Long locationId)
-	{
-		final Query query = em.createQuery("from Location l where l.id = :locationId");
-		query.setParameter("locationId", locationId);
-		final Object result = query.getSingleResult();
-		if(result != null && result instanceof Location)
+		try
 		{
-			return (Location)result;
+			em.persist(location);
 		}
-		return null;
+		catch(final ConstraintViolationException e)
+		{
+			// TODO local logging needed
+			e.printStackTrace();
+		}
 	}
-
+	
 	@Override
 	public Location getLocation(final String locationName)
 	{
@@ -136,12 +168,85 @@ public class EventRepository implements IEventRepository
 	}
 
 	@SuppressWarnings("unchecked")
-	@Override
 	public List<Location> getLocations()
 	{
 		return em.createQuery("from Location").getResultList();
 	}
 
+
+
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Event> getEvents()
+	{
+		final List<Event> events = em.createQuery("from Event").getResultList();
+		if(events != null && !events.isEmpty())
+		{
+			return (List<Event>)events;
+		}
+		return Collections.emptyList();
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Event> getEvents(final Performer performer, final Location location)
+	{
+		Query query = null;
+		if(performer != null && location != null)
+		{
+			query = em.createQuery("from Event e where e.location.name = :locationName and e.performer.name = :performerName");
+			query.setParameter("locationName", location.getName());
+			query.setParameter("performerName", performer.getName());
+			return query.getResultList();
+		}
+		else if(performer == null && location != null)
+		{
+			query = em.createQuery("from Event e where e.location.name = :locationName");
+			query.setParameter("locationName", location.getName());
+			return query.getResultList();
+		}
+		else if(performer != null && location == null)
+		{
+			query = em.createQuery("from Event e where e.performer.id = :performerName");
+			query.setParameter("performerName", performer.getName());
+			return query.getResultList();
+		}
+		else
+		{
+			return Collections.emptyList();
+		}
+	}
+
+	@Override
+	public Event createEvent(final Performer performer, final Location location, final Date date, final String eventName, final Long ticketCount, final Long ticketPrice)
+	{
+		try
+		{
+			Event event = getEvent(performer, location, date);
+			event.setEventName(eventName);
+			event.setTicketCount(ticketCount);
+			event.setTicketPrice(ticketPrice);
+			return event;
+		}
+		catch (Exception e)
+		{
+			final Event event = new Event(performer, location, date, eventName, ticketCount, ticketPrice);
+			em.persist(event);
+			return event;
+		}
+	}
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	@SuppressWarnings("unchecked")
 	public List<Event> getEventsForPerformer(final String performerName)
 	{
@@ -180,56 +285,6 @@ public class EventRepository implements IEventRepository
 			return (Event)result;
 		}
 		return null;
-	}
-
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<Event> getEvents(final Performer performer, final Location location)
-	{
-		Query query = null;
-		if(performer != null && location != null)
-		{
-			query = em.createQuery("from Event e where e.location.id = :locationId and e.performer.id = :performerId");
-			query.setParameter("locationId", location.getId());
-			query.setParameter("performerId", performer.getId());
-			return query.getResultList();
-		}
-		else if(performer == null && location != null)
-		{
-			query = em.createQuery("from Event e where e.location.id = :locationId");
-			query.setParameter("locationId", location.getId());
-			return query.getResultList();
-		}
-		else if(performer != null && location == null)
-		{
-			query = em.createQuery("from Event e where e.performer.id = :performerId");
-			query.setParameter("performerId", performer.getId());
-			return query.getResultList();
-		}
-		else
-		{
-			return Collections.emptyList();
-		}
-	}
-
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<Event> getEvents()
-	{
-		final List<Event> events = em.createQuery("from Event").getResultList();
-		if(events != null && !events.isEmpty())
-		{
-			return (List<Event>)events;
-		}
-		return Collections.emptyList();
-	}
-	
-	@Override
-	public Event createEvent(final Performer performer, final Location location, final Date date, final String eventName, final Long ticketCount, final Long ticketPrice)
-	{
-		final Event event = new Event(performer, location, date, eventName, ticketCount, ticketPrice);
-		em.persist(event);
-		return event;
 	}
 
 	@Override

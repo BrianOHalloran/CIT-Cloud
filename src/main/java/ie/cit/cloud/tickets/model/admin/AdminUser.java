@@ -1,11 +1,30 @@
 package ie.cit.cloud.tickets.model.admin;
 
+import javax.persistence.Basic;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.Table;
+
+import org.hibernate.validator.constraints.NotEmpty;
+
+@Entity
+@Table(name = "ADMIN")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public class AdminUser
 {
+	@Id
+	@GeneratedValue
 	private Long id;
 	
+	@Basic
+	@NotEmpty
 	private String username;
 	
+	@Basic
+	@NotEmpty
 	private String password;
 
 	public AdminUser()

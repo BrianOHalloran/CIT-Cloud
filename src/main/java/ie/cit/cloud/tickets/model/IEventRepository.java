@@ -11,16 +11,17 @@ import java.util.List;
 
 public interface IEventRepository
 {
-	Performer createPerformer(final String name);
-	Performer getPerformer(final Long performerId);
+	void createPerformer(final Performer performer);
 	Performer getPerformer(final String performerName);
 	List<Performer> getPerformers();
-	void deletePerformer(final Long performerId);
+	void deletePerformer(final Performer performer);
+
 	
-	Location createLocation(final String locationName, final Long ticketCount);
-	Location getLocation(final Long locationId);
+	
+	void createLocation(final Location location);
 	Location getLocation(final String locationName);
 	List<Location> getLocations();
+//	void deleteLocation(final Location location);
 	
 	List<Event> getEvents();
 	List<Event> getEventsForPerformer(final String performerName);
