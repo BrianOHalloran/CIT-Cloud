@@ -73,8 +73,15 @@ public class EventWebController
     public String bookEvent(@RequestParam(value="performerName") String performerName, @RequestParam(value="locationName") String locationName, @RequestParam(value="ticketCountSelection") Integer ticketCount, Model model)
     {
     	final long bookingId = eventService.createBooking(performerName, locationName, ticketCount);
-    	model.addAttribute("bookingId", bookingId);
-    	model.addAttribute("bookings", eventService.getBookings());
-    	return "account";
+    	if(bookingId != Booking.INVALID_BOOKING_ID)
+    	{
+	    	model.addAttribute("bookingId", bookingId);
+	    	model.addAttribute("bookings", eventService.getBookings());
+	    	return "account";
+    	}
+    	else
+    	{
+    		return "redirect:index.html";
+    	}
     }
 }

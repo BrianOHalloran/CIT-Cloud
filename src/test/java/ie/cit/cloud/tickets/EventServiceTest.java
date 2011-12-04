@@ -1,8 +1,9 @@
 package ie.cit.cloud.tickets;
 
-import static org.junit.Assert.*;
-
-import java.util.List;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 import ie.cit.cloud.tickets.model.IEventRepository;
 import ie.cit.cloud.tickets.model.customer.Booking;
@@ -10,12 +11,13 @@ import ie.cit.cloud.tickets.model.performance.Event;
 import ie.cit.cloud.tickets.model.performance.Location;
 import ie.cit.cloud.tickets.model.performance.Performer;
 
+import java.util.List;
+
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-
 import org.mockito.Mockito;
 
 public class EventServiceTest
@@ -81,9 +83,9 @@ public class EventServiceTest
 	@Test
 	public void testDeletePerformer()
 	{
-		Performer performer = new Performer("Sasha");
-		eventService.deletePerformer(performer.getName());
-		Mockito.verify(repository).deletePerformer(performer);
+		String performerName = "Sasha";
+		eventService.deletePerformer(performerName);
+		Mockito.verify(repository).deletePerformer(performerName);
 	}
 
 	@Test

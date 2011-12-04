@@ -12,7 +12,7 @@ import javax.validation.constraints.Min;
 
 @Entity
 @Table(name = "LOCATION")
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+//@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public class Location
 {
 	@Id
@@ -60,7 +60,7 @@ public class Location
 	
 	public boolean equals(final Object other)
 	{
-		if(other != null && other instanceof Performer)
+		if(other != null && other instanceof Location)
 		{
 			return name.equals(((Location)other).getName());
 		}

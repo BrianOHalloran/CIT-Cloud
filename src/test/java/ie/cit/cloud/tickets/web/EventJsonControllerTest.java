@@ -14,7 +14,6 @@ import ie.cit.cloud.tickets.model.performance.Event;
 import ie.cit.cloud.tickets.model.performance.EventCreator;
 import ie.cit.cloud.tickets.model.performance.Location;
 import ie.cit.cloud.tickets.model.performance.Performer;
-import ie.cit.cloud.tickets.web.exceptions.WebNotFoundException;
 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -22,6 +21,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.mockito.Mockito;
+import org.springframework.dao.EmptyResultDataAccessException;
 
 public class EventJsonControllerTest
 {
@@ -75,10 +75,9 @@ public class EventJsonControllerTest
 		{
 			controller.getPerformer(performer);
 		}
-		catch(WebNotFoundException e)
+		catch(EmptyResultDataAccessException e)
 		{
 			// allowed exception
-			assertEquals(performer, e.getNotFoundElementIdentifier());
 		}
 		catch(Exception e)
 		{
@@ -120,10 +119,9 @@ public class EventJsonControllerTest
 		{
 			controller.getLocation(location);
 		}
-		catch(WebNotFoundException e)
+		catch(EmptyResultDataAccessException e)
 		{
 			// allowed exception
-			assertEquals(location, e.getNotFoundElementIdentifier());
 		}
 		catch(Exception e)
 		{
@@ -139,10 +137,9 @@ public class EventJsonControllerTest
 		{
 			controller.getEventByLocation(location);
 		}
-		catch(WebNotFoundException e)
+		catch(EmptyResultDataAccessException e)
 		{
 			// allowed exception
-			assertEquals(location, e.getNotFoundElementIdentifier());
 		}
 		catch(Exception e)
 		{
@@ -178,10 +175,9 @@ public class EventJsonControllerTest
 		{
 			controller.getEventByLocation(performer);
 		}
-		catch(WebNotFoundException e)
+		catch(EmptyResultDataAccessException e)
 		{
 			// allowed exception
-			assertEquals(performer, e.getNotFoundElementIdentifier());
 		}
 		catch(Exception e)
 		{
@@ -198,10 +194,9 @@ public class EventJsonControllerTest
 		{
 			controller.getEventByPerformerAndLocation(performer, location);
 		}
-		catch(WebNotFoundException e)
+		catch(EmptyResultDataAccessException e)
 		{
 			// allowed exception
-			assertEquals(location, e.getNotFoundElementIdentifier());
 		}
 		catch(Exception e)
 		{

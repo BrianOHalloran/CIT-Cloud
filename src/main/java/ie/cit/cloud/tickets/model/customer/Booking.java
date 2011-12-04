@@ -16,9 +16,11 @@ import ie.cit.cloud.tickets.model.performance.Event;
 
 @Entity
 @Table(name = "BOOKING")
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+//@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public class Booking
 {
+	public static final int INVALID_BOOKING_ID = -1;
+	
 	@Id
 	@GeneratedValue
 	private Long id;

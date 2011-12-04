@@ -34,26 +34,7 @@ body
 
 	<hr>
 
-	<h3 align="center"><i>Current Event Listings</i></h3>
-	<table border="1" align="center">
-		<tr>
-			<th width="100">Performer</th>
-			<th width="100">Location</th>
-			<th width="100">Event Name</th>
-			<th width="100">Tickets Remaining</th>
-		</tr>
-		<c:forEach var="event" items="${events}" varStatus="index">
-			<tr align="center">
-				<td>${event.performer.name}</td>
-				<td>${event.location.name}</td>
-				<td>${event.eventName}</td>
-				<td>${event.ticketCount}</td>
-			</tr>
-		</c:forEach>
-	</table>
-
-	<hr>
-
+	<h3 align="center"><i>Event Search</i></h3>
 	<form action="secure/account" method="post">
 		<table border="1" align="center">
 			<tr>
@@ -90,6 +71,24 @@ body
 		</table>
 	</form>
 
+	<hr>
 
+	<h3 align="center"><i>Current Event Listings</i></h3>
+	<table border="1" align="center">
+		<tr>
+			<th width="100">Performer</th>
+			<th width="100">Location</th>
+			<th width="100">Event Name</th>
+			<th width="100">Tickets Remaining</th>
+		</tr>
+		<c:forEach var="event" items="${events}" varStatus="index">
+			<tr align="center">
+				<td>${event.performer.name}</td>
+				<td>${event.location.name}</td>
+				<td>${event.eventName}</td>
+				<td>${event.ticketCount}</td>
+			</tr>
+		</c:forEach>
+	</table>
 </body>
 </html>

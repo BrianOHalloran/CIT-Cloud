@@ -1,8 +1,6 @@
 package ie.cit.cloud.tickets.model.performance;
 
-import java.util.Date;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
@@ -14,7 +12,7 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "EVENT")
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+//@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public class Event
 {
 	@Id
@@ -43,7 +41,6 @@ public class Event
 	{
 		this.performer = performer;
 		this.location = location;
-//		this.date = date;
 		this.eventName = eventName;
 		if(ticketCount > location.getMaxTicketCount())
 		{
@@ -53,7 +50,6 @@ public class Event
 		{
 			this.ticketCount = ticketCount;
 		}
-//		this.ticketPrice = ticketPrice;
 	}
 
 	public Performer getPerformer()
@@ -76,16 +72,6 @@ public class Event
 		this.location = location;
 	}
 
-//	public Date getDate()
-//	{
-//		return date;
-//	}
-//
-//	public void setDate(final Date date)
-//	{
-//		this.date = date;
-//	}
-
 	public String getEventName()
 	{
 		return eventName;
@@ -106,16 +92,6 @@ public class Event
 		this.ticketCount = ticketCount;
 	}
 
-//	public Long getTicketPrice()
-//	{
-//		return ticketPrice;
-//	}
-//
-//	public void setTicketPrice(final Long ticketPrice)
-//	{
-//		this.ticketPrice = ticketPrice;
-//	}
-
 	public int hashCode()
 	{
 		return eventName.hashCode(); //performer.hashCode() + location.hashCode() + date.hashCode();
@@ -127,9 +103,6 @@ public class Event
 		{
 			final Event otherEvent = (Event)other;
 			return eventName.equalsIgnoreCase(otherEvent.getEventName());
-//			return performer.equals(otherEvent.getPerformer()) &&
-//					location.equals(otherEvent.getLocation()) && 
-//					date.equals(otherEvent.getDate());
 		}
 		return false;
 	}

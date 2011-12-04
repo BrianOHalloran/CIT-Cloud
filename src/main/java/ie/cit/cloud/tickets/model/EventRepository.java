@@ -22,7 +22,6 @@ import org.springframework.stereotype.Repository;
 @Repository("hibernateEventRepository")
 public class EventRepository implements IEventRepository
 {
-
 	@PersistenceContext
 	private EntityManager em;
 
@@ -33,18 +32,10 @@ public class EventRepository implements IEventRepository
 
 	public void createPerformer(final Performer performer)
 	{
-		try
-		{
-			em.persist(performer);
-		}
-		catch(final ConstraintViolationException e)
-		{
-			// TODO local logging needed
-			e.printStackTrace();
-		}
+		em.persist(performer);
 	}
 	
-	public void deletePerformer(final Performer performer)
+	public void deletePerformer(final String performerName)
 	{
 //		final Performer performer = getPerformer(performerId);
 //		if(performer == null)
@@ -326,12 +317,21 @@ public class EventRepository implements IEventRepository
 	
 	public long createCustomerBooking(final String performerName, final String locationName, final int ticketCount)
 	{
-		Performer performer = getPerformer(performerName);
-		Location location = getLocation(locationName);
-		Event event = getEvent(performer, location);
-		final Booking booking = new Booking(getCurrentUsername(), event, ticketCount);
-		em.persist(booking);
-		return booking.getId();
+		try
+		{
+			Performer performer = getPerformer(performerName);
+			Location location = getLocation(locationName);
+			Event event = getEvent(performer, location);
+			final Booking booking = new Booking(getCurrentUsername(), event, ticketCount);
+			em.persist(booking);
+			return booking.getId();
+		}
+		catch(EmptyResultDataAccessException e)
+		{
+			
+		}
+		
+		return Booking.INVALID_BOOKING_ID;
 	}
 	
 	private String getCurrentUsername()

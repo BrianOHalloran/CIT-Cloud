@@ -11,11 +11,13 @@ import ie.cit.cloud.tickets.model.performance.Event;
 import ie.cit.cloud.tickets.model.performance.EventCreator;
 import ie.cit.cloud.tickets.model.performance.Location;
 import ie.cit.cloud.tickets.model.performance.Performer;
-import ie.cit.cloud.tickets.web.exceptions.WebNotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -57,12 +59,7 @@ public class EventJsonController
     @ResponseStatus(HttpStatus.OK)
     public @ResponseBody Performer getPerformer(@PathVariable("performerName") String performerName)
     {
-    	final Performer performer = eventService.getPerformer(performerName);
-    	if(performer == null)
-    	{
-    		throw new WebNotFoundException(performerName);
-    	}
-    	return performer;
+    	return eventService.getPerformer(performerName);
     }
 	
     /*
@@ -80,7 +77,7 @@ public class EventJsonController
     	eventService.createPerformer(performer);
     	response.addHeader("performer", getLocationForChildResource(request, performer.getName()));
     }
-	
+
     @RequestMapping(value = "/performer/{performerName}", method = RequestMethod.DELETE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deletePerformer(@PathVariable("performerName") String performerName)
@@ -111,12 +108,8 @@ public class EventJsonController
 	@ResponseStatus(HttpStatus.OK)
 	public @ResponseBody Location getLocation(@PathVariable("locationName") String locationName)
 	{
-		final Location location = eventService.getLocation(locationName);
-		if(location == null)
-		{
-			throw new WebNotFoundException(locationName);
-		}
-		return location;
+		return eventService.getLocation(locationName);
+
 	}
 
     @RequestMapping(value = "/event/location/{location}", method = RequestMethod.GET)
@@ -129,12 +122,7 @@ public class EventJsonController
      * */
     public @ResponseBody Event getEventByLocation(@PathVariable("location") String locationName)
     {
-    	final Event event = eventService.getEvent(null, locationName);
-    	if(event == null)
-    	{
-    		throw new WebNotFoundException(locationName);
-    	}
-    	return event;
+    	return eventService.getEvent(null, locationName);
     }
 
 	/*
@@ -148,7 +136,7 @@ public class EventJsonController
 	public void createLocation(@RequestBody final Location location, final HttpServletRequest request, final HttpServletResponse response)
 	{
 		eventService.createLocation(location);
-		response.addHeader("Location", getLocationForChildResource(request, location.getName()));
+		response.addHeader("location", getLocationForChildResource(request, location.getName()));
 	}	
 	
 	
@@ -180,12 +168,7 @@ public class EventJsonController
 	@ResponseStatus(HttpStatus.OK)
 	public @ResponseBody Event getEventByPerformer(@PathVariable("performer") String performerName)
 	{
-		final Event event = eventService.getEvent(performerName, null);
-		if(event == null)
-		{
-			throw new WebNotFoundException(performerName);
-		}
-		return event;
+		return eventService.getEvent(performerName, null);
 	}
 	
     /* 
@@ -198,12 +181,7 @@ public class EventJsonController
     @ResponseStatus(HttpStatus.OK)
     public @ResponseBody Event getEventByPerformerAndLocation(@PathVariable("performer") String performerName, @PathVariable("location") String locationName)
     {
-    	final Event event = eventService.getEvent(performerName, locationName);
-    	if(event == null)
-    	{
-    		throw new WebNotFoundException(locationName);
-    	}
-    	return event;
+    	return eventService.getEvent(performerName, locationName);
     }
 	
 	
@@ -221,7 +199,7 @@ public class EventJsonController
 				newEvent.getLocationName(), 
 				newEvent.getEventName(), 
 				newEvent.getTicketCount());
-		response.addHeader("Event", getLocationForChildResource(request, event.getEventName()));
+		response.addHeader("event", getLocationForChildResource(request, event.getEventName()));
 	}	
 	
 	
@@ -231,7 +209,23 @@ public class EventJsonController
 		return eventService.getBookings();
 	}
 
-	
+
+	@ResponseStatus(HttpStatus.CONFLICT)
+	@ExceptionHandler(DataIntegrityViolationException.class)
+	public void conflict(final DataIntegrityViolationException e, final HttpServletRequest request, final HttpServletResponse response)
+	{
+		response.addHeader("exception", e.getMessage());
+	}
+
+
+	@ResponseStatus(HttpStatus.NOT_FOUND)
+	@ExceptionHandler(EmptyResultDataAccessException.class)
+	public void notFound(final EmptyResultDataAccessException e, final HttpServletRequest request, final HttpServletResponse response)
+	{
+		response.addHeader("exception", e.getMessage());
+	}
+
+  
 		
 
     

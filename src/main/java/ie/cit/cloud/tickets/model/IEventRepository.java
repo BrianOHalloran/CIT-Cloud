@@ -14,7 +14,7 @@ public interface IEventRepository
 	void createPerformer(final Performer performer);
 	Performer getPerformer(final String performerName);
 	List<Performer> getPerformers();
-	void deletePerformer(final Performer performer);
+	void deletePerformer(final String performerName);
 
 	
 	

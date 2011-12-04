@@ -2,27 +2,37 @@ package ie.cit.cloud.tickets.model;
 
 import static org.junit.Assert.*;
 
+import ie.cit.cloud.tickets.AbstractServiceTest;
+import ie.cit.cloud.tickets.model.performance.Location;
+import ie.cit.cloud.tickets.model.performance.Performer;
+
+import java.lang.reflect.Field;
+import java.util.List;
+
+import javax.persistence.EntityManager;
+
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.test.context.transaction.AfterTransaction;
+import org.springframework.test.context.transaction.BeforeTransaction;
 
-//@ContextConfiguration(locations = { "/testing-config.xml" })
-@RunWith(SpringJUnit4ClassRunner.class)
-@Transactional
-public class EventRepositoryTest
+public class EventRepositoryTest extends AbstractServiceTest 
 {
 	@Autowired
 	@Qualifier("hibernateEventRepository")
 	private IEventRepository repository;
 	
+	private static final String PERFORMER1 = "Sasha";
+	private static final String PERFORMER2 = "Paul Oakenfold";
+	
+	private static final String LOCATION1 = "Henrys";
+	private static final String LOCATION2 = "Savoy";
+
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception
 	{
@@ -36,23 +46,67 @@ public class EventRepositoryTest
 	@Before
 	public void setUp() throws Exception
 	{
+
 	}
 
+	@BeforeTransaction
+	public void setupDb() throws Exception
+	{
+		final Field entityManagerField = EventRepository.class.getField("em");
+		entityManagerField.setAccessible(true);
+		final EntityManager em = (EntityManager)entityManagerField.get(repository);
+		
+		em.persist(new Performer(PERFORMER1));
+		em.persist(new Performer(PERFORMER2));
+
+		em.persist(new Location(LOCATION1, 2500));
+		em.persist(new Location(LOCATION2, 1500));
+	}
+	
+	@AfterTransaction
+	public void wipeDb() throws Exception
+	{
+		final Field entityManagerField = EventRepository.class.getField("em");
+		entityManagerField.setAccessible(true);
+		final EntityManager em = (EntityManager)entityManagerField.get(repository);
+		
+		em.persist(new Performer(PERFORMER1));
+		em.persist(new Performer(PERFORMER2));
+
+		em.persist(new Location(LOCATION1, 2500));
+		em.persist(new Location(LOCATION2, 1500));
+		
+		em.createQuery("delete from Performer").executeUpdate();
+		em.createQuery("delete from Location").executeUpdate();
+		em.createQuery("delete from Event").executeUpdate();
+		em.createQuery("delete from Booking").executeUpdate();
+		em.createQuery("delete from Customer").executeUpdate();
+	}
+	
 	@After
 	public void tearDown() throws Exception
 	{
 	}
 
 	@Test
-	public void testEventRepository()
-	{
-		fail("Not yet implemented");
-	}
-
-	@Test
 	public void testCreatePerformer()
 	{
-		fail("Not yet implemented");
+//		Performer performer = new Performer("John Digweed");
+//		repository.createPerformer(performer);
+//
+//		Field entityManagerField;
+//		try
+//		{
+//			entityManagerField = EventRepository.class.getField("em");
+//			entityManagerField.setAccessible(true);
+//			final EntityManager em = (EntityManager)entityManagerField.get(repository);
+//			Performer dbPerformer = em.find(Performer.class, "John Digweed");
+//			assertTrue(performer.equals(dbPerformer));
+//		}
+//		catch(Exception e)
+//		{
+//			fail(e.getMessage());
+//		}
 	}
 
 	@Test
@@ -70,7 +124,9 @@ public class EventRepositoryTest
 	@Test
 	public void testGetPerformers()
 	{
-		fail("Not yet implemented");
+		final List<Performer> performers = repository.getPerformers();
+		assertNotNull(performers);
+		assertEquals(2, performers.size());
 	}
 
 	@Test

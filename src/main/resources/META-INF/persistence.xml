@@ -3,22 +3,7 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd ">
 
-	<persistence-unit name="tickets" transaction-type="RESOURCE_LOCAL">
-<!-- 
-		<provider>org.hibernate.ejb.HibernatePersistence</provider>
-		
-		<class>ie.cit.cloud.tickets.model.customer.Booking</class>
-		<class>ie.cit.cloud.tickets.model.customer.Customer</class>
-		<class>ie.cit.cloud.tickets.model.performance.Event</class>
-		<class>ie.cit.cloud.tickets.model.performance.Location</class>
-		<class>ie.cit.cloud.tickets.model.performance.Performer</class>
-		
-		<properties>
-			<property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect"/>
-			<property name="hibernate.hbm2ddl.auto" value="create-drop"/>
-		</properties>
- -->
-	</persistence-unit>
+	<persistence-unit name="tickets" transaction-type="RESOURCE_LOCAL" />
 
 </persistence>
 
