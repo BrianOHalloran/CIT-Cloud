@@ -13,7 +13,7 @@ public interface IEventService
 	void createPerformer(final Performer performer);
 	Performer getPerformer(final String name);
 	List<Performer> getPerformers();
-	void deletePerformer(final String performerName);
+	int deletePerformer(final String performerName);
 
 	
 	void createLocation(final Location location);
@@ -30,7 +30,7 @@ public interface IEventService
 	List<Event> getEventsAt(final String locationName);
 	List<Event> getEvents();
 
-	
+	// customers not used for login, login credentials are in properties file
 	void createCustomer(final Customer customer);
 	
 	

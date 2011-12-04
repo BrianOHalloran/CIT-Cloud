@@ -51,9 +51,9 @@ public class EventService implements IEventService
 	}
 	
 	@Transactional
-	public void deletePerformer(final String performerName)
+	public int deletePerformer(final String performerName)
 	{
-		eventRepository.deletePerformer(performerName);
+		return eventRepository.deletePerformer(performerName);
 	}
 	
 

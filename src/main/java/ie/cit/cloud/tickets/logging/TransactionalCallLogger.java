@@ -1,7 +1,5 @@
 package ie.cit.cloud.tickets.logging;
 
-import ie.cit.cloud.tickets.IEventService;
-
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Aspect;

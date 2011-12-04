@@ -30,6 +30,10 @@ import org.springframework.web.util.UriTemplate;
 @RequestMapping("api")
 public class EventJsonController
 {
+	/**
+	 * the testing of this controller was done using the REST plugin for the Chrome browser as
+	 * opposed to using the curl cli.
+	 */
 	IEventService eventService;
 
 	@Autowired
@@ -78,11 +82,18 @@ public class EventJsonController
     	response.addHeader("performer", getLocationForChildResource(request, performer.getName()));
     }
 
+    /*
+     * 
+     * try: 
+     * curl -i -H "Content-Type: application/json" 
+     * 		-X DELETE http://localhost:8080/tickets/api/performer/Pink
+     * 
+     */
     @RequestMapping(value = "/performer/{performerName}", method = RequestMethod.DELETE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deletePerformer(@PathVariable("performerName") String performerName)
     {
-    	eventService.deletePerformer(performerName);
+    	final int numDeletedEntities = eventService.deletePerformer(performerName);
     }
 
     

@@ -49,24 +49,4 @@ public class EventCreator
 	{
 		return ticketCount;
 	}
-
-	public void setPerformerName(String performerName)
-	{
-		this.performerName = performerName;
-	}
-
-	public void setLocationName(String locationName)
-	{
-		this.locationName = locationName;
-	}
-
-	public void setEventName(String eventName)
-	{
-		this.eventName = eventName;
-	}
-
-	public void setTicketCount(int ticketCount)
-	{
-		this.ticketCount = ticketCount;
-	}
 }

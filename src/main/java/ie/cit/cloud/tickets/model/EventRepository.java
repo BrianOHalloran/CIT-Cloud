@@ -17,6 +17,7 @@ import javax.persistence.Query;
 
 import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.dao.InvalidDataAccessResourceUsageException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Repository;
 
@@ -36,65 +37,30 @@ public class EventRepository implements IEventRepository
 		em.persist(performer);
 	}
 	
-	public void deletePerformer(final String performerName)
+	public int deletePerformer(final String performerName)
 	{
-//		final Performer performer = getPerformer(performerName);
-//		if(performer == null)
-//		{
-//			return;
-//		}
-//		
-//		// TODO: implement the actual delete from the database
-//		
-//		List<Event> events = null;
-//		try
-//		{
-//			events = getEventsForPerformer(performer.getName());
-//		}
-//		catch(EmptyResultDataAccessException e)
-//		{
-//			
-//		}
-//		if(events != null && !events.isEmpty())
-//		{
-//			final List<String> eventNames = new ArrayList<String>();
-//
-//			for(final Event event : events)
-//			{
-//				eventNames.add(event.getEventName());
-//			}
-//			
-//			try
-//			{
-//				final Query query = em.createQuery("delete from Booking b where b.event.eventName in (:eventIds)");
-//				query.setParameter("eventIds", eventNames); //.toArray(new Long[eventIds.size()]));
-//				query.executeUpdate();
-//			}
-//			catch(Exception e)
-//			{
-//				
-//			}
-//			try
-//			{
-//				final Query query = em.createQuery("delete from Event e where e.id in (:eventIds)");
-//				query.setParameter("eventIds", eventNames); //.toArray(new Long[eventIds.size()]));
-//				query.executeUpdate();
-//			}
-//			catch(Exception e)
-//			{
-//				
-//			}
-//		}
-		try
+		int numDeletedEntities = 0;
+
+		Query query = em.createQuery("from Booking b where b.event.performer.name = :performerName");
+		query.setParameter("performerName", performerName);
+		final List<Booking> bookings = (List<Booking>)query.getResultList();
+		
+		if(bookings != null && !bookings.isEmpty())
 		{
-			final Query query = em.createQuery("delete from Performer p where p.name = :performerName");
-			query.setParameter("performerId", performerName);
-			query.executeUpdate();
+			query = em.createQuery("delete from Booking b where b.event.performer.name = :performerName");
+			query.setParameter("performerName", performerName);
+			numDeletedEntities += query.executeUpdate();
 		}
-		catch(Exception e)
-		{
-			
-		}
+
+		query = em.createQuery("delete from Event e where e.performer.name = :performerName");
+		query.setParameter("performerName", performerName);
+		numDeletedEntities += query.executeUpdate();
+
+		query = em.createQuery("delete from Performer p where p.name = :performerName");
+		query.setParameter("performerName", performerName);
+		numDeletedEntities += query.executeUpdate();
+		
+		return numDeletedEntities;
 	}
 	
 	public Performer getPerformer(final String performerName)

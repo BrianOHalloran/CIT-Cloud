@@ -14,31 +14,29 @@ public interface IEventRepository
 	void createPerformer(final Performer performer);
 	Performer getPerformer(final String performerName);
 	List<Performer> getPerformers();
-	void deletePerformer(final String performerName);
+	/**
+	 * delete the performer from the repository.  If this performer has events, also delete those events.
+	 * If any of those events have bookings, also delete those bookings
+	 * 
+	 * @param performerName
+	 * @return the number of entities removed
+	 */
+	int deletePerformer(final String performerName);
 
 	
 	
 	void createLocation(final Location location);
 	Location getLocation(final String locationName);
 	List<Location> getLocations();
-//	void deleteLocation(final Location location);
 	
 	List<Event> getEvents();
 	List<Event> getEventsForPerformer(final String performerName);
 	List<Event> getEventsForLocation(final String locationName);
-//	List<Event> getEvents(final Performer performer, 
-//			final Location location);
 	Event getEvent(final Performer performer, final Location location);
-//	Event getEvent(final Performer performer, 
-//			final Location location, 
-//			final Date date);
 	Event createEvent(final Performer performer, 
 			final Location location, 
-//			final Date date, 
 			final String eventName, 
-			final int ticketCount//,
-//			final Long ticketPrice
-			);
+			final int ticketCount);
 
 	void createCustomer(final Customer customer);
 	
