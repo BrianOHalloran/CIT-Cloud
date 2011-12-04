@@ -7,10 +7,15 @@ import ie.cit.cloud.tickets.IEventService;
 import ie.cit.cloud.tickets.model.customer.Booking;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.http.HttpStatus;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
 @Controller
 public class EventWebController
@@ -29,6 +34,16 @@ public class EventWebController
     	model.addAttribute("performers", eventService.getPerformers());
     	model.addAttribute("locations", eventService.getLocations());
     	model.addAttribute("events", eventService.getEvents());
+
+    	// anonymousUser
+    	try
+    	{
+        	model.addAttribute("loggedIn", SecurityContextHolder.getContext().getAuthentication().getName());
+    	}
+    	catch(final NullPointerException e)
+    	{
+    		model.addAttribute("loggedIn", "anonymousUser");
+    	}
     	return "index";
     }
 
@@ -73,15 +88,16 @@ public class EventWebController
     public String bookEvent(@RequestParam(value="performerName") String performerName, @RequestParam(value="locationName") String locationName, @RequestParam(value="ticketCountSelection") Integer ticketCount, Model model)
     {
     	final long bookingId = eventService.createBooking(performerName, locationName, ticketCount);
-    	if(bookingId != Booking.INVALID_BOOKING_ID)
-    	{
-	    	model.addAttribute("bookingId", bookingId);
-	    	model.addAttribute("bookings", eventService.getBookings());
-	    	return "account";
-    	}
-    	else
-    	{
-    		return "redirect:index.html";
-    	}
+    	model.addAttribute("bookingId", bookingId);
+    	model.addAttribute("bookings", eventService.getBookings());
+    	return "account";
+    }
+    
+    @ResponseStatus(value = HttpStatus.NOT_FOUND)
+    @ExceptionHandler(EmptyResultDataAccessException.class)
+    public String emptyResult(final EmptyResultDataAccessException e)
+    {
+    	// no code needed
+    	return "redirect:../index";
     }
 }

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="security" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="f" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 
 <!DOCTYPE html>
@@ -21,11 +22,20 @@ body
  	<h1 align="center">Ticket Slave</h1>
 	<h2 align="center"><i>The Alternative Ticket and Event Booking Application</i></h2>
 	<img src="springsource.png" align=middle>
+	<br />
+	<br />
 	
-	<form action="secure/account" method="get">
-		<input type="submit" value="Login">
-	</form>
-
+	<c:choose>
+		<c:when test="${loggedIn != 'anonymousUser'}">
+		 	User: <security:authentication property="principal.username"/> - <a href="j_spring_security_logout">Logout</a> 
+		</c:when>
+		<c:otherwise>
+			<form action="secure/account" method="get">
+				<input type="submit" value="Login">
+			</form>
+		</c:otherwise>	
+	</c:choose>
+ 
 	<hr>
 
 	<form action="createCustomer" method="get">

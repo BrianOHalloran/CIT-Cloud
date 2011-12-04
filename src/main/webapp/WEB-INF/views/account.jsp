@@ -19,31 +19,16 @@ body
 </head>
 <body>
 
+ 	<a href="../index.html">Home</a>
+	<br />
+	<br />
  	User: <security:authentication property="principal.username"/> : <a href="j_spring_security_logout">Logout</a> 
- 
+	<br />
 	<br />
 
  	<h1 align="center">Ticket Slave Account Section</h1>
 	<hr>
-<%-- 
-	<h2 align="center">
-		<i>Account details for <security:authentication property="principal.username"/></i>
-	</h2>
-	
-	<table border="1" align="center">
-		<tr>
-			<th width="100">Customer Name</th>
-			<th width="100">Phone</th>
-			<th width="100">Credit Card</th>
-		</tr>
-		<tr>
-			<td>${customerName}</td>
-			<td>${customerPhone}</td>
-			<td>${customerCreditCard}</td>
-		</tr>
-	</table>
-	<hr>
- --%>
+
 	<h2 align="center">
 		<i>Booking history for <security:authentication property="principal.username"/></i>
 	</h2>

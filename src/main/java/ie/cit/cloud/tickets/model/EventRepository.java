@@ -324,6 +324,7 @@ public class EventRepository implements IEventRepository
 			Event event = getEvent(performer, location);
 			final Booking booking = new Booking(getCurrentUsername(), event, ticketCount);
 			em.persist(booking);
+			event.setTicketCount(event.getTicketCount() - ticketCount);
 			return booking.getId();
 		}
 		catch(EmptyResultDataAccessException e)

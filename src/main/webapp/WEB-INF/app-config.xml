@@ -34,7 +34,7 @@
 	</bean>
  -->
 	<cloud:data-source id="dataSource"/>
- 
+
  	<aop:aspectj-autoproxy />
 
 	<tx:annotation-driven />
