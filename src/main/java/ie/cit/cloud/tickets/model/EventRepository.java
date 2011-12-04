@@ -9,6 +9,7 @@ import ie.cit.cloud.tickets.model.performance.Event;
 import ie.cit.cloud.tickets.model.performance.Location;
 import ie.cit.cloud.tickets.model.performance.Performer;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -37,7 +38,7 @@ public class EventRepository implements IEventRepository
 	
 	public void deletePerformer(final String performerName)
 	{
-//		final Performer performer = getPerformer(performerId);
+//		final Performer performer = getPerformer(performerName);
 //		if(performer == null)
 //		{
 //			return;
@@ -56,17 +57,17 @@ public class EventRepository implements IEventRepository
 //		}
 //		if(events != null && !events.isEmpty())
 //		{
-//			final List<Long> eventIds = new ArrayList<Long>();
+//			final List<String> eventNames = new ArrayList<String>();
 //
 //			for(final Event event : events)
 //			{
-//				eventIds.add(event.getId());
+//				eventNames.add(event.getEventName());
 //			}
 //			
 //			try
 //			{
-//				final Query query = em.createQuery("delete from Booking b where b.event_id in (:eventIds)");
-//				query.setParameter("eventIds", eventIds); //.toArray(new Long[eventIds.size()]));
+//				final Query query = em.createQuery("delete from Booking b where b.event.eventName in (:eventIds)");
+//				query.setParameter("eventIds", eventNames); //.toArray(new Long[eventIds.size()]));
 //				query.executeUpdate();
 //			}
 //			catch(Exception e)
@@ -76,7 +77,7 @@ public class EventRepository implements IEventRepository
 //			try
 //			{
 //				final Query query = em.createQuery("delete from Event e where e.id in (:eventIds)");
-//				query.setParameter("eventIds", eventIds); //.toArray(new Long[eventIds.size()]));
+//				query.setParameter("eventIds", eventNames); //.toArray(new Long[eventIds.size()]));
 //				query.executeUpdate();
 //			}
 //			catch(Exception e)
@@ -84,16 +85,16 @@ public class EventRepository implements IEventRepository
 //				
 //			}
 //		}
-//		try
-//		{
-//			final Query query = em.createQuery("delete from Performer p where p.id = :performerId");
-//			query.setParameter("performerId", performerId); //.toArray(new Long[eventIds.size()]));
-//			query.executeUpdate();
-//		}
-//		catch(Exception e)
-//		{
-//			
-//		}
+		try
+		{
+			final Query query = em.createQuery("delete from Performer p where p.name = :performerName");
+			query.setParameter("performerId", performerName);
+			query.executeUpdate();
+		}
+		catch(Exception e)
+		{
+			
+		}
 	}
 	
 	public Performer getPerformer(final String performerName)
@@ -295,11 +296,9 @@ public class EventRepository implements IEventRepository
 //		return null;
 //	}
 
-	public Customer createCustomer(final String name, final String phoneNumber, final String creditCard, final String username, final String password)
+	public void createCustomer(final Customer customer)
 	{
-		final Customer customer = new Customer(name, phoneNumber, creditCard, username, password);
 		em.persist(customer);
-		return customer;
 	}
 	
 	@SuppressWarnings("unchecked")

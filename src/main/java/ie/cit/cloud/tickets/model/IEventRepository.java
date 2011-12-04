@@ -40,11 +40,7 @@ public interface IEventRepository
 //			final Long ticketPrice
 			);
 
-	Customer createCustomer(final String name, 
-			final String phoneNumber, 
-			final String creditCard, 
-			final String username, 
-			final String password);
+	void createCustomer(final Customer customer);
 	
 	List<Booking> getCustomerBookings();
 	

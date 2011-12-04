@@ -13,6 +13,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.mockito.Mockito;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.ui.ExtendedModelMap;
 import org.springframework.ui.Model;
 
@@ -58,11 +59,12 @@ public class EventWebControllerTest
 		String returnValue = webController.index(model);
 		assertEquals("index", returnValue);
 		final Map<String, Object> map = model.asMap();
-		assertEquals(3, map.size());
+		assertEquals(4, map.size());
 		Set<String> keys = map.keySet();
 		assertTrue(keys.contains("performers"));
 		assertTrue(keys.contains("locations"));
 		assertTrue(keys.contains("events"));
+		assertTrue(keys.contains("loggedIn"));
 	}
 
 	@Test
@@ -83,10 +85,10 @@ public class EventWebControllerTest
 	@Test
 	public void testBookEvent()
 	{
-		Model model = new ExtendedModelMap();
+		final Model model = new ExtendedModelMap();
 		String returnValue = webController.bookEvent("Paul Oakenfold", "Henrys", 4, model);
 		assertEquals("account", returnValue);
-		final Map<String, Object> map = model.asMap();
+		Map<String, Object> map = model.asMap();
 		assertEquals(2, map.size());
 		Set<String> keys = map.keySet();
 		assertTrue(keys.contains("bookingId"));

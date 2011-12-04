@@ -27,7 +27,10 @@ body
 	
 	<c:choose>
 		<c:when test="${loggedIn != 'anonymousUser'}">
-		 	User: <security:authentication property="principal.username"/> - <a href="j_spring_security_logout">Logout</a> 
+		 	User: <security:authentication property="principal.username"/> - <a href="j_spring_security_logout">Logout</a>
+		 	<br />
+		 	<a href="secure/account.html">My Account</a> 
+		 	<br />
 		</c:when>
 		<c:otherwise>
 			<form action="secure/account" method="get">

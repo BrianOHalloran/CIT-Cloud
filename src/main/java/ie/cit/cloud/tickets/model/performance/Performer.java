@@ -25,17 +25,11 @@ public class Performer
 		name = performerName;
 	}
 	
-	/* (non-Javadoc)
-	 * @see ie.cit.cloud.tickets.model.performance.IPerformer#getName()
-	 */
 	public String getName()
 	{
 		return name;
 	}
 
-	/* (non-Javadoc)
-	 * @see ie.cit.cloud.tickets.model.performance.IPerformer#setName(java.lang.String)
-	 */
 	public void setName(final String name)
 	{
 		this.name = name;

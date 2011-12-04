@@ -3,6 +3,7 @@ package ie.cit.cloud.tickets;
 import java.util.List;
 
 import ie.cit.cloud.tickets.model.customer.Booking;
+import ie.cit.cloud.tickets.model.customer.Customer;
 import ie.cit.cloud.tickets.model.performance.Event;
 import ie.cit.cloud.tickets.model.performance.Location;
 import ie.cit.cloud.tickets.model.performance.Performer;
@@ -30,8 +31,9 @@ public interface IEventService
 	List<Event> getEvents();
 
 	
+	void createCustomer(final Customer customer);
+	
+	
 	List<Booking> getBookings();
-	
-	
 	long createBooking(String performerName, String locationName, int numTickets);
 }

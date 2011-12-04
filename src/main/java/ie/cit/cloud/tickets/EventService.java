@@ -2,6 +2,7 @@ package ie.cit.cloud.tickets;
 
 import ie.cit.cloud.tickets.model.IEventRepository;
 import ie.cit.cloud.tickets.model.customer.Booking;
+import ie.cit.cloud.tickets.model.customer.Customer;
 import ie.cit.cloud.tickets.model.performance.Event;
 import ie.cit.cloud.tickets.model.performance.Location;
 import ie.cit.cloud.tickets.model.performance.Performer;
@@ -180,5 +181,11 @@ public class EventService implements IEventService
 	public long createBooking(String performerName, String locationName, int numTickets)
 	{
 		return eventRepository.createCustomerBooking(performerName, locationName, numTickets);
+	}
+	
+	@Transactional
+	public void createCustomer(final Customer customer)
+	{
+		eventRepository.createCustomer(customer);
 	}
 }

@@ -5,6 +5,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 import ie.cit.cloud.tickets.IEventService;
 import ie.cit.cloud.tickets.model.customer.Booking;
+import ie.cit.cloud.tickets.model.customer.Customer;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -36,43 +37,36 @@ public class EventWebController
     	model.addAttribute("events", eventService.getEvents());
 
     	// anonymousUser
+    	String user = "anonymousUser";
     	try
     	{
-        	model.addAttribute("loggedIn", SecurityContextHolder.getContext().getAuthentication().getName());
+    		user = SecurityContextHolder.getContext().getAuthentication().getName();
+        	model.addAttribute("loggedIn", user);
     	}
     	catch(final NullPointerException e)
     	{
-    		model.addAttribute("loggedIn", "anonymousUser");
+    		model.addAttribute("loggedIn", user);
     	}
     	return "index";
     }
 
-//    @RequestMapping(value = "doSearch" , method = GET)
-//    public String eventLookup(@RequestParam(value="performerSelection") String performer, @RequestParam(value="locationSelection") String location, Model model) 
-//    {
-//    	model.addAttribute("events", eventService.getEvents(performer, location));
-//    	model.addAttribute("performers", eventService.getPerformers());
-//    	model.addAttribute("locations", eventService.getLocations());
-//    	return "search";
-//    }
-
-//    @RequestMapping(value = "createCustomer", method = GET)
-//    public String createCustomerPage(Model model)
-//    {
-//    	return "newCustomer";
-//    }
+    @RequestMapping(value = "createCustomer", method = GET)
+    public String createCustomerPage(Model model)
+    {
+    	return "newCustomer";
+    }
     
-//    @RequestMapping(value = "customerCreateDetails", method = POST)
-//    public String customerDetailsEntry(@RequestParam(value="customerName") String customerName,
-//    		@RequestParam(value="customerPhone") String customerPhone, 
-//    		@RequestParam(value="customerCreditCard") String customerCreditCard,
-//    		@RequestParam(value="customerUsername") String customerUsername,
-//    		@RequestParam(value="customerPassword") String customerPassword)
-//    {
-//    	eventService.createCustomer(customerName, customerPhone, customerCreditCard, customerUsername, customerPassword);
-//    	
-//    	return "redirect:index.html";
-//    }
+    @RequestMapping(value = "customerCreateDetails", method = POST)
+    public String customerDetailsEntry(@RequestParam(value="customerName") String customerName,
+    		@RequestParam(value="customerPhone") String customerPhone, 
+    		@RequestParam(value="customerCreditCard") String customerCreditCard,
+    		@RequestParam(value="customerUsername") String customerUsername,
+    		@RequestParam(value="customerPassword") String customerPassword)
+    {
+    	final Customer curtomer = new Customer(customerName, customerPhone, customerCreditCard, customerUsername, customerPassword);
+    	eventService.createCustomer(curtomer);
+    	return "redirect:index.html";
+    }
 
     @RequestMapping(value = "secure/account", method = GET)
     public String bookingLookup(Model model)

@@ -1,9 +1,7 @@
 package ie.cit.cloud.tickets.model.customer;
 
-
 import javax.persistence.Basic;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
@@ -13,13 +11,9 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
 @Table(name = "CUSTOMER")
-//@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+// @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public class Customer
 {
-	@Id
-	@GeneratedValue
-	private Long id;
-
 	@Basic
 	@NotEmpty
 	private String name;
@@ -32,8 +26,7 @@ public class Customer
 	@NotEmpty
 	private String creditCard;
 
-	@Basic
-	@NotEmpty
+	@Id
 	private String username;
 
 	@Basic
@@ -54,89 +47,51 @@ public class Customer
 		this.password = password;
 	}
 
-	/* (non-Javadoc)
-	 * @see ie.cit.cloud.tickets.model.customer.ICustomer#getId()
-	 */
-	public Long getId()
-	{
-		return id;
-	}
-	
-	/* (non-Javadoc)
-	 * @see ie.cit.cloud.tickets.model.customer.ICustomer#getName()
-	 */
 	public String getName()
 	{
 		return name;
 	}
 
-	/* (non-Javadoc)
-	 * @see ie.cit.cloud.tickets.model.customer.ICustomer#setName(java.lang.String)
-	 */
 	public void setName(final String name)
 	{
 		this.name = name;
 	}
 
-	/* (non-Javadoc)
-	 * @see ie.cit.cloud.tickets.model.customer.ICustomer#getPhoneNumber()
-	 */
 	public String getPhoneNumber()
 	{
 		return phoneNumber;
 	}
 
-	/* (non-Javadoc)
-	 * @see ie.cit.cloud.tickets.model.customer.ICustomer#setPhoneNumber(java.lang.String)
-	 */
 	public void setPhoneNumber(final String phoneNumber)
 	{
 		this.phoneNumber = phoneNumber;
 	}
 
-	/* (non-Javadoc)
-	 * @see ie.cit.cloud.tickets.model.customer.ICustomer#getCreditCard()
-	 */
 	public String getCreditCard()
 	{
 		return creditCard;
 	}
 
-	/* (non-Javadoc)
-	 * @see ie.cit.cloud.tickets.model.customer.ICustomer#setCreditCard(java.lang.String)
-	 */
 	public void setCreditCard(final String creditCard)
 	{
 		this.creditCard = creditCard;
 	}
 
-	/* (non-Javadoc)
-	 * @see ie.cit.cloud.tickets.model.customer.ICustomer#getUsername()
-	 */
 	public String getUsername()
 	{
 		return username;
 	}
 
-	/* (non-Javadoc)
-	 * @see ie.cit.cloud.tickets.model.customer.ICustomer#setUsername(java.lang.String)
-	 */
 	public void setUsername(final String username)
 	{
 		this.username = username;
 	}
 
-	/* (non-Javadoc)
-	 * @see ie.cit.cloud.tickets.model.customer.ICustomer#getPassword()
-	 */
 	public String getPassword()
 	{
 		return password;
 	}
 
-	/* (non-Javadoc)
-	 * @see ie.cit.cloud.tickets.model.customer.ICustomer#setPassword(java.lang.String)
-	 */
 	public void setPassword(final String password)
 	{
 		this.password = password;
@@ -144,7 +99,7 @@ public class Customer
 
 	public int hashCode()
 	{
-		return name.hashCode() + phoneNumber.hashCode() + username.hashCode() + password.hashCode();
+		return name.hashCode() + username.hashCode();
 	}
 
 	public boolean equals(final Object other)
@@ -152,10 +107,7 @@ public class Customer
 		if(other != null && other instanceof Customer)
 		{
 			final Customer otherCustomer = (Customer)other;
-			return name.equals(otherCustomer.getName()) && 
-					phoneNumber.equals(otherCustomer.getPhoneNumber()) && 
-					username.equals(otherCustomer.getUsername()) && 
-					password.equals(otherCustomer.getPassword());
+			return name.equals(otherCustomer.getName()) && username.equals(otherCustomer.getUsername());
 		}
 		return false;
 	}
